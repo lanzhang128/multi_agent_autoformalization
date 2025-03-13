@@ -1,10 +1,8 @@
 import os
 import tempfile
 import re
-
-from theorem_prover import Isabelle
+from theorem_prover import Isabelle, isabelle_get_error_details
 from .abstract import BaseAgent
-from .agent_utils import isabelle_get_error_details
 
 
 class HardCritiqueAgent(BaseAgent):

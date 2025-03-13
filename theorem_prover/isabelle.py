@@ -173,8 +173,16 @@ class Isabelle:
         except asyncio.TimeoutError:
             return True, [], timeout
 
-    def session_start(self, session=None):
-        args = {'session': session if session is not None else self.default_session}
+    def session_start(self, session=None, dirs=None, include_sessions=None, **kwargs):
+        args = {'session': self.default_session}
+        if session is not None:
+            args.update(session=session)
+        if dirs is not None:
+            args.update(dirs=dirs)
+        if include_sessions is not None:
+            args.update(include_sessions=include_sessions)
+        args.update(**kwargs)
+
         cmd = 'session_start ' + json.dumps(args)
         responses, response_time = self._loop.run_until_complete(self.send_server_command(cmd))
         last_response = responses[-1]
@@ -229,7 +237,7 @@ class Isabelle:
         print(info_text)
         logging.info(info_text)
 
-    def purge_theories(self, theories, session_id=None, master_dir=None):
+    def purge_theories(self, theories, session_id=None, master_dir=None, **kwargs):
         if not self.session_ids:
             print('No running sessions on Isabelle server.')
             return
@@ -240,9 +248,11 @@ class Isabelle:
                 return
         else:
             session_id = self.session_ids[-1]
-        args['session_id'] = session_id
+        args.update(session_id=session_id)
         if master_dir is not None:
-            args['master_dir'] = master_dir
+            args.update(master_dir=master_dir)
+        args.update(**kwargs)
+
         cmd = 'purge_theories ' + json.dumps(args)
         responses, response_time = self._loop.run_until_complete(self.send_server_command(cmd))
         last_response = responses[-1]
@@ -250,20 +260,22 @@ class Isabelle:
         print(info_text)
         logging.info(info_text)
 
-    def _use_theories(self, theories, session_id=None, master_dir=None, enable_timeout=True, timeout=None):
+    def _use_theories(self, theories, session_id=None, master_dir=None, enable_timeout=True, timeout=None, **kwargs):
         if not self.session_ids:
             print('No running sessions on Isabelle server.')
             return None, 0
-        args = {'theories': theories}
+        args = {'theories': theories, 'watchdog_timeout': 60}
         if session_id is not None:
             if session_id not in self.session_ids:
                 print(f'Session {session_id} is not running on Isabelle server.')
                 return None, 0
         else:
             session_id = self.session_ids[-1]
-        args['session_id'] = session_id
+        args.update(session_id=session_id)
         if master_dir is not None:
-            args['master_dir'] = master_dir
+            args.update(master_dir=master_dir)
+        args.update(**kwargs)
+
         cmd = 'use_theories ' + json.dumps(args)
         if enable_timeout:
             if timeout is None:
