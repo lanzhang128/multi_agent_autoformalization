@@ -16,24 +16,30 @@ class AutoformalizationAgent(BaseAgent):
 
         basic_system_prompt = (
             'You are an expert in formal language {formal_language}.\n'
-            'Your task is to provide the formal code of the given natural language '
-            'mathematical statement in {formal_language}.\n'
-            'In case that you need to import any necessary preambles, '
-            'you should not import any fake (non-exist) preambles.\n'
-            'You should wrap the formal code in a way illustrated as the following:\n'
+            'You will be given a mathematical statement written in natural language and LaTeX symbols.\n'
+            'Your task is to provide the formal code of the given natural language mathematical '
+            'statement in {formal_language} with the following instructions:\n'
+            '1. You should give the formal code directly without any additional explanation or any proof.\n'
+            '2. In case that you need to import any necessary preambles, you should not import '
+            'any fake (non-exist) preambles.\n'
+            '3. You should wrap the formal code in a way illustrated as the following:\n'
             '%%%%%%%%%%\n'
             'Your Formal Code\n'
             '%%%%%%%%%%\n'
+            'Strictly follow the instructions that have been claimed.\n'
         )
 
         additional_system_prompt = ''
 
         user_prompt = (
-            'Give the {formal_language} formal code of the following natural language statement:\n'
-            '{{informal_statement}}\n'
-            'directly without any additional explanations and do not give any proof.\n'
+            'Natural language statement: {{informal_statement}}\n'
+            'Give me the {formal_language} formal code of the statement:\n'
         )
-        assistant_prompt = '{formal_statement}'
+        assistant_prompt = (
+            '%%%%%%%%%%\n'
+            '{formal_statement}\n'
+            '%%%%%%%%%%\n'
+        )
 
         placeholder = {
             'informal': '{informal_statement}',

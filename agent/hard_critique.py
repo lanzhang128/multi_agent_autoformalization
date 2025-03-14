@@ -16,7 +16,10 @@ class HardCritiqueAgent(BaseAgent):
 
         self.formal_language = formal_language
         if self.formal_language[:8] == 'Isabelle':
-            self.theorem_prover = Isabelle(default_session=formal_language.split('/')[-1])
+            self.theorem_prover = Isabelle(
+                default_session=formal_language.split('/')[-1],
+                log_file=os.path.join(file_dir, 'isabelle.log')
+            )
         else:
             raise ValueError(f'{formal_language} is not supported.')
 
