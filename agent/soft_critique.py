@@ -5,12 +5,12 @@ from .abstract import BaseAgent
 from .agent_utils import get_postprocess_fn
 
 
-class FormalRefinementAgent(BaseAgent):
-    description = 'Agent for refining autoformalization codes with LLMs.'
+class SoftCritiqueAgent(BaseAgent):
+    description = 'Soft critique of autoformalization from LLMs.'
 
     def __init__(self,
                  llm: BaseLLM,
-                 name: str = 'FormalRefinementAgent',
+                 name: str = 'SoftCritiqueAgent',
                  formal_language: str = 'Isabelle/HOL',
                  category: str = 'none'):
         super().__init__(name=name)

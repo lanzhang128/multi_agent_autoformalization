@@ -6,7 +6,7 @@ from .abstract import BaseAgent
 
 
 class HardCritiqueAgent(BaseAgent):
-    description = 'Hard critique of autoformalzation from the relevant theorem prover.'
+    description = 'Hard critique of autoformalization from the relevant theorem prover.'
 
     def __init__(self,
                  name: str = 'HardCritiqueAgent',

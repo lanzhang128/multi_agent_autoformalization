@@ -2,7 +2,7 @@ from typing import Optional, List
 
 from llm import BaseLLM
 from .abstract import BaseAgent
-from .agent_utils import get_postprocess_fn
+from .agent_utils import extract_formal_code
 
 
 class AutoformalizationAgent(BaseAgent):
@@ -47,7 +47,6 @@ class AutoformalizationAgent(BaseAgent):
         }
 
         self.llm = llm
-        self.postprocess_fn = get_postprocess_fn(self.llm)
 
         self.formal_language = formal_language
         self.system_prompt = basic_system_prompt + additional_system_prompt
@@ -84,4 +83,4 @@ class AutoformalizationAgent(BaseAgent):
         messages = self.get_messages(informal_statement=informal_statement,
                                      informal_formal_pairs=informal_formal_pairs)
         response = self.llm.generate(messages)
-        return self.postprocess_fn(response), response
+        return extract_formal_code(response), response

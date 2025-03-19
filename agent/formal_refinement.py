@@ -2,7 +2,7 @@ from typing import Optional
 
 from llm import BaseLLM
 from .abstract import BaseAgent
-from .agent_utils import get_postprocess_fn
+from .agent_utils import extract_formal_code
 
 
 class FormalRefinementAgent(BaseAgent):
@@ -87,7 +87,6 @@ class FormalRefinementAgent(BaseAgent):
                        'error_details': '{error_details}'}
 
         self.llm = llm
-        self.postprocess_fn = get_postprocess_fn(self.llm)
 
         self.formal_language = formal_language
         self.system_prompt = basic_system_prompt.replace('{additional_instructions}', additional_instructions)
@@ -139,4 +138,4 @@ class FormalRefinementAgent(BaseAgent):
                                      correctness=correctness,
                                      error_details=error_details)
         response = self.llm.generate(messages)
-        return self.postprocess_fn(response), response
+        return extract_formal_code(response), response
