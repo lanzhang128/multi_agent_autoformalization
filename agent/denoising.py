@@ -4,7 +4,7 @@ from .agent_utils import extract_formal_code
 
 
 class DenoisingAgent(BaseAgent):
-    description = 'Agent for cleaning output of LLMs to get autoformalization codes.'
+    description = 'LLM Agent for cleaning output of LLMs to get autoformalization codes.'
 
     def __init__(self,
                  llm: BaseLLM,
@@ -33,8 +33,6 @@ class DenoisingAgent(BaseAgent):
             'Strictly follow the instructions that have been claimed.\n'
         )
 
-        additional_system_prompt = ''
-
         user_prompt = (
             'There are some texts containing autoformalized {formal_language} codes: {{formalization}}\n'
             'Clean them to obtain the cleaned {formal_language} code.\n'
@@ -45,7 +43,7 @@ class DenoisingAgent(BaseAgent):
         self.llm = llm
 
         self.formal_language = formal_language
-        self.system_prompt = basic_system_prompt + additional_system_prompt
+        self.system_prompt = basic_system_prompt
         self.system_prompt = self.system_prompt.replace(
             '{formal_language}', self.formal_language)
         self.user_prompt = user_prompt.replace(

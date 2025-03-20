@@ -6,7 +6,7 @@ from .agent_utils import extract_formal_code
 
 
 class AutoformalizationAgent(BaseAgent):
-    description = 'Agent for zero-shot and few-shot autoformalization with LLMs.'
+    description = 'LLM Agent for zero-shot and few-shot autoformalization.'
 
     def __init__(self,
                  llm: BaseLLM,
@@ -29,8 +29,6 @@ class AutoformalizationAgent(BaseAgent):
             'Strictly follow the instructions that have been claimed.\n'
         )
 
-        additional_system_prompt = ''
-
         user_prompt = (
             'Natural language statement: {{informal_statement}}\n'
             'Give me the {formal_language} formal code of the statement:\n'
@@ -49,7 +47,7 @@ class AutoformalizationAgent(BaseAgent):
         self.llm = llm
 
         self.formal_language = formal_language
-        self.system_prompt = basic_system_prompt + additional_system_prompt
+        self.system_prompt = basic_system_prompt
         self.system_prompt = self.system_prompt.replace(
             '{formal_language}', self.formal_language)
         self.user_prompt = user_prompt.replace(

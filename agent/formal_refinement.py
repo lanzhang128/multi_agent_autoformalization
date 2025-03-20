@@ -6,7 +6,7 @@ from .agent_utils import extract_formal_code
 
 
 class FormalRefinementAgent(BaseAgent):
-    description = 'Agent for refining autoformalization codes with LLMs.'
+    description = 'LLM Agent for refining autoformalization codes with error feedback from theorem prover.'
 
     def __init__(self,
                  llm: BaseLLM,
@@ -20,8 +20,9 @@ class FormalRefinementAgent(BaseAgent):
             'You will be given a mathematical statement written in natural language and LaTeX symbols.\n'
             'You will also be given a formal code which attempted to describe the given mathematical '
             'statement in {formal_language}.\n'
-            'Your task is to refine the given formal code to let it align with the given natural language '
-            'mathematical statement with the following instructions:\n'
+            'Your task is to refine the given formal code to make it syntactically correct while '
+            'maintaining the alignment with the given natural language mathematical statement.\n'
+            'Here are some instructions for your task:\n'
             '1. You should give the formal code directly without any additional explanation or any proof.\n'
             '2. In case that you need to import any necessary preambles, you should not import '
             'any fake (non-exist) preambles.\n'
@@ -32,8 +33,6 @@ class FormalRefinementAgent(BaseAgent):
             '{additional_instructions}'
             'Strictly follow the instructions that have been claimed.\n'
         )
-
-        additional_system_prompt = ''
 
         if category == 'syn':
             additional_instructions = (
@@ -62,7 +61,7 @@ class FormalRefinementAgent(BaseAgent):
 
         basic_user_prompt = (
             'Natural language statement: {{informal_statement}}\n'
-            'For you reference, there are some formal codes describing the given mathematical '
+            'There are some {formal_language} formal codes describing the given mathematical '
             'statement: {{formalization}}\n'
         )
 
@@ -90,7 +89,6 @@ class FormalRefinementAgent(BaseAgent):
 
         self.formal_language = formal_language
         self.system_prompt = basic_system_prompt.replace('{additional_instructions}', additional_instructions)
-        self.system_prompt = self.system_prompt + additional_system_prompt
         self.system_prompt = self.system_prompt.replace(
             '{formal_language}', self.formal_language)
         self.basic_user_prompt = basic_user_prompt.replace(
