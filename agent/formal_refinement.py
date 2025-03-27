@@ -127,9 +127,11 @@ class FormalRefinementAgent(BaseAgent):
     def _agent_function(self,
                         informal_statement: str = '',
                         refinement_mode: str = 'simple',
-                        formalization: str = '',
+                        formalization_file: str = '',
                         correctness: Optional[str] = None,
                         error_details: Optional[str] = None):
+        with open(formalization_file, 'r', encoding='utf-8') as f:
+            formalization = f.read()
         messages = self.get_messages(informal_statement=informal_statement,
                                      refinement_mode=refinement_mode,
                                      formalization=formalization,
