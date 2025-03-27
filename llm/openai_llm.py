@@ -9,8 +9,12 @@ class OpenAILLM(BaseLLM):
     def __init__(self,
                  name: str = 'OpenAILLM',
                  api_key: str = '',
-                 model: str = 'gpt-4o-mini'):
+                 model: str = 'gpt-4o-mini',
+                 max_tokens: int = 1000,
+                 temperature: float = 0.2):
         super().__init__(name, api_key=api_key, model=model)
+        self.max_tokens = max_tokens
+        self.temperature = temperature
 
     def _instantiate(self, api_key, model):
         self.api_key = api_key
@@ -26,15 +30,12 @@ class OpenAILLM(BaseLLM):
             print(e)
             raise e
 
-    def generate(self,
-                 messages,
-                 temperature=0,
-                 max_tokens=1000):
+    def generate(self, messages):
         try:
             response = self.completion_with_backoff(
                 messages=messages,
-                temperature=temperature,
-                max_tokens=max_tokens)
+                temperature=self.temperature,
+                max_tokens=self.max_tokens)
         except Exception as e:
             print('Error:', e)
             return

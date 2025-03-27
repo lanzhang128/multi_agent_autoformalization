@@ -15,5 +15,5 @@ class BaseLLM(ABC):
         pass
 
     @abstractmethod
-    def generate(self, messages, **kwargs):
+    def generate(self, messages):
         pass
