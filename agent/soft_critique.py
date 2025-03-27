@@ -46,7 +46,7 @@ class SoftCritiqueAgent(BaseAgent):
         self.system_prompt = basic_system_prompt
         self.system_prompt = self.system_prompt.replace(
             '{formal_language}', self.formal_language)
-        self.system_prompt.replace('{aspect_description}', aspect_description)
+        self.system_prompt = self.system_prompt.replace('{aspect_description}', aspect_description)
         self.user_prompt = user_prompt.replace(
             '{formal_language}', self.formal_language)
         self.placeholder = placeholder
