@@ -66,18 +66,18 @@ class FormalRefinementAgent(BaseAgent):
         )
 
         simple_refinement = (
-            'You should refine this piece of code for your task.'
+            'You should refine this piece of formal code for your task.'
         )
 
         binary_refinement = (
+            'You should refine this piece of formal code for your task.'
             'The syntactic correctness for this piece of code is: {{correctness}}.\n'
-            'You should refine this piece of code for your task.'
         )
 
         detailed_refinement = (
+            'You should refine this piece of formal code for your task.'
             'The provided code might have some errors according to the relevant theorem prover. '
-            'The error details and where the error code is located in the code are: {{error_details}}\n'
-            'You should refine this piece of code for your task.'
+            'The error details and where the error part is located in the code are: {{error_details}}\n'
         )
 
         placeholder = {'informal': '{informal_statement}',
