@@ -20,7 +20,8 @@ class ImportRetrievalAgent(BaseAgent):
             raise ValueError(f'{formal_language} is not supported.')
 
         if retriever == 'bm25':
-            self.retriever = BM25Retriever(corpus=self.knowledge_base.formal_statements)
+            self.retriever = BM25Retriever(
+                corpus=self.knowledge_base.formal_statements, formal_language=self.formal_language)
         else:
             raise ValueError(f'{retriever} is not supported, please select from [\"bm25\"].')
 
