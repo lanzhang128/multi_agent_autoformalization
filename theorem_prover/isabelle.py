@@ -264,7 +264,7 @@ class Isabelle:
         if not self.session_ids:
             print('No running sessions on Isabelle server.')
             return None, 0
-        args = {'theories': theories, 'watchdog_timeout': 60}
+        args = {'theories': theories}
         if session_id is not None:
             if session_id not in self.session_ids:
                 print(f'Session {session_id} is not running on Isabelle server.')
