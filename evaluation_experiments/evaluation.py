@@ -16,14 +16,17 @@ def evaluate_bleu(ref_texts, can_texts):
     return score_dic
 
 
-def evaluate_pass(agent, can_texts):
+def evaluate_pass(agent, can_json):
     count = 0
     pass_count = 0
 
-    for can in tqdm(can_texts):
-        correctness, error_details = agent(
-            formalization=can,
-            file_prefix='test')
+    for key in tqdm(can_json.keys()):
+        if 'correctness' in can_json[key]:
+            correctness = can_json[key]['correctness']
+        else:
+            correctness, error_details = agent(
+                formalization=can_json[key]['formalization'],
+                file_prefix='test')
 
         count += 1
         if correctness == 'True':
@@ -48,7 +51,7 @@ if __name__ == '__main__':
 
     ref_formal, can_formal = [], []
 
-    for key in ref_json.keys():
+    for key in can_json.keys():
         formal = ref_json[key]['formal']
         ref_formal.append(formal[formal.find('theory'):])
         can_formal.append(can_json[key]['formalization'])
@@ -62,7 +65,7 @@ if __name__ == '__main__':
     )
     agent_hard.theorem_prover.verbose = False
 
-    score_dic.update(evaluate_pass(agent_hard, can_formal))
+    score_dic.update(evaluate_pass(agent_hard, can_json))
     print(score_dic)
     agent_hard.theorem_prover.terminate()
 

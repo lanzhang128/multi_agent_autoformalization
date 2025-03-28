@@ -128,6 +128,7 @@ if __name__ == '__main__':
                 aspect_evaluation=aspect_evaluation)
 
             res[f'{temp}-shot'][key] = {'formalization': formalization,
+                                        'correctness': correctness,
                                         'error_details': error_details,
                                         'aspect_evaluation': aspect_evaluation}
             res[f'{temp}-shot+hcfr'][key] = {'formalization': detailed_refinement}

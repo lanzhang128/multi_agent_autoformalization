@@ -1,4 +1,5 @@
 import json
+import random
 from tqdm import tqdm
 from llm import OpenAILLM
 from agent import HardCritiqueAgent, FormalRefinementAgent
@@ -8,10 +9,10 @@ if __name__ == '__main__':
     # Instantiate LLMs
     with open('../api_key.txt', 'r', encoding='utf-8') as f:
         api_key = f.read()
-    gpt_4o_mini = OpenAILLM(
-        name='gpt-4o-mini',
+    gpt_4o = OpenAILLM(
+        name='gpt-4o',
         api_key=api_key,
-        model='gpt-4o-mini'
+        model='gpt-4o'
     )
 
     # Set formal language
@@ -26,7 +27,7 @@ if __name__ == '__main__':
     agent_hard.theorem_prover.verbose = False
 
     agent_formal = FormalRefinementAgent(
-        llm=gpt_4o_mini,
+        llm=gpt_4o,
         name='formal refinement',
         formal_language=formal_language
     )
@@ -37,11 +38,18 @@ if __name__ == '__main__':
     with open('self_improving.json', 'r', encoding='utf-8') as f:
         can_json = json.load(f)
 
+    random.seed(0)
     n = 10
     res = {str(i): {} for i in range(n+1)}
     for temp in ['zero', '3']:
         formalizations = can_json[f'{temp}-shot']
-        for key in tqdm(json_dic.keys()):
+        temp_keys = []
+        for key in formalizations.keys():
+            if formalizations[key]['error_details'] != '':
+                temp_keys.append(key)
+        temp_keys = random.sample(temp_keys, 10)
+
+        for key in tqdm(temp_keys):
             informal = json_dic[key]['latex']
             formalization = formalizations[key]['formalization']
             for i in range(n):
@@ -62,7 +70,7 @@ if __name__ == '__main__':
 
             res[str(n)][key] = {'formalization': formalization}
 
-            with open('iterative.json', 'w', encoding='utf-8') as f:
+            with open(f'iterative_{temp}.json', 'w', encoding='utf-8') as f:
                 json.dump(res, f, ensure_ascii=False, indent=4)
 
     agent_hard.theorem_prover.terminate()
