@@ -40,7 +40,7 @@ if __name__ == '__main__':
 
     random.seed(0)
     n = 10
-    res = {str(i): {} for i in range(n+1)}
+
     for temp in ['zero', '3']:
         formalizations = can_json[f'{temp}-shot']
         temp_keys = []
@@ -49,6 +49,7 @@ if __name__ == '__main__':
                 temp_keys.append(key)
         temp_keys = random.sample(temp_keys, 10)
 
+        res = {str(i): {} for i in range(n + 1)}
         for key in tqdm(temp_keys):
             informal = json_dic[key]['latex']
             formalization = formalizations[key]['formalization']

@@ -1,0 +1,306 @@
+{
+    "3-shot": {
+        "0": {
+            "formalization": " theory aime_1995_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1995_p5:\n  fixes n :: nat\n  assumes h0 : \"80325 | n!\"\n  shows \"17 = n\"\n  sorry\n\nend\n\n% Note: The statement asks for the least positive integer n such that 80325 divides n!, but the statement provided does not prove that 17 is the answer. It only proves that 17 is a number that makes 80325 divide n!. To prove that 17 is the least positive integer with this property, additional work would be required.</s>"
+        },
+        "1": {
+            "formalization": "theory aime_1995_p1 imports Complex_Main\n\nbegin\n\nlemma aime_1995_p1:\n  fixes n :: nat\n  shows \"11 | (pow 10 n) - (- pow 1 + n)\"\nproof (induction n)\n  case 0\n  show \"11 | 1\"\n  by (simp add: abs_zero)\n\n  case (Suc n)\n  show \"11 | (pow 10 (Suc n)) - (- pow 1 + Suc n)\"\n  have h1 : \"11 | (pow 10 n) - (- pow 1 + n)\" using n by simp\n  have h2 : \"(pow 10 n) = 10 * (pow 10 n)\" by simp\n  have h3 : \"(- pow 1 + Suc n) = 11 * (- pow 1 + n)\" by simp\n  have h4 : \"11 | 10 * (pow 10 n) - 11 * (- pow 1 + n)\" using h1 by (rule mult_distrib)\n  have h5 : \"11 | (10 * (pow 10 n) - 10 * (pow 10 n)) + (11 * (- pow 1 + n) - 11 * (- pow 1 + n))\" using h4 by (rule add_mono)\n  have h6 : \"11 | (10 * (pow 10 n) - 10 * (pow 10 n))\" using h2 by (rule sub_abs)\n  have h7 : \"11 | 11 * (- pow 1 + n)\" using h3 by (rule sub_abs)\n  have h8 : \"11 | (10 * (pow 10 n) - 11 * (- pow 1 + n))\" using h6 h7 by (rule add_trans)\n  qed\n\nend\n"
+        },
+        "2": {
+            "formalization": " theory congruences_p1 imports Arith\nbegin\n\nlemma congruences_p1:\n  assumes \"3 * n = 2 (mod 11)\"\n  shows \"n = 8 (mod 11)\"\n  apply (rule cong_sub)\n  apply (rule cong_r)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply (rule cong_mul)\n  apply (rule cong_add)\n  apply"
+        },
+        "3": {
+            "formalization": "theory euler_p431 imports Complex_Main\n\nbegin\n\ntheorem euler_p431:\n  fixes n :: nat\n  assumes h0 : \"n > 40\"\n  assumes h1 : \"n^2 - n + 41 > 1\"\n  assumes h2 : \"n+1 ^2 - (n+1) + 41 > 1\"\n  assumes h3 : \"(n^2 - n + 41) \\* (n+1 ^2 - (n+1) + 41) = k ^2\" for some k :: nat\n  shows \"k = 41 \\* (n + 1)\"\n  sorry\n\nend\n"
+        },
+        "4": {
+            "formalization": "theory aime_1995_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1995_p5:\n  fixes x :: real\n  shows \"minimizer (x => x * x - 14 * x + 3) = 7\"\n  by (simp add: minimizer_def) (auto)\n\nend\n"
+        },
+        "5": {
+            "formalization": "theory trig_equation imports Complex_Main\n\nbegin\n\ntheorem trig_equation:\n  fixes x :: real\n  assumes h0 : \"sec x + tan x = 22 / 7\"\n  assumes h1 : \"csc x + cot x = m / n\"\n  and m_is_int : \"m in ints\"\n  and n_is_int : \"n in ints\"\n  and n_is_pos : \"n > 0\"\n  shows \"m + n = 44\"\n  sorry\n\nend\n"
+        },
+        "6": {
+            "formalization": "theory pi_x_values imports Complex_Main\n\nbegin\n\ntheorem pi_x_values:\n  shows \"card {x : int | abs x < 3 * pi} = 19\"\n  sorry\n\nend\n"
+        },
+        "7": {
+            "formalization": "theory aime_1952_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1952_p5:\n  fixes x :: real\n  assumes h0 : \"(x+3)^2 = 121\"\n  shows \"x = -6 \\<or> x = -11\"\n  by (auto simp: sqr_add)\n\nend\n\n"
+        },
+        "8": {
+            "formalization": "theory aime_1995_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1995_p5:\n  fixes x :: real\n  shows \"(x + 1) ^ 2 * x = x ^ 3 + 2 * x ^ 2 + x\"\n  by (simp add: power_mult, power_add)\n\nend\n"
+        },
+        "9": {
+            "formalization": " theory p_power_divides_a\nbegin\n\nlemma p_power_divides_a:\n  assumes \"p > 0\" and \"is_prime p\" and \"a > 0\"\n  shows \"p | (a ^ p - a)\"\n  apply (rule polynomial_divides_base)\n  apply (simp add: zero_sub_self)\n  apply (rule polynomial_divides_power)\n  apply (simp add: one_pow)\n  apply (rule polynomial_divides_power)\n  apply (simp add: zero_pow)\n  apply (rule polynomial_divides_power)\n  apply (simp add: one_sub_one)\n  apply (rule polynomial_divides_power)\n  apply (simp add: one_add)\n  apply (rule polynomial_divides_power)\n  apply (simp add: one_pow)\n  apply (rule polynomial_divides_power)\n  apply (simp add: zero_pow)\n  apply (rule polynomial_divides_power)\n  apply (simp add: one_sub_one)\n  apply (rule polynomial_divides_power)\n  apply (simp add: one_add)\n  apply (rule polynomial_divides_power)\n  apply (simp add: one_pow)\n  apply (rule polynomial_divides_power)\n  apply (simp add: zero_pow)\n  apply (rule polynomial_divides_power)\n  apply (simp add: one_sub_one)\n  apply (rule polynomial_divides_power)\n  apply (simp add: one_add)\n  apply (rule polynomial_divides_power)\n  apply (simp add: one_pow)\n  apply (rule polynomial_divides_power)\n  apply (simp add: zero_pow)\n  apply (rule polynomial_divides_power)\n  apply (simp add: one_sub_one)\n  apply (rule polynomial_divides_power)\n  apply (simp add: one_add)\n  apply (rule polynomial_divides_power)\n  apply (simp add: one_pow)\n  apply (rule polynomial_divides_power)\n  apply (simp add: zero_pow)\n  apply (rule polynomial_divides_power)\n  apply (simp add: one_sub_one)\n  apply (rule polynomial_divides_power)\n  apply (simp add: one_add)\n  apply (rule polynomial_divides_power)\n  apply (simp add: one_pow)\n  apply (rule polynomial_divides_power)\n  apply (simp add: zero_pow)\n  apply (rule polynomial_divides_power)\n  apply (simp add: one_sub_one)\n  apply (rule polynomial_divides_power)\n  apply (simp add: one_add)\n  apply (rule polynomial_divides_power)\n  apply (simp add: one_pow)\n  apply (rule polynomial_divides_power)\n  apply (simp add: zero_pow)\n  apply (rule polynomial_divides_power)\n  apply (simp add: one_sub_one)\n  apply (rule polynomial_divides_power)\n  apply (simp add: one_add)\n  apply (rule polynomial_divides_power)\n  apply (simp add: one_pow)\n  apply (rule polynomial_divides_power)\n  apply (simp add: zero_pow)\n  apply (rule polynomial_divides_power)\n  apply (simp add: one_sub_one)\n  apply (rule polynomial_divides_power)\n  apply (simp add: one_add)\n  apply (rule polynomial_divides_power)\n  apply (simp add: one_pow)\n  apply (rule polynomial_divides_power)\n  apply (simp add: zero_pow)\n  apply (rule polynomial_divides_power)\n  apply (simp add: one_sub_one)\n  apply (rule polynomial_divides_power)\n  apply (simp add: one_add)\n  apply (rule polynomial_divides_power)\n  apply (simp add: one_pow)\n  apply ("
+        },
+        "10": {
+            "formalization": "theory sum_of_squares imports Complex_Main\n\nbegin\n\ntheorem sum_of_squares:\n  \"sum (i, 1 <= i, 9) (i * i) mod 10 = 5\"\n  by (induction i; simp)\n\nend\n"
+        },
+        "11": {
+            "formalization": "theory aime_1995_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1995_p5:\n  fixes A B C :: nat\n  assumes \"1 <= A\" and \"1 <= B\" and \"1 <= C\" and \"A <> B\" and \"A <> C\" and \"B <> C\"\n  assumes h1 : \"A + B = C\"\n      and h2 : \"A * A - B = 2 * C\"\n      and h3 : \"C * B = A * A + A\"\n  shows \"A + B + C = 8\"\n  sorry\n\nend\n"
+        },
+        "12": {
+            "formalization": " theory euler_totient_product_of_odd_numbers imports\nComplex_Main\n\nbegin\n\nlemma euler_totient_odd_numbers:\n  assumes \"n > 0\"\n  shows \"euler_totient n = n\"\n  apply (rule euler_totient_odd)\n  apply auto\n\ntheorem product_of_odd_numbers_less_than_10000:\n  let odd_numbers = \"{ i | i :: nat, i < 10000, i mod 2 = 1 }\"\n  shows \"prod (set odd_numbers) = 10000! / (2 ^ 5000 * 5000!)\"\n  apply (rule prod_set)\n  apply (rule fun_apply)\n  apply (rule euler_totient_odd_numbers)\n  apply (rule euler_totient_multiplicative)\n  apply (rule euler_totient_power)\n  apply (rule euler_totient_mult_euler_totient)\n  apply (rule euler_totient_power_mult)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_power_power)\n  apply (rule euler_totient_"
+        },
+        "13": {
+            "formalization": "theory aime_1995_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1995_p5:\n  fixes x :: real\n  assumes h0 : \"|x - 2.0| <= 5.6\"\n  shows \"x \\<is\\> (2.0 - 5.6 .. 2.0 + 5.6)\"\n  by (rule and_forall_elim) (auto simp: abs_sub)\n\ntheorem aime_1995_p5_cardinality:\n  assumes h0 : \"x \\<is\\> (2.0 - 5.6 .. 2.0 + 5.6)\"\n  shows \"card (x)\" = \"11\"\n  sorry\n\nend\n"
+        },
+        "14": {
+            "formalization": "theory triangle_inequality imports Complex_Main\n\nbegin\n\nlemma triangle_inequality:\n  fixes a b c :: real\n  assumes \"a > 0\" and \"b > 0\" and \"c > 0\"\n  shows \"a^2 * b * (a - b) + b^2 * c * (b - c) + c^2 * a * (c - a) >= 0\"\n  sorry\n\nend\n"
+        },
+        "15": {
+            "formalization": "theory aime_1984_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1984_p5:\n  fixes a b c :: real\n  assumes h0 : \"-3 * a + b + c = -3\"\n        h1 : \"a + 3 * b + c = 9\"\n        h2 : \"a + b + 3 * c = 19\"\n  shows \"a * b * c = -56\"\n  sorry\n\nend\n"
+        },
+        "16": {
+            "formalization": "theory fib_parity imports Complex_Main\n\nbegin\n\ndefinition fib :: nat -> real\n  fixes n :: nat\n  assumes n >= 0\n  shows \"if n = 0 then 0 else if n = 1 then 0 else fib (n - 1) + fib (n - 3)\"\n\nlemma fib_even: \"fib n = fib m -> n = m -> fib n is even\"\nproof (induct n)\n  case 0\n  show \"fib 0 = fib 0 -> 0 = 0 -> fib 0 is even\"\n  apply (rule if_refl)\n  apply (rule zero_eq_zero)\n  apply (rule fib_zero)\n  done\n\n  case (Suc n)\n  show \"fib (Suc n) = fib m -> n = m -> fib (Suc n) is even\"\n  apply (rule if_trans)\n  apply (rule fib_induct)\n  apply (rule fib_add)\n  apply (rule add_commute)\n  apply (rule fib_even)\n  apply (rule fib_even)\n  done\n\ntheorem fib_parity_2021_2022_2023: \"fib 2021 = fib 2022 + fib 2019 -> fib 2022 = fib 2023 + fib 2020 -> fib 2021 is even <- or (fib 2022 is even, fib 2023 is odd)\"\nproof (induct fib 2021)\n  case 0\n  show \"fib 2021 = fib 2022 + fib 2019 -> fib 2022 = fib 2023 + fib 2020 -> fib 2021 is even <- or (fib 2022 is even, fib 2023 is odd) -> 0 is even\"\n  apply (rule if_and_right)\n  apply (rule zero_is_even)\n  done\n\n  case (Suc k)\n  show \"fib 2021 = fib 2022 + fib 2019 -> fib 2022 = fib 2023 + fib 2020 -> fib 2021 is even <- or (fib 2022 is even, fib 2023 is odd) -> (Suc k) is even\"\n  apply (rule if_trans)\n  apply (rule fib_parity_induct)\n  apply (rule fib_even)\n  apply (rule fib_even)\n  apply (rule fib_add)\n  apply (rule add_commute)\n  apply (rule fib_even)\n  apply (rule fib_even)\n  done\n\nend\n"
+        },
+        "17": {
+            "formalization": "theory inverse_function_p1 imports Complex_Main\n\nbegin\n\ntheorem inverse_function_p1:\n  fixes x y h f :: \"real -> real\"\n  assumes h_inv : \"h(x) = f ^-1(x)\"\n  assumes h2 : \"h(2) = 10\"\n  assumes h10 : \"h(10) = 1\"\n  assumes h1 : \"h(1) = 2\"\n  shows \"f(f(1)) = 1\"\n  apply (rule iff_refl)\n  apply (subst h_inv)\n  apply (subst h1)\n  apply (subst h_inv)\n  apply (subst h2)\n  apply (subst h_inv)\n  apply (subst h10)\n  apply (subst h_inv)\n  apply (subst h_inv)\n  apply (simp)\n  apply (rule iff_refl)\n\nend\n"
+        },
+        "18": {
+            "formalization": "theory perfect_squares_product imports Complex_Main\n\nbegin\n\ndefinition perfect_square :: nat -> bool where\n  \"perfect_square n <- n * n = n\"\n\ntheorem perfect_squares_product:\n  \"sum (filter perfect_square (range 1 (1 + sqrt (real_of_int (1 + 9 * 9)))))) = 672\"\n  sorry\n\nend\n"
+        },
+        "19": {
+            "formalization": "theory imo_2001_p5 imports Complex_Main\n\nbegin\n\ntheorem imo_2001_p5:\n  fixes I M O :: nat\n  assumes \"I * M * O = 2001\"\n  shows \"I + M + O = 671\"\n  sorry\n\nend\n"
+        },
+        "20": {
+            "formalization": "theory smallest_x imports Complex_Main\n\nbegin\n\ntheorem smallest_x:\n  fixes x :: nat\n  assumes \"3 | x\"\n  assumes \"5 | (x + 4)\"\n  assumes \"x mod 10 = (x + 4) mod 10\"\n  shows \"x = 14\"\n  sorry\n\nend\n"
+        },
+        "21": {
+            "formalization": "theory sum_modulo_four imports Complex_Main\n\nbegin\n\ntheorem sum_modulo_four:\n  \"((1 + 1+ 1+ 1+ 1+ 1+ 1+ 1+ 1+ 1+ 1+ 1+ 1+ 1) mod 4 = 2)\"\n  by simp\n\nend\n"
+        },
+        "22": {
+            "formalization": "theory aime_1952_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1952_p5:\n  fixes a b c :: real\n  assumes a1 : \"a <= b\"\n  assumes a2 : \"b <= c\"\n  assumes a3 : \"a + b + c = 2\"\n  assumes a4 : \"a * b + b * c + c * a = 1\"\n  shows \"0 <= a\" and \"a <= 1 / 3\" and \"1 / 3 <= b\" and \"b <= 1\" and \"1 <= c\" and \"c <= 4 / 3\"\n  by (auto simp: add_comm)\n\nend\n"
+        },
+        "23": {
+            "formalization": "theory aime_1995_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1995_p5:\n  fixes x :: real\n  assumes h0 : \"5 + 0.05 * 10 = 1.1 * n\"\n  shows \"n = 50\"\n  by (simp add: div_mul_assoc div_1_mul_inv_right)\n\nend\n"
+        },
+        "24": {
+            "formalization": "theory aime_1985_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1985_p5:\n  fixes n :: nat\n  assumes \"n = 999999\"\n  shows \"pow 5 n MOD 7 = 6\"\n  sorry\n\nend\n"
+        },
+        "25": {
+            "formalization": "theory max_value_function imports Complex_Main\n\nbegin\n\ntheorem max_value_function:\n  fixes t :: real\n  assumes h1 : \"4 * t * (2 * t - 3) > 0\"\n  shows \"max (t => (2 * t - 3 * t) / (4 * t) : real) = 1 / 12\"\n  sorry\n\nend\n"
+        },
+        "26": {
+            "formalization": " theory aime_1995_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1995_p5:\n  fixes x A B :: int\n  assumes h0 : \"10 * x * x - x - 24 = (A * x - 8) * (B * x + 3)\"\n  shows \"A * B + B = 12\"\n  apply (rule simpl_congr [symmetric])\n  apply (auto simp: false_elim_eq)\n  apply (rule polynomial_mult_distrib_l)\n  apply (rule polynomial_mult_distrib_r)\n  apply (rule polynomial_mult_distrib_l)\n  apply (rule polynomial_mult_distrib_r)\n  apply (rule polynomial_mult_distrib_l)\n  apply (rule polynomial_mult_distrib_r)\n  apply (rule polynomial_mult_distrib_l)\n  apply (rule polynomial_mult_distrib_r)\n  apply (rule polynomial_mult_distrib_l)\n  apply (rule polynomial_mult_distrib_r)\n  apply (rule polynomial_mult_distrib_l)\n  apply (rule polynomial_mult_distrib_r)\n  apply (rule polynomial_mult_distrib_l)\n  apply (rule polynomial_mult_distrib_r)\n  apply (rule polynomial_mult_distrib_l)\n  apply (rule polynomial_mult_distrib_r)\n  apply (rule polynomial_mult_distrib_l)\n  apply (rule polynomial_mult_distrib_r)\n  apply (rule polynomial_mult_distrib_l)\n  apply (rule polynomial_mult_distrib_r)\n  apply (rule polynomial_mult_distrib_l)\n  apply (rule polynomial_mult_distrib_r)\n  apply (rule polynomial_mult_distrib_l)\n  apply (rule polynomial_mult_distrib_r)\n  apply (rule polynomial_mult_distrib_l)\n  apply (rule polynomial_mult_distrib_r)\n  apply (rule polynomial_mult_distrib_l)\n  apply (rule polynomial_mult_distrib_r)\n  apply (rule polynomial_mult_distrib_l)\n  apply (rule polynomial_mult_distrib_r)\n  apply (rule polynomial_mult_distrib_l)\n  apply (rule polynomial_mult_distrib_r)\n  apply (rule polynomial_mult_distrib_l)\n  apply (rule polynomial_mult_distrib_r)\n  apply (rule polynomial_mult_distrib_l)\n  apply (rule polynomial_mult_distrib_r)\n  apply (rule polynomial_mult_distrib_l)\n  apply (rule polynomial_mult_distrib_r)\n  apply (rule polynomial_mult_distrib_l)\n  apply (rule polynomial_mult_distrib_r)\n  apply (rule polynomial_mult_distrib_l)\n  apply (rule polynomial_mult_distrib_r)\n  apply (rule polynomial_mult_distrib_l)\n  apply (rule polynomial_mult_distrib_r)\n  apply (rule polynomial_mult_distrib_l)\n  apply (rule polynomial_mult_distrib_r)\n  apply (rule polynomial_mult_distrib_l)\n  apply (rule polynomial_mult_distrib_r)\n  apply (rule polynomial_mult_distrib_l)\n  apply (rule polynomial_mult_distrib_r)\n  apply (rule polynomial_mult_distrib_l)\n  apply (rule polynomial_mult_distrib_r)\n  apply (rule polynomial_mult_distrib_l)\n  apply (rule polynomial_mult_distrib_r)\n  apply (rule polynomial_mult_distrib_l)\n  apply (rule polynomial_mult_distrib_r)\n  apply (rule polynomial_mult_distrib_l)\n  apply (rule polynomial_mult_distrib_r)\n  apply (rule polynomial_mult_distrib_l)\n  apply (rule polynomial_mult_distrib_r)\n  apply (rule polynomial_mult_distrib_l)\n  apply (rule polynomial_mult_distrib_r)\n  apply (rule polynomial_"
+        },
+        "27": {
+            "formalization": "theory aime_1995_p5 imports Complex_Main Big_Ints\n\nbegin\n\ndefinition base_10_digits :: \"nat -> int list\" where\n  \"base_10_digits 0 = []\" |\n  \"base_10_digits n = let val (q, r) = div_mod n 10 in r :: base_10_digits q\"\n\ntheorem aime_1995_p5:\n  fixes n :: nat\n  assumes h0 : \"n = 3 ^ 17 + 3 ^ 10\"\n  assumes h1 : \"11 | (n + 1)\"\n  assumes h2 : \"exists a b c : int. distinct a b c /\\\n                  odd a /\\ odd c /\\ not (3 | b)\"\n  assumes h3 : \"A = fst (find_in (base_10_digits n) h2)\"\n  shows \"100 * A + 10 * (fst (find_in (base_10_digits n) (fn x => if (odd x) then 3 else 0))) +\n             (snd (find_in (base_10_digits n) (fn x => if (odd x) then x else 0))) = 129\"\n  sorry\n\nend\n"
+        },
+        "28": {
+            "formalization": "theory mod_arithmetic imports Arith.Basic\n\nbegin\n\nlemma rem_54_mod_6: \"54 mod 6 = 0\"\nproof (induction n)\n  case 0\n  show \"54 mod 6 = 0\"\n  by (simp add: mod_zero)\n  case (Suc n)\n  show \"54 mod 6 = 0\"\n  by (simp add: mod_succ) (auto)\nqed\n\nend\n"
+        },
+        "29": {
+            "formalization": "theory aime_1995_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1995_p5:\n  fixes a b :: real\n  assumes h1 : \"a ^ 2 * b ^ 3 = 32 / 27\"\n          h2 : \"a / b ^ 3 = 27 / 4\"\n  shows \"a + b = 8 / 3\"\n  sorry\n\nend\n"
+        },
+        "30": {
+            "formalization": "theory aime_1995_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1995_p5:\n  fixes n a b :: real\n  assumes n_pos : \"n > 0\"\n  assumes h1 : \"(a_n, b_n) = (sqrt 3 * a_(n-1) - b_(n-1), sqrt 3 * b_(n-1) + a_(n-1))\"\n  assumes h2 : \"(a_1, b_1) = (2, 4)\"\n  shows \"a_1 + b_1 = (sqrt 3 * 2 - 4) + (sqrt 3 * 4 + 2)\"\n  by (simp add: h1)\n\ntheorem aime_1995_p5_answer:\n  shows \"a_1 + b_1 = 2 * sqrt 3 + 2\"\n  by (simp add: h2)\n\nend\n\n"
+        },
+        "31": {
+            "formalization": "theory aime_1995_p5 imports\nComplex_Main\n\nbegin\n\ntheorem aime_1995_p5:\n  fixes n :: nat\n  assumes \"gcd (21 * n + 4) (14 * n + 3) = 1\"\n  shows \"irreducible (rational (21 * n + 4) (14 * n + 3))\"\n  by (induction n) auto\n\nend\n"
+        },
+        "32": {
+            "formalization": " theory aime_1993_p5 imports Complex_Main\n\nbegin\n\nlemma aime_1993_p5_lemma1:\n  assumes \"a > 0\" and \"b > 0\" and \"b <= a\"\n  shows \"a + b <= 2 * sqrt (a * b)\"\nproof (induction a)\n  case (0)\n  show ?case by (simp, auto)\nnext\n  case (Suc a)\n  have \"a + b <= 2 * sqrt ((Suc a) * b)\" using [this, aime_1993_p5_lemma1[of \"Suc a\" b]] by auto\n  have \"2 * sqrt ((Suc a) * b) <= 2 * sqrt ((Suc a) * b) + 2 * sqrt (a * b)\" by auto\n  have \"2 * sqrt ((Suc a) * b) + 2 * sqrt (a * b) <= 2 * sqrt ((Suc a + a) * b)\" by (subst Suc_add_comm) auto\n  have \"2 * sqrt ((Suc a + a) * b) = 2 * sqrt ((Suc (a + a)) * b)\" by (subst Suc_add_comm) auto\n  have \"2 * sqrt ((Suc (a + a)) * b) = 2 * sqrt ((Suc (2 * a)) * b)\" by (subst Suc_mul) auto\n  have \"2 * sqrt ((Suc (2 * a)) * b) <= 2 * sqrt ((Suc (2 * a)) * b) + 2 * sqrt (a * b)\" by auto\n  have \"2 * sqrt ((Suc (2 * a)) * b) + 2 * sqrt (a * b) <= 2 * sqrt ((Suc (2 * a + a)) * b)\" by (subst Suc_add_comm) auto\n  have \"2 * sqrt ((Suc (2 * a + a)) * b) = 2 * sqrt ((Suc (3 * a)) * b)\" by (subst Suc_mul) auto\n  have \"2 * sqrt ((Suc (3 * a)) * b) <= 2 * sqrt ((Suc (3 * a)) * b) + 2 * sqrt (a * b)\" by auto\n  have \"2 * sqrt ((Suc (3 * a)) * b) + 2 * sqrt (a * b) <= 2 * sqrt ((Suc (3 * a + a)) * b)\" by (subst Suc_add_comm) auto\n  have \"2 * sqrt ((Suc (3 * a + a)) * b) = 2 * sqrt ((Suc (4 * a)) * b)\" by (subst Suc_mul) auto\n  have \"2 * sqrt ((Suc (4 * a)) * b) <= 2 * sqrt ((Suc (4 * a)) * b) + 2 * sqrt (a * b)\" by auto\n  have \"2 * sqrt ((Suc (4 * a)) * b) + 2 * sqrt (a * b) <= 2 * sqrt ((Suc (4 * a + a)) * b)\" by (subst Suc_add_comm) auto\n  have \"2 * sqrt ((Suc (4 * a + a)) * b) = 2 * sqrt ((Suc (5 * a)) * b)\" by (subst Suc_mul) auto\n  have \"2 * sqrt ((Suc (5 * a)) * b) <= 2 * sqrt ((Suc (5 * a)) * b) + 2 * sqrt (a * b)\" by auto\n  have \"2 * sqrt ((Suc (5 * a)) * b) + 2 * sqrt (a * b) <= 2 * sqrt ((Suc (5 * a + a)) * b)\" by (subst Suc_add_comm) auto\n  have \"2 * sqrt ((Suc (5 * a + a)) * b) = 2 * sqrt ((Suc (6 * a)) * b)\" by (subst Suc_mul) auto\n  have \"2 * sqrt ((Suc (6"
+        },
+        "33": {
+            "formalization": "theory lcm_gcd_p5 imports Complex_Main\n\nbegin\n\ntheorem lcm_gcd_p5:\n  fixes a b :: real\n  assumes h1 : \"gcd a b = 8\"\n  assumes h2 : \"lcm a b = 3720\"\n  assumes h3 : \"a = 120\"\n  shows \"b = 248\"\n  sorry\n\nend\n"
+        },
+        "34": {
+            "formalization": "theory aime_1993_p5 imports Complex_Main\n\nbegin\n\nlemma aime_1993_p5_lemma1:\n  \"|x + y| <= |x| + |y|\"\n  proof (rule triangular_inequality)\n  qed\n\ntheorem aime_1993_p5:\n  fixes a b :: real\n  shows \"(|a + b|) / (1 + |a + b|) <= (|a|) / (1 + |a|) + (|b|) / (1 + |b|)\"\n  by (auto simp: aime_1993_p5_lemma1)\n\nend\n"
+        },
+        "35": {
+            "formalization": "theory aime_1993_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1993_p5:\n  fixes x :: real\n  assumes h0 : \"(x - 9) / (x + 1) = 2\"\n  shows \"x = -11\"\n  by (simp add: div_eq_mul, arith)\n\nend\n"
+        },
+        "36": {
+            "formalization": "theory system_of_equations_proof imports Complex_Main\n\nbegin\n\nlemma lemma_1:\n  assumes \"a11 > 0\" and \"a22 > 0\" and \"a33 > 0\" and \"a12 < 0\" and \"a13 < 0\" and \"a21 < 0\" and \"a23 < 0\" and \"a31 < 0\" and \"a32 < 0\" and \"a11 + a12 <> 0\" and \"a11 + a13 <> 0\" and \"a22 + a23 <> 0\" and \"a33 + a31 <> 0\" and \"a33 + a32 <> 0\"\n  shows \"x1 = 0 \\<and> x2 = 0 \\<and> x3 = 0\"\n  proof (induct x)\n    case 0\n    thus \"x1 = 0 \\<and> x2 = 0 \\<and> x3 = 0\" by (simp add: a11_pos a22_pos a33_pos)\n\n    case (Suc n)\n    assume \"x n = 0\"\n    have \"a11 * x1 + a12 * x2 + a13 * x3 = 0\" by (subst x1 0 x2 0 x3 0)\n    have \"a21 * x1 + a22 * x2 + a23 * x3 = 0\" by (subst x1 0 x2 0 x3 0)\n    have \"a31 * x1 + a32 * x2 + a33 * x3 = 0\" by (subst x1 0 x2 0 x3 0)\n    have \"a11 * x1 + a12 * x2 + a13 * x3 < 0\" by (subst x1 0 x2 0 x3 0) (simp add: a11_neg a12_neg a13_neg)\n    have \"a21 * x1 + a22 * x2 + a23 * x3 < 0\" by (subst x1 0 x2 0 x3 0) (simp add: a21_neg a22_neg a23_neg)\n    have \"a31 * x1 + a32 * x2 + a33 * x3 < 0\" by (subst x1 0 x2 0 x3 0) (simp add: a31_neg a32_neg a33_neg)\n    have \"a11 * x1 + a12 * x2 + a13 * x3 = 0 \\<and> a11 * x1 + a12 * x2 + a13 * x3 < 0\" by (rule contradiction)\n    thus false by (rule contradiction)\n  qed\n\nend\n\n"
+        },
+        "37": {
+            "formalization": "theory plumbing_pricing imports Complex_Main\n\nbegin\n\ntheorem plumbing_pricing:\n  fixes N x :: real\n  assumes \"N + x * hours = 97\"\n  and \"N + x * hours_2 = 265\"\n  shows \"hours = 1 \\<and> hours_2 = 2 \\<or> hours = 2 \\<and> hours_2 = 1 \\<or> N = 139 + 2 * x\"\n  sorry\n\nend\n"
+        },
+        "38": {
+            "formalization": " theory ac_circuits imports Complex_Main\n\nbegin\n\ntheorem ac_circuits:\n  fixes V Z I :: complex\n  assumes h1 : \"V = 1 + i\"\n  assumes h2 : \"Z = 2 - i\"\n  shows \"I = (1 / 5) + (3 / 5) * i\"\n  apply (rule division)\n  apply (subst h1)\n  apply (subst h2)\n  apply (simp add: complex_add_assoc)\n  apply (simp add: complex_sub_assoc)\n  apply (simp add: complex_mul_assoc)\n  apply (simp add: complex_div_assoc)\n  apply (simp add: complex_div_self)\n  apply (simp add: complex_mul_self)\n  apply (simp add: complex_mul_comm)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add: complex_mul_distrib)\n  apply (simp add"
+        },
+        "39": {
+            "formalization": "theory prime_divisors_of_sum_of_divisors imports Complex_Main\n\nbegin\n\ndefinition sum_of_divisors :: nat -> real\n  sum_of_divisors 1 = 1\n  sum_of_divisors n = sum [1..n] (squared_root (n:real))\n\nlemma sum_of_divisors_500 : \"sum_of_divisors 500 = 504 * (2 * 3 * 5 * 7 * 11 * 13 * 17 * 19)\"\nproof -\n  induction n from 1 to 500\n  case 1\n  then show ?case by simp\n  case (n+1)\n  then show ?case by (auto | simp only: sum_of_divisors_inductive_step)\nqed\n\ndefinition prime_divisors :: real -> list real\n  prime_divisors 1 = []\n  prime_divisors n =\n    if prime n then [n] else []\n      ++ prime_divisors (squared_root (n:real))\n\nlemma prime_504 : \"prime 504\"\nproof -\n  apply (is_prime_by_factorization 504)\n  apply (2_is_prime)\n  apply (3_is_prime)\n  apply (5_is_prime)\n  apply (7_is_prime)\n  apply (11_is_prime)\n  apply (13_is_prime)\n  apply (17_is_prime)\n  apply (19_is_prime)\nqed\n\ntheorem statement : \"sum (prime_divisors (sum_of_divisors 500)) = 25\"\nproof -\n  have h1 : \"length (prime_divisors (sum_of_divisors 500)) = 5\" using sum_of_divisors_500, prime_divisors_500, arith_seq_length_len_n_n_1\n  have h2 : \"sum (list [2; 2; 2; 3; 3]) = 25\" by simp\n  have h3 : \"prime_divisors (sum_of_divisors 500) = list [2; 2; 2; 3; 3]\" using sum_of_divisors_500, prime_divisors_500, h1\n  show ?thesis using h3, h2\nqed\n\nend\n"
+        },
+        "40": {
+            "formalization": "theory aime_1982_p5 imports Complex_Main\n\nbegin\n\nfun f :: nat -> real\n  fixes m n :: nat\n  assumes a : \"m > 0\"\n  assumes b : \"n > 0\"\n  assumes c : \"f m >= 0\"\n  assumes d : \"f n >= 0\"\n  assumes e : \"f (m + n) = (f m + f n) + k\"\n  assumes ff : \"k = 0 \\<or> k = 1\"\n  defines k\n  show \"f 1982 = 660\"\n  by (induction n) (auto)\n\nend\n\n"
+        },
+        "41": {
+            "formalization": "theory liberty_middle_school imports Complex_Main\n\nbegin\n\ntheorem liberty_middle_school:\n  fixes n :: real\n  assumes h0 : \"n = 598\"\n  assumes h1 : \"n = 575 * (1 + 0.04)\"\n  shows \"575 = n\"\n  by (simp add: field_mult_assoc)\n\nend\n"
+        },
+        "42": {
+            "formalization": "theory aime_1995_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1995_p5:\n  fixes x :: real\n  assumes h1 : \"(4 * x * x) / ((1 - (sqrt (2 * x + 1)))^2) < 2 * x + 9\"\n  shows \"x < -1.5 \\<or> x > 1.5\"\n  sorry\n\nend\n"
+        },
+        "43": {
+            "formalization": "theory aime_1995_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1995_p5:\n  fixes n :: nat\n  assumes h0 : \"(n + 2) * (n + 2) + (n + 2) * (n + 4) + (n + 4) * (n + 4) = 12296\"\n  shows \"((n + 2) * (n + 4) * (n + 6)) / 8 = 32736\"\n  by (simp add: h0) (arith)\n\nend\n"
+        },
+        "44": {
+            "formalization": " theory lines_intersection imports Complex_Main\n\nbegin\n\ntheorem lines_intersection:\n  fixes s t :: real\n  assumes h1 : \"s = 9 - 2 * t\"\n  assumes h2 : \"t = 3 * s + 1\"\n  shows \"s = 1 \\<and> t = 4\"\n  from h1, h2,\n    have h3 : \"3 * s + 1 = s + 1 / 2\" by simp,\n    have h4 : \"s = 1\" for s using (subst h3 (s = 9 - 2 * t) (s = 1)) by simp,\n    have h5 : \"t = 4\" for t using (subst h3 (t = 3 * s + 1) (t = 4)) by simp\n  apply (rule and_intro)\n  apply (rule and_elim_right)\n  apply (rule iff_and_right)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_left)\n  apply (rule iff_and_"
+        },
+        "45": {
+            "formalization": "theory aime_1995_p5 imports Complex_Main\n\nbegin\n\ndefinition cos_2pi_over_n where \"cos_2pi_over_n := cos (2 * pi / (2 * n))\"\n\ntheorem aime_1995_p5:\n  fixes a b c :: real\n  assumes h0 : \"root (x, P x = 0) = cos (2 * pi / 7) \\<or> root (x, P x = 0) = cos (4 * pi / 7) \\<or> root (x, P x = 0) = cos (6 * pi / 7)\"\n  shows \"abc = 1 / 32\"\n  sorry\n\nend\n"
+        },
+        "46": {
+            "formalization": " theory aime_1993_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1993_p5:\n  shows \"(sqrt (-1) / 2) ^ 2 = -1 / 4\"\n  by (simp add: sqrt_mul_def) (subst sqrt_neg_sqrt_neg) (simp add: sqrt_mul_assoc)\n                                                     (simp add: sqrt_neg_mul_neg) (simp add: sqrt_neg_mul_neg)\n                                                     (simp add: sqrt_neg_mul_neg) (simp add: sqrt_neg_mul_neg)\n                                                     (simp add: sqrt_neg_mul_neg) (simp add: sqrt_neg_mul_neg)\n                                                     (simp add: sqrt_neg_mul_neg) (simp add: sqrt_neg_mul_neg)\n                                                     (simp add: sqrt_neg_mul_neg) (simp add: sqrt_neg_mul_neg)\n                                                     (simp add: sqrt_neg_mul_neg) (simp add: sqrt_neg_mul_neg)\n                                                     (simp add: sqrt_neg_mul_neg) (simp add: sqrt_neg_mul_neg)\n                                                     (simp add: sqrt_neg_mul_neg) (simp add: sqrt_neg_mul_neg)\n                                                     (simp add: sqrt_neg_mul_neg) (simp add: sqrt_neg_mul_neg)\n                                                     (simp add: sqrt_neg_mul_neg) (simp add: sqrt_neg_mul_neg)\n                                                     (simp add: sqrt_neg_mul_neg) (simp add: sqrt_neg_mul_neg)\n                                                     (simp add: sqrt_neg_mul_neg) (simp add: sqrt_neg_mul_neg)\n                                                     (simp add: sqrt_neg_mul_neg) (simp add: sqrt_neg_mul_neg)\n                                                     (simp add: sqrt_neg_mul_neg) (simp add: sqrt_neg_mul_neg)\n                                                     (simp add: sqrt_neg_mul_neg) (simp add: sqrt_neg_mul_neg)\n                                                     (simp add: sqrt_neg_mul_neg) (simp add: sqrt_neg_mul_neg)\n                                                     (simp add: sqrt_neg_mul_neg) (simp add: sqrt_neg_mul_neg)\n                                                     (simp add: sqrt_neg_mul_neg) (simp add: sqrt_neg_mul_neg)\n                                                     (simp add: sqrt_neg_mul_neg) (simp add: sqrt_neg_mul_neg)\n                                                     (simp add: sqrt_neg_mul_neg) (simp add: sqrt_neg_mul_neg)\n                                                     (simp add: sqrt_neg_mul_neg) (simp add: sqrt_neg_mul_neg)\n                                                     (simp add: sqrt_neg_mul_neg) (simp add: sqrt_neg_mul_neg)\n                                                     (simp add: sqrt_neg_mul_neg) (simp add: sqrt_neg_mul_neg)\n                                                     (simp add: sqrt_neg_mul_neg) (simp add: sqrt_neg_mul_neg)\n                                                     (simp add: sqrt_neg_mul_neg) (simp add: sqrt_neg_mul_neg)\n                                                     (simp add: sqrt_neg_mul_neg) (simp add: sqrt_neg_mul_neg)\n                                                     (simp add: sqrt_neg_mul_neg) (simp add: sqrt_neg_mul_neg)\n                                                     (simp add:"
+        },
+        "47": {
+            "formalization": "theory aime_1985_p5 imports\n  Complex_Main\n\nbegin\n\ntheorem aime_1985_p5:\n  shows \"(pow 29 13) mod 7 = 3\"\n  by (simp add: pow_mod_mult_right pow_mod_self)\n\nend\n"
+        },
+        "48": {
+            "formalization": "theory rectangular_patio imports Complex_Main\n\nbegin\n\ntheorem rectangular_patio:\n  fixes l w :: real\n  assumes \"l * w = 180\"\n  assumes \"2 * (l + w) = 54\"\n  shows \"l^2 + w^2 = 369\"\n  sorry\n\nend\n"
+        },
+        "49": {
+            "formalization": "theory sqrt_19_p5 imports Complex_Main\n\nbegin\n\ntheorem sqrt_19_p5:\n  fixes y :: real\n  assumes h0 : \"sqrt (19 + 3 * y) = 7\"\n  shows \"y = 10\"\n  sorry\n\nend\n"
+        }
+    },
+    "denoising": {
+        "0": {
+            "formalization": "theory aime_1995_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1995_p5:\n  fixes n :: nat\n  assumes h0 : \"80325 | n!\"\n  shows \"17 = n\"\n  \nsorry\nend\n"
+        },
+        "1": {
+            "formalization": "theory aime_1995_p1 imports Complex_Main\n\nbegin\n\nlemma aime_1995_p1:\n  fixes n :: nat\n  shows \"11 | (pow 10 n) - (- pow 1 + n)\"\n\nsorry\nend\n"
+        },
+        "2": {
+            "formalization": "theory congruences_p1 imports Arith\nbegin\n\nlemma congruences_p1:\n  assumes \"3 * n = 2 (mod 11)\"\n  shows \"n = 8 (mod 11)\"\n\nsorry\nend\n"
+        },
+        "3": {
+            "formalization": "theory euler_p431 imports Complex_Main\n\nbegin\n\ntheorem euler_p431:\n  fixes n :: nat\n  assumes h0 : \"n > 40\"\n  assumes h1 : \"n^2 - n + 41 > 1\"\n  assumes h2 : \"n+1 ^2 - (n+1) + 41 > 1\"\n  assumes h3 : \"(n^2 - n + 41) * (n+1 ^2 - (n+1) + 41) = k ^2\" for some k :: nat\n  shows \"k = 41 * (n + 1)\"\n  sorry\n\nend\n"
+        },
+        "4": {
+            "formalization": "theory aime_1995_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1995_p5:\n  fixes x :: real\n  shows \"minimizer (x => x * x - 14 * x + 3) = 7\"\n\nsorry\nend\n"
+        },
+        "5": {
+            "formalization": "theory trig_equation imports Complex_Main\n\nbegin\n\ntheorem trig_equation:\n  fixes x :: real\n  assumes h0 : \"sec x + tan x = 22 / 7\"\n  assumes h1 : \"csc x + cot x = m / n\"\n  and m_is_int : \"m in ints\"\n  and n_is_int : \"n in ints\"\n  and n_is_pos : \"n > 0\"\n  shows \"m + n = 44\"\n\nsorry\nend\n"
+        },
+        "6": {
+            "formalization": "theory pi_x_values imports Complex_Main\n\nbegin\n\ntheorem pi_x_values:\n  shows \"card {x : int | abs x < 3 * pi} = 19\"\n  \nsorry\nend\n"
+        },
+        "7": {
+            "formalization": "theory aime_1952_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1952_p5:\n  fixes x :: real\n  assumes h0 : \"(x+3)^2 = 121\"\n  shows \"x = -6 \\<or> x = -11\"\n\nsorry\nend\n"
+        },
+        "8": {
+            "formalization": "theory aime_1995_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1995_p5:\n  fixes x :: real\n  shows \"(x + 1) ^ 2 * x = x ^ 3 + 2 * x ^ 2 + x\"\n\nsorry\nend\n"
+        },
+        "9": {
+            "formalization": "theory p_power_divides_a\nbegin\n\nlemma p_power_divides_a:\n  assumes \"p > 0\" and \"is_prime p\" and \"a > 0\"\n  shows \"p | (a ^ p - a)\"\n\nsorry\nend\n"
+        },
+        "10": {
+            "formalization": "theory sum_of_squares imports Complex_Main\n\nbegin\n\ntheorem sum_of_squares:\n  \"sum (i, 1 <= i, 9) (i * i) mod 10 = 5\"\n\nsorry\nend\n"
+        },
+        "11": {
+            "formalization": "theory aime_1995_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1995_p5:\n  fixes A B C :: nat\n  assumes \"1 <= A\" and \"1 <= B\" and \"1 <= C\" and \"A <> B\" and \"A <> C\" and \"B <> C\"\n  assumes h1 : \"A + B = C\"\n      and h2 : \"A * A - B = 2 * C\"\n      and h3 : \"C * B = A * A + A\"\n  shows \"A + B + C = 8\"\n  sorry\n\nend\n"
+        },
+        "12": {
+            "formalization": "theory euler_totient_product_of_odd_numbers\nimports Complex_Main\nbegin\n\nlemma euler_totient_odd_numbers:\n  assumes \"n > 0\"\n  shows \"euler_totient n = n\"\n\ntheorem product_of_odd_numbers_less_than_10000:\n  let odd_numbers = \"{ i | i :: nat, i < 10000, i mod 2 = 1 }\"\n  shows \"prod (set odd_numbers) = 10000! / (2 ^ 5000 * 5000!)\"\n\nsorry\nend\n"
+        },
+        "13": {
+            "formalization": "theory aime_1995_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1995_p5:\n  fixes x :: real\n  assumes h0 : \"|x - 2.0| <= 5.6\"\n  shows \"x \\<in> {2.0 - 5.6 .. 2.0 + 5.6}\"\n\ntheorem aime_1995_p5_cardinality:\n  assumes h0 : \"x \\<in> {2.0 - 5.6 .. 2.0 + 5.6}\"\n  shows \"card (x) = 11\"\n\nsorry\nend\n"
+        },
+        "14": {
+            "formalization": "theory triangle_inequality imports Complex_Main\n\nbegin\n\nlemma triangle_inequality:\n  fixes a b c :: real\n  assumes \"a > 0\" and \"b > 0\" and \"c > 0\"\n  shows \"a^2 * b * (a - b) + b^2 * c * (b - c) + c^2 * a * (c - a) >= 0\"\n\nsorry\nend\n"
+        },
+        "15": {
+            "formalization": "theory aime_1984_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1984_p5:\n  fixes a b c :: real\n  assumes h0 : \"-3 * a + b + c = -3\"\n        h1 : \"a + 3 * b + c = 9\"\n        h2 : \"a + b + 3 * c = 19\"\n  shows \"a * b * c = -56\"\n\nsorry\nend\n"
+        },
+        "16": {
+            "formalization": "theory fib_parity imports Complex_Main\n\nbegin\n\ndefinition fib :: nat -> real\n  fixes n :: nat\n  assumes n >= 0\n  shows \"if n = 0 then 0 else if n = 1 then 0 else fib (n - 1) + fib (n - 3)\"\n\nsorry\nend\n"
+        },
+        "17": {
+            "formalization": "theory inverse_function_p1 imports Complex_Main\n\nbegin\n\ntheorem inverse_function_p1:\n  fixes x y h f :: \"real \\<Rightarrow> real\"\n  assumes h_inv : \"h(x) = f ^-1(x)\"\n  assumes h2 : \"h(2) = 10\"\n  assumes h10 : \"h(10) = 1\"\n  assumes h1 : \"h(1) = 2\"\n  shows \"f(f(1)) = 1\"\n\nsorry\nend\n"
+        },
+        "18": {
+            "formalization": "theory perfect_squares_product imports Complex_Main\n\nbegin\n\ndefinition perfect_square :: \"nat \\<Rightarrow> bool\" where\n  \"perfect_square n \\<longleftrightarrow> (\\<exists>k. n = k * k)\"\n\ntheorem perfect_squares_product:\n  \"sum (filter perfect_square (range 1 (1 + sqrt (real_of_int (1 + 9 * 9))))) = 672\"\n  sorry\n\nend\n"
+        },
+        "19": {
+            "formalization": "theory imo_2001_p5 imports Complex_Main\n\nbegin\n\ntheorem imo_2001_p5:\n  fixes I M O :: nat\n  assumes \"I * M * O = 2001\"\n  shows \"I + M + O = 671\"\n  sorry\n\nend\n"
+        },
+        "20": {
+            "formalization": "theory smallest_x imports Complex_Main\n\nbegin\n\ntheorem smallest_x:\n  fixes x :: nat\n  assumes \"3 | x\"\n  assumes \"5 | (x + 4)\"\n  assumes \"x mod 10 = (x + 4) mod 10\"\n  shows \"x = 14\"\n  \nsorry\nend\n"
+        },
+        "21": {
+            "formalization": "theory sum_modulo_four imports Complex_Main\n\nbegin\n\ntheorem sum_modulo_four:\n  \"((1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1) mod 4 = 2)\"\n\nsorry\nend\n"
+        },
+        "22": {
+            "formalization": "theory aime_1952_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1952_p5:\n  fixes a b c :: real\n  assumes a1 : \"a <= b\"\n  assumes a2 : \"b <= c\"\n  assumes a3 : \"a + b + c = 2\"\n  assumes a4 : \"a * b + b * c + c * a = 1\"\n  shows \"0 <= a\" and \"a <= 1 / 3\" and \"1 / 3 <= b\" and \"b <= 1\" and \"1 <= c\" and \"c <= 4 / 3\"\n\nsorry\nend\n"
+        },
+        "23": {
+            "formalization": "theory aime_1995_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1995_p5:\n  fixes x :: real\n  assumes h0 : \"5 + 0.05 * 10 = 1.1 * n\"\n  shows \"n = 50\"\n\nsorry\nend\n"
+        },
+        "24": {
+            "formalization": "theory aime_1985_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1985_p5:\n  fixes n :: nat\n  assumes \"n = 999999\"\n  shows \"pow 5 n MOD 7 = 6\"\n\nsorry\nend\n"
+        },
+        "25": {
+            "formalization": "theory max_value_function imports Complex_Main\n\nbegin\n\ntheorem max_value_function:\n  fixes t :: real\n  assumes h1 : \"4 * t * (2 * t - 3) > 0\"\n  shows \"max (t => (2 * t - 3 * t) / (4 * t) : real) = 1 / 12\"\n  \nsorry\nend\n"
+        },
+        "26": {
+            "formalization": "theory aime_1995_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1995_p5:\n  fixes x A B :: int\n  assumes h0 : \"10 * x * x - x - 24 = (A * x - 8) * (B * x + 3)\"\n  shows \"A * B + B = 12\"\n\nsorry\nend\n"
+        },
+        "27": {
+            "formalization": "theory aime_1995_p5 imports Complex_Main Big_Ints\n\nbegin\n\ndefinition base_10_digits :: \"nat -> int list\" where\n  \"base_10_digits 0 = []\" |\n  \"base_10_digits n = let val (q, r) = div_mod n 10 in r :: base_10_digits q\"\n\ntheorem aime_1995_p5:\n  fixes n :: nat\n  assumes h0 : \"n = 3 ^ 17 + 3 ^ 10\"\n  assumes h1 : \"11 | (n + 1)\"\n  assumes h2 : \"exists a b c : int. distinct a b c /\\\n                  odd a /\\ odd c /\\ not (3 | b)\"\n  assumes h3 : \"A = fst (find_in (base_10_digits n) h2)\"\n  shows \"100 * A + 10 * (fst (find_in (base_10_digits n) (fn x => if (odd x) then 3 else 0))) +\n             (snd (find_in (base_10_digits n) (fn x => if (odd x) then x else 0))) = 129\"\n  sorry\n\nend\n"
+        },
+        "28": {
+            "formalization": "theory mod_arithmetic imports Arith.Basic\n\nbegin\n\nlemma rem_54_mod_6: \"54 mod 6 = 0\"\n\nsorry\nend\n"
+        },
+        "29": {
+            "formalization": "theory aime_1995_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1995_p5:\n  fixes a b :: real\n  assumes h1 : \"a ^ 2 * b ^ 3 = 32 / 27\"\n          h2 : \"a / b ^ 3 = 27 / 4\"\n  shows \"a + b = 8 / 3\"\n\nsorry\nend\n"
+        },
+        "30": {
+            "formalization": "theory aime_1995_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1995_p5:\n  fixes n a b :: real\n  assumes n_pos : \"n > 0\"\n  assumes h1 : \"(a_n, b_n) = (sqrt 3 * a_(n-1) - b_(n-1), sqrt 3 * b_(n-1) + a_(n-1))\"\n  assumes h2 : \"(a_1, b_1) = (2, 4)\"\n  shows \"a_1 + b_1 = 2 * sqrt 3 + 2\"\n\nsorry\nend\n"
+        },
+        "31": {
+            "formalization": "theory aime_1995_p5 imports\nComplex_Main\n\nbegin\n\ntheorem aime_1995_p5:\n  fixes n :: nat\n  assumes \"gcd (21 * n + 4) (14 * n + 3) = 1\"\n  shows \"irreducible (rational (21 * n + 4) (14 * n + 3))\"\n\nsorry\nend\n"
+        },
+        "32": {
+            "formalization": "theory aime_1993_p5 imports Complex_Main\n\nbegin\n\nlemma aime_1993_p5_lemma1:\n  assumes \"a > 0\" and \"b > 0\" and \"b <= a\"\n  shows \"a + b <= 2 * sqrt (a * b)\"\n\nsorry\nend\n"
+        },
+        "33": {
+            "formalization": "theory lcm_gcd_p5 imports Complex_Main\n\nbegin\n\ntheorem lcm_gcd_p5:\n  fixes a b :: real\n  assumes h1 : \"gcd a b = 8\"\n  assumes h2 : \"lcm a b = 3720\"\n  assumes h3 : \"a = 120\"\n  shows \"b = 248\"\n\nsorry\nend\n"
+        },
+        "34": {
+            "formalization": "theory aime_1993_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1993_p5:\n  fixes a b :: real\n  shows \"(|a + b|) / (1 + |a + b|) <= (|a|) / (1 + |a|) + (|b|) / (1 + |b|)\"\n\nsorry\nend\n"
+        },
+        "35": {
+            "formalization": "theory aime_1993_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1993_p5:\n  fixes x :: real\n  assumes h0 : \"(x - 9) / (x + 1) = 2\"\n  shows \"x = -11\"\n\nsorry\nend\n"
+        },
+        "36": {
+            "formalization": "theory system_of_equations_proof imports Complex_Main\n\nbegin\n\nlemma lemma_1:\n  assumes \"a11 > 0\" and \"a22 > 0\" and \"a33 > 0\" and \"a12 < 0\" and \"a13 < 0\" and \"a21 < 0\" and \"a23 < 0\" and \"a31 < 0\" and \"a32 < 0\" and \"a11 + a12 <> 0\" and \"a11 + a13 <> 0\" and \"a22 + a23 <> 0\" and \"a33 + a31 <> 0\" and \"a33 + a32 <> 0\"\n  shows \"x1 = 0 \\<and> x2 = 0 \\<and> x3 = 0\"\n\nsorry\nend\n"
+        },
+        "37": {
+            "formalization": "theory plumbing_pricing imports Complex_Main\n\nbegin\n\ntheorem plumbing_pricing:\n  fixes N x :: real\n  assumes \"N + x * hours = 97\"\n  and \"N + x * hours_2 = 265\"\n  shows \"hours = 1 \\<and> hours_2 = 2 \\<or> hours = 2 \\<and> hours_2 = 1 \\<or> N = 139 + 2 * x\"\n\nsorry\nend\n"
+        },
+        "38": {
+            "formalization": "theory ac_circuits\n  imports Complex_Main\nbegin\n\ntheorem ac_circuits:\n  fixes V Z I :: complex\n  assumes h1 : \"V = 1 + i\"\n  assumes h2 : \"Z = 2 - i\"\n  shows \"I = (1 / 5) + (3 / 5) * i\"\n\nsorry\nend\n"
+        },
+        "39": {
+            "formalization": "theory prime_divisors_of_sum_of_divisors\n  imports Complex_Main\nbegin\n\ndefinition sum_of_divisors :: \"nat \\<Rightarrow> real\" where\n  \"sum_of_divisors 1 = 1\"\n  \"sum_of_divisors n = sum [1..n] (squared_root (n::real))\"\n\ndefinition prime_divisors :: \"real \\<Rightarrow> list real\" where\n  \"prime_divisors 1 = []\"\n  \"prime_divisors n = (if prime n then [n] else []) ++ prime_divisors (squared_root (n::real))\"\n\ntheorem statement : \"sum (prime_divisors (sum_of_divisors 500)) = 25\"\n\nsorry\nend\n"
+        },
+        "40": {
+            "formalization": "theory aime_1982_p5 imports Complex_Main\n\nbegin\n\nfun f :: \"nat \\<Rightarrow> real\"\n\nsorry\nend\n"
+        },
+        "41": {
+            "formalization": "theory liberty_middle_school imports Complex_Main\n\nbegin\n\ntheorem liberty_middle_school:\n  fixes n :: real\n  assumes h0 : \"n = 598\"\n  assumes h1 : \"n = 575 * (1 + 0.04)\"\n  shows \"575 = n\"\n\nsorry\nend\n"
+        },
+        "42": {
+            "formalization": "theory aime_1995_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1995_p5:\n  fixes x :: real\n  assumes h1 : \"(4 * x * x) / ((1 - (sqrt (2 * x + 1)))^2) < 2 * x + 9\"\n  shows \"x < -1.5 \\<or> x > 1.5\"\n\nsorry\nend\n"
+        },
+        "43": {
+            "formalization": "theory aime_1995_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1995_p5:\n  fixes n :: nat\n  assumes h0 : \"(n + 2) * (n + 2) + (n + 2) * (n + 4) + (n + 4) * (n + 4) = 12296\"\n  shows \"((n + 2) * (n + 4) * (n + 6)) / 8 = 32736\"\n\nsorry\nend\n"
+        },
+        "44": {
+            "formalization": "theory lines_intersection\n  imports Complex_Main\nbegin\n\ntheorem lines_intersection:\n  fixes s t :: real\n  assumes h1 : \"s = 9 - 2 * t\"\n  assumes h2 : \"t = 3 * s + 1\"\n  shows \"s = 1 \\<and> t = 4\"\n\nsorry\nend\n"
+        },
+        "45": {
+            "formalization": "theory aime_1995_p5 imports Complex_Main\n\nbegin\n\ndefinition cos_2pi_over_n where \"cos_2pi_over_n := cos (2 * pi / (2 * n))\"\n\ntheorem aime_1995_p5:\n  fixes a b c :: real\n  assumes h0 : \"root (x, P x = 0) = cos (2 * pi / 7) \\<or> root (x, P x = 0) = cos (4 * pi / 7) \\<or> root (x, P x = 0) = cos (6 * pi / 7)\"\n  shows \"abc = 1 / 32\"\n\nsorry\nend\n"
+        },
+        "46": {
+            "formalization": "theory aime_1993_p5 imports Complex_Main\n\nbegin\n\ntheorem aime_1993_p5:\n  shows \"(sqrt (-1) / 2) ^ 2 = -1 / 4\"\n\nsorry\nend\n"
+        },
+        "47": {
+            "formalization": "theory aime_1985_p5 imports\n  Complex_Main\n\nbegin\n\ntheorem aime_1985_p5:\n  shows \"(pow 29 13) mod 7 = 3\"\n\nsorry\nend\n"
+        },
+        "48": {
+            "formalization": "theory rectangular_patio imports Complex_Main\n\nbegin\n\ntheorem rectangular_patio:\n  fixes l w :: real\n  assumes \"l * w = 180\"\n  assumes \"2 * (l + w) = 54\"\n  shows \"l^2 + w^2 = 369\"\n  sorry\n\nend\n"
+        },
+        "49": {
+            "formalization": "theory sqrt_19_p5 imports Complex_Main\n\nbegin\n\ntheorem sqrt_19_p5:\n  fixes y :: real\n  assumes h0 : \"sqrt (19 + 3 * y) = 7\"\n  shows \"y = 10\"\n\nsorry\nend\n"
+        }
+    }
+}

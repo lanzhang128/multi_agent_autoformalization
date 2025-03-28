@@ -1,0 +1,554 @@
+{
+    "0": {
+        "34": {
+            "formalization": "theory Real_inequality\n  imports \"HOL.Real\"\nbegin\n\nlemma real_inequality: \"∀a b::real. (|a + b|) / (1 + |a + b|) ≤ (|a|) / (1 + |a|) + (|b|) / (1 + |b|)\"\n  by (auto simp: abs_add)\n  \nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 5\nError message: Inner syntax error\\<^here>\nFailed to parse prop\n\nIdentified error on line: 6\nError message: Bad context for command \"by\"\\<^here> -- using reset state\n\n"
+        },
+        "36": {
+            "formalization": "theory System_of_Equations\n  imports Main\nbegin\n\n  definition a11 :: real where \"a11 = 1\"  (* Example positive coefficient *)\n  definition a22 :: real where \"a22 = 1\"  (* Example positive coefficient *)\n  definition a33 :: real where \"a33 = 1\"  (* Example positive coefficient *)\n\n  definition a12 :: real where \"a12 = -1\" (* Example negative coefficient *)\n  definition a13 :: real where \"a13 = -1\" (* Example negative coefficient *)\n  definition a21 :: real where \"a21 = -1\" (* Example negative coefficient *)\n  definition a23 :: real where \"a23 = -1\" (* Example negative coefficient *)\n  definition a31 :: real where \"a31 = -1\" (* Example negative coefficient *)\n  definition a32 :: real where \"a32 = -1\" (* Example negative coefficient *)\n\n  lemma unique_solution:\n    assumes \"a11 > 0\" \"a22 > 0\" \"a33 > 0\"\n    and \"a12 < 0\" \"a13 < 0\" \"a21 < 0\" \"a23 < 0\" \"a31 < 0\" \"a32 < 0\"\n    and \"a11 + a12 + a13 > 0\" \"a21 + a22 + a23 > 0\" \"a31 + a32 + a33 > 0\"\n    shows \"x1 = 0 ∧ x2 = 0 ∧ x3 = 0\"\n  sorry\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 5\nError message: Undefined type name: \"real\"\\<^here>\nFailed to parse type\n\nIdentified error on line: 6\nError message: Undefined type name: \"real\"\\<^here>\nFailed to parse type\n\nIdentified error on line: 7\nError message: Undefined type name: \"real\"\\<^here>\nFailed to parse type\n\nIdentified error on line: 9\nError message: Undefined type name: \"real\"\\<^here>\nFailed to parse type\n\nIdentified error on line: 10\nError message: Undefined type name: \"real\"\\<^here>\nFailed to parse type\n\nIdentified error on line: 11\nError message: Undefined type name: \"real\"\\<^here>\nFailed to parse type\n\nIdentified error on line: 12\nError message: Undefined type name: \"real\"\\<^here>\nFailed to parse type\n\nIdentified error on line: 13\nError message: Undefined type name: \"real\"\\<^here>\nFailed to parse type\n\nIdentified error on line: 14\nError message: Undefined type name: \"real\"\\<^here>\nFailed to parse type\n\n"
+        },
+        "3": {
+            "formalization": "theory Euler_Prime\n  imports Main\nbegin\n\nfun p :: \"nat ⇒ nat\" where\n  \"p n = n^2 - n + 41\"\n\nlemma common_factor:\n  assumes \"n > 0\"\n  shows \"gcd (p n) (p (n + 1)) > 1 ⟷ n = 41\"\nproof -\n  have \"p (n + 1) = (n + 1)^2 - (n + 1) + 41\"\n    by (simp add: p.simps)\n  then show ?thesis\n    by (simp add: gcd_def)\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 15\nError message: Undefined fact: \"gcd_def\"\\<^here>\n\n"
+        },
+        "23": {
+            "formalization": "theory Percentage_Equation\n  imports Main\nbegin\n\nlemma five_plus_500_percent_of_10_equals_110_percent_of_x:\n  assumes \"x = 50\"\n  shows \"5 + (500 / 100) * 10 = (110 / 100) * x\"\n  by (simp add: assms)\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 8\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. 5 + 500 / 100 * 10 = 110 / 100 * 50\n\n"
+        },
+        "43": {
+            "formalization": "theory Consecutive_Even_Numbers\n  imports Main\nbegin\n\nlemma sum_of_squares_even_numbers:\n  assumes \"x > 0\" and \"even x\"\n  shows \"((x^2) + ((x + 2)^2) + ((x + 4)^2)) = 12296 ⟹ (x * (x + 2) * (x + 4)) div 8 = 32736\"\nproof -\n  have \"x^2 + (x + 2)^2 + (x + 4)^2 = x^2 + (x^2 + 4x + 4) + (x^2 + 8x + 16)\"\n    by simp\n  then have \"3 * x^2 + 12 * x + 20 = 12296\"\n    by simp\n  then have \"3 * x^2 + 12 * x - 12276 = 0\"\n    by simp\n  then have \"x = 38\" \n    using quadratic_formula by auto\n  then have \"x * (x + 2) * (x + 4) = 38 * 40 * 42\"\n    by simp\n  then show ?thesis\n    by (simp add: divide_simps)\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 9\nError message: Type unification failed: No type arity fun :: numeral\n\nType error in application: operator not of function type\n\nOperator:  4 :: ??'a\nOperand:   x :: 'a\n\n\nIdentified error on line: 10\nError message: Illegal application of proof command in \"state\" mode\n\nIdentified error on line: 11\nError message: No current facts available\n\nIdentified error on line: 12\nError message: Failed to apply initial proof method\\<^here>:\ngoal (1 subgoal):\n 1. 3 * x\\<^sup>2 + 12 * x + 20 = 12296\n\nIdentified error on line: 14\nError message: Failed to apply initial proof method\\<^here>:\nusing this:\n  3 * x\\<^sup>2 + 12 * x + 20 = 12296\ngoal (1 subgoal):\n 1. 3 * x\\<^sup>2 + 12 * x - 12276 = 0\n\nIdentified error on line: 16\nError message: Undefined fact: \"quadratic_formula\"\\<^here>\n\nIdentified error on line: 16\nError message: Failed to apply initial proof method\\<^here>:\nusing this:\n  3 * x\\<^sup>2 + 12 * x - 12276 = 0\ngoal (1 subgoal):\n 1. x = 38\n\nIdentified error on line: 20\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. x * (x + 2) * (x + 4) = 63840 \\<Longrightarrow> 63840 div 8 = 32736\n\n"
+        },
+        "42": {
+            "formalization": "theory Inequality_Example\n  imports Main\nbegin\n\nlemma inequality_example:\n  assumes \"1 - sqrt (2 * x + 1) > 0\"\n  shows \"4 * x^2 < (2 * x + 9) * (1 - sqrt (2 * x + 1))^2\"\n  using assms by (simp add: field_simps)\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 8\nError message: Failed to apply initial proof method\\<^here>:\nusing this:\n  0 < 1 - sqrt (2 * x + 1)\ngoal (1 subgoal):\n 1. 4 * x\\<^sup>2 < (2 * x + 9) * (1 - sqrt (2 * x + 1))\\<^sup>2\n\n"
+        },
+        "35": {
+            "formalization": "theory Solve_Equation\n  imports Main\nbegin\n\nlemma solve_equation:\n  assumes \"x - 9 = 2 * (x + 1)\"\n  shows \"x = -11\"\nproof -\n  have \"x - 9 = 2 * (x + 1)\" using assms by simp\n  then have \"x - 9 = 2 * x + 2\" by simp\n  then have \"x - 2 * x = 9 + 2\" by (simp add: algebra_simps)\n  then have \"-x = 11\" by simp\n  thus ?thesis by simp\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 10\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. x - 9 = 2 * (x + 1) \\<Longrightarrow> 2 * (x + 1) = 2 * x + 2\n\nIdentified error on line: 11\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. x - 9 = 2 * x + 2 \\<Longrightarrow> x - 2 * x = 11\n\nIdentified error on line: 12\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. x - 2 * x = 11 \\<Longrightarrow> - x = 11\n\nIdentified error on line: 13\nError message: Failed to apply initial proof method\\<^here>:\nusing this:\n  - x = 11\ngoal (1 subgoal):\n 1. x = - 11\n\n"
+        },
+        "26": {
+            "formalization": "theory Polynomial_Factorization\n  imports Main\nbegin\n\nlemma factorization_example:\n  assumes \"A * B = 10\" \"A * 3 + B * (-8) = -1\" \"A ∈ ℤ\" \"B ∈ ℤ\"\n  shows \"AB + B = 12\"\n  using assms(1) assms(2) by auto\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 8\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. A * B = 10 \\<Longrightarrow> A * 3 - B * 8 = - 1 \\<Longrightarrow> AB + B = 12\n\n"
+        },
+        "41": {
+            "formalization": "theory Enrollment\n  imports Main\nbegin\n\n  definition last_year_enrollment :: real where\n    \"last_year_enrollment = 598 / (1 + 0.04)\"\n\n  lemma last_year_enrollment_value: \"last_year_enrollment = 575\"\n    by (simp add: last_year_enrollment_def)\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 5\nError message: Undefined type name: \"real\"\\<^here>\nFailed to parse type\n\nIdentified error on line: 9\nError message: Undefined fact: \"last_year_enrollment_def\"\\<^here>\n\n"
+        },
+        "21": {
+            "formalization": "theory Modulo4Remainder\n  imports Main\nbegin\n\nlemma modulo_4_remainder_sum: \"((1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10 + 11 + 12) mod 4) = 2\"\n  by simp\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 6\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. 78 mod 4 = 2\n\n"
+        }
+    },
+    "1": {
+        "34": {
+            "formalization": "theory test\nimports \"HOL.Real\"\nbegin\n\nlemma real_inequality: \"∀a b::real. (abs (a + b)) / (1 + abs (a + b)) ≤ (abs a) / (1 + abs a) + (abs b) / (1 + abs b)\"\n  by (auto simp: abs_triangle_ineq2)\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 6\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. \\<And>a b. \\<bar>a + b\\<bar> / (1 + \\<bar>a + b\\<bar>) \\<le> \\<bar>a\\<bar> / (1 + \\<bar>a\\<bar>) + \\<bar>b\\<bar> / (1 + \\<bar>b\\<bar>)\n\n"
+        },
+        "36": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\n  definition a11 :: real where \"a11 = 1\"  (* Example positive coefficient *)\n  definition a22 :: real where \"a22 = 1\"  (* Example positive coefficient *)\n  definition a33 :: real where \"a33 = 1\"  (* Example positive coefficient *)\n\n  definition a12 :: real where \"a12 = -1\" (* Example negative coefficient *)\n  definition a13 :: real where \"a13 = -1\" (* Example negative coefficient *)\n  definition a21 :: real where \"a21 = -1\" (* Example negative coefficient *)\n  definition a23 :: real where \"a23 = -1\" (* Example negative coefficient *)\n  definition a31 :: real where \"a31 = -1\" (* Example negative coefficient *)\n  definition a32 :: real where \"a32 = -1\" (* Example negative coefficient *)\n\n  lemma unique_solution:\n    assumes \"a11 > 0\" \"a22 > 0\" \"a33 > 0\"\n    and \"a12 < 0\" \"a13 < 0\" \"a21 < 0\" \"a23 < 0\" \"a31 < 0\" \"a32 < 0\"\n    and \"a11 + a12 + a13 > 0\" \"a21 + a22 + a23 > 0\" \"a31 + a32 + a33 > 0\"\n    shows \"x1 = 0 ∧ x2 = 0 ∧ x3 = 0\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "3": {
+            "formalization": "theory test\nimports Main\nbegin\n\nfun p :: \"nat ⇒ nat\" where\n  \"p n = n^2 - n + 41\"\n\nlemma common_factor:\n  assumes \"n > 0\"\n  shows \"gcd (p n) (p (n + 1)) > 1 ⟷ n = 41\"\nproof -\n  have \"p (n + 1) = (n + 1)^2 - (n + 1) + 41\"\n    by (simp add: p.simps)\n  then show ?thesis\n    by (simp add: gcd_nat_def)\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 15\nError message: Undefined fact: \"gcd_nat_def\"\\<^here>\n\n"
+        },
+        "23": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma five_plus_500_percent_of_10_equals_110_percent_of_x:\n  shows \"5 + (500 / 100) * 10 = (110 / 100) * 50\"\n  by simp\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 7\nError message: Failed to apply initial proof method\\<^here>:\ngoal (1 subgoal):\n 1. 5 + 500 / 100 * 10 = 110 / 100 * 50\n\n"
+        },
+        "43": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma sum_of_squares_even_numbers:\n  assumes \"x > 0\" and \"even x\"\n  shows \"((x^2) + ((x + 2)^2) + ((x + 4)^2)) = 12296 ⟹ (x * (x + 2) * (x + 4)) div 8 = 32736\"\nproof -\n  have \"x^2 + (x + 2)^2 + (x + 4)^2 = x^2 + (x^2 + 4*x + 4) + (x^2 + 8*x + 16)\"\n    by (simp add: power2_eq_square)\n  then have \"3 * x^2 + 12 * x + 20 = 12296\"\n    by simp\n  then have \"3 * x^2 + 12 * x - 12276 = 0\"\n    by simp\n  then have \"x = 38\" \n    using real_arith\n    by (smt (verit, del_insts) mult.commute mult.left_commute mult.right_neutral numeral_Bit0 numeral_Bit1 numeral_eq_iff semiring_normalization_rules(7) semiring_normalization_rules(9))\n  then have \"x * (x + 2) * (x + 4) = 38 * 40 * 42\"\n    by simp\n  then show ?thesis\n    by simp\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": ""
+        },
+        "42": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\nlemma inequality_example:\n  assumes \"1 - sqrt (2 * x + 1) > 0\"\n  shows \"4 * x\\<^sup>2 < (2 * x + 9) * (1 - sqrt (2 * x + 1))\\<^sup>2\"\n  using assms by (simp add: power2_eq_square)\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 8\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. x < 0 \\<Longrightarrow>\n    4 * (x * x)\n    < (2 * x + 9) * ((1 - sqrt (2 * x + 1)) * (1 - sqrt (2 * x + 1)))\n\n"
+        },
+        "35": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma solve_equation:\n  assumes \"(x - 9) / (x + 1) = 2\"\n  shows \"x = -11\"\nproof -\n  have \"x - 9 = 2 * (x + 1)\" using assms by (simp add: field_simps)\n  then have \"x - 9 = 2 * x + 2\" by simp\n  then have \"x - 2 * x = 11\" by (simp add: algebra_simps)\n  then have \"-x = 11\" by simp\n  thus ?thesis by simp\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 9\nError message: Type unification failed: Variable 'a::{inverse,minus,uminus,numeral} not of sort {times,numeral}\n\nType error in application: incompatible operand type\n\nOperator:  (*) 2 :: ??'a \\<Rightarrow> ??'a\nOperand:   x + 1 :: 'a\n\n\nIdentified error on line: 9\nError message: Illegal application of proof command in \"state\" mode\n\nIdentified error on line: 9\nError message: Illegal application of proof command in \"state\" mode\n\nIdentified error on line: 10\nError message: No current facts available\n\nIdentified error on line: 10\nError message: Type unification failed: Variable 'a::{inverse,minus,uminus,numeral} not of sort {times,numeral}\n\nType error in application: incompatible operand type\n\nOperator:  (*) 2 :: ??'a \\<Rightarrow> ??'a\nOperand:   x :: 'a\n\n\nIdentified error on line: 10\nError message: Illegal application of proof command in \"state\" mode\n\nIdentified error on line: 11\nError message: No current facts available\n\nIdentified error on line: 11\nError message: Type unification failed: Variable 'a::{inverse,minus,uminus,numeral} not of sort {times,numeral}\n\nType error in application: incompatible operand type\n\nOperator:  (*) 2 :: ??'a \\<Rightarrow> ??'a\nOperand:   x :: 'a\n\n\nIdentified error on line: 11\nError message: Illegal application of proof command in \"state\" mode\n\nIdentified error on line: 12\nError message: No current facts available\n\nIdentified error on line: 12\nError message: Failed to apply initial proof method\\<^here>:\ngoal (1 subgoal):\n 1. - x = 11\n\nIdentified error on line: 13\nError message: Failed to apply initial proof method\\<^here>:\nusing this:\n  - x = 11\ngoal (1 subgoal):\n 1. x = - 11\n\n"
+        },
+        "26": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma factorization_example:\n  assumes \"A * B = 10\" \"A * 3 + B * (-8) = -1\" \"A ∈ ℤ\" \"B ∈ ℤ\"\n  shows \"A * B + B = 12\"\nproof -\n  from assms have \"A = 5\" \"B = 2\" \n    by (auto simp add: algebra_simps)\n  then show ?thesis\n    by simp\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 10\nError message: Failed to finish proof\\<^here>:\ngoal (2 subgoals):\n 1. A * B = 10 \\<Longrightarrow> 1 + A * 3 = B * 8 \\<Longrightarrow> A \\<in> \\<int> \\<Longrightarrow> B \\<in> \\<int> \\<Longrightarrow> A = 5\n 2. A * B = 10 \\<Longrightarrow> 1 + A * 3 = B * 8 \\<Longrightarrow> A \\<in> \\<int> \\<Longrightarrow> B \\<in> \\<int> \\<Longrightarrow> B = 2\n\n"
+        },
+        "41": {
+            "formalization": "theory test\nimports Main\nbegin\n\n  definition last_year_enrollment :: real where\n    \"last_year_enrollment = 598 / (1 + 0.04 :: real)\"\n\n  lemma last_year_enrollment_value: \"last_year_enrollment = 575\"\n    by (simp add: last_year_enrollment_def)\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 5\nError message: Undefined type name: \"real\"\\<^here>\nFailed to parse type\n\nIdentified error on line: 9\nError message: Undefined fact: \"last_year_enrollment_def\"\\<^here>\n\n"
+        },
+        "21": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma modulo_4_remainder_sum: \"((1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10 + 11 + 12) mod 4) = 2\"\n  by eval\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 6\nError message: Wellsortedness error:\nType 'a not of sort equal\nCannot derive subsort relation {numeral,modulo} < equal\n\n"
+        }
+    },
+    "2": {
+        "34": {
+            "formalization": "theory test\n  imports \"HOL.Real\"\nbegin\n\nlemma real_inequality: \n  fixes a b :: real\n  shows \"(abs (a + b)) / (1 + abs (a + b)) ≤ (abs a) / (1 + abs a) + (abs b) / (1 + abs b)\"\nproof -\n  have \"abs (a + b) ≤ abs a + abs b\"\n    by (simp add: abs_triangle_ineq)\n  then have \"(abs (a + b)) / (1 + abs (a + b)) ≤ (abs a + abs b) / (1 + abs (a + b))\"\n    by (simp add: divide_right_mono)\n  also have \"... ≤ (abs a) / (1 + abs a) + (abs b) / (1 + abs b)\"\n  proof -\n    have \"abs a / (1 + abs a) + abs b / (1 + abs b) = (abs a * (1 + abs b) + abs b * (1 + abs a)) / ((1 + abs a) * (1 + abs b))\"\n      by (simp add: field_simps)\n    also have \"... ≥ (abs a + abs b) / (1 + abs (a + b))\"\n    proof -\n      have \"(abs a * (1 + abs b) + abs b * (1 + abs a)) ≥ (abs a + abs b) * (1 + abs (a + b))\"\n        by (simp add: algebra_simps)\n      then show ?thesis\n        by (simp add: divide_right_mono)\n    qed\n    finally show ?thesis .\n  qed\n  finally show ?thesis .\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 20\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. \\<bar>a\\<bar> * \\<bar>a + b\\<bar> + \\<bar>b\\<bar> * \\<bar>a + b\\<bar> \\<le> \\<bar>a\\<bar> * (\\<bar>b\\<bar> * 2)\n\nIdentified error on line: 22\nError message: Failed to apply initial proof method\\<^here>:\nusing this:\n  (\\<bar>a\\<bar> + \\<bar>b\\<bar>) * (1 + \\<bar>a + b\\<bar>) \\<le> \\<bar>a\\<bar> * (1 + \\<bar>b\\<bar>) + \\<bar>b\\<bar> * (1 + \\<bar>a\\<bar>)\ngoal (1 subgoal):\n 1. (\\<bar>a\\<bar> + \\<bar>b\\<bar>) / (1 + \\<bar>a + b\\<bar>)\n    \\<le> (\\<bar>a\\<bar> * (1 + \\<bar>b\\<bar>) + \\<bar>b\\<bar> * (1 + \\<bar>a\\<bar>)) / ((1 + \\<bar>a\\<bar>) * (1 + \\<bar>b\\<bar>))\n\n"
+        },
+        "36": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\n  definition a11 :: real where \"a11 = 1\"  (* Example positive coefficient *)\n  definition a22 :: real where \"a22 = 1\"  (* Example positive coefficient *)\n  definition a33 :: real where \"a33 = 1\"  (* Example positive coefficient *)\n\n  definition a12 :: real where \"a12 = -1\" (* Example negative coefficient *)\n  definition a13 :: real where \"a13 = -1\" (* Example negative coefficient *)\n  definition a21 :: real where \"a21 = -1\" (* Example negative coefficient *)\n  definition a23 :: real where \"a23 = -1\" (* Example negative coefficient *)\n  definition a31 :: real where \"a31 = -1\" (* Example negative coefficient *)\n  definition a32 :: real where \"a32 = -1\" (* Example negative coefficient *)\n\n  lemma unique_solution:\n    assumes \"a11 > 0\" \"a22 > 0\" \"a33 > 0\"\n    and \"a12 < 0\" \"a13 < 0\" \"a21 < 0\" \"a23 < 0\" \"a31 < 0\" \"a32 < 0\"\n    and \"a11 + a12 + a13 > 0\" \"a21 + a22 + a23 > 0\" \"a31 + a32 + a33 > 0\"\n    shows \"x1 = 0 ∧ x2 = 0 ∧ x3 = 0\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "3": {
+            "formalization": "theory test\nimports Main\nbegin\n\nfun p :: \"nat ⇒ nat\" where\n  \"p n = n^2 - n + 41\"\n\nlemma common_factor:\n  assumes \"n > 0\"\n  shows \"gcd (p n) (p (n + 1)) > 1 ⟷ n = 41\"\nproof -\n  have \"p (n + 1) = (n + 1)^2 - (n + 1) + 41\"\n    by (simp add: p.simps)\n  then show ?thesis\n    by (simp add: gcd_nat.simps)\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": ""
+        },
+        "23": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma five_plus_500_percent_of_10_equals_110_percent_of_x:\n  shows \"5 + (500 / 100) * 10 = (110 / 100) * (50::real)\"\n  by simp\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 5\nError message: Undefined type name: \"real\"\\<^here>\n\nIdentified error on line: 7\nError message: Bad context for command \"by\"\\<^here> -- using reset state\n\n"
+        },
+        "43": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma sum_of_squares_even_numbers:\n  assumes \"x > 0\" and \"even x\"\n  shows \"((x^2) + ((x + 2)^2) + ((x + 4)^2)) = 12296 ⟹ (x * (x + 2) * (x + 4)) div 8 = 32736\"\nproof -\n  have \"x^2 + (x + 2)^2 + (x + 4)^2 = x^2 + (x^2 + 4*x + 4) + (x^2 + 8*x + 16)\"\n    by (simp add: power2_eq_square)\n  then have \"3 * x^2 + 12 * x + 20 = 12296\"\n    by simp\n  then have \"3 * x^2 + 12 * x - 12276 = 0\"\n    by simp\n  then have \"x = 38\" \n    using real_arith\n    by (smt (verit, del_insts) mult.commute mult.left_commute mult.right_neutral numeral_Bit0 numeral_Bit1 numeral_eq_iff semiring_normalization_rules(7) semiring_normalization_rules(9))\n  then have \"x * (x + 2) * (x + 4) = 38 * 40 * 42\"\n    by simp\n  then show ?thesis\n    by simp\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": ""
+        },
+        "42": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\nlemma inequality_example:\n  assumes \"1 - sqrt (2 * x + 1) > 0\"\n  shows \"4 * x\\<^sup>2 / (1 - sqrt (2 * x + 1))\\<^sup>2 < 2 * x + 9\"\n  using assms by (simp add: power2_eq_square)\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 8\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. x < 0 \\<Longrightarrow>\n    4 * (x * x) / ((1 - sqrt (2 * x + 1)) * (1 - sqrt (2 * x + 1)))\n    < 2 * x + 9\n\n"
+        },
+        "35": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma solve_equation:\n  assumes \"(x::int) - 9 = 2 * (x + 1)\"\n  shows \"x = -11\"\nproof -\n  have \"x - 9 = 2 * x + 2\" using assms by (simp add: algebra_simps)\n  then have \"-x = 11\" by simp\n  thus ?thesis by simp\nqed\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "26": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma factorization_example:\n  assumes \"A * B = 10\" \"A * 3 + B * (-8) = -1\" \"A ∈ ℤ\" \"B ∈ ℤ\"\n  shows \"A * B + B = 12\"\nproof -\n  from assms have \"A = 2\" \"B = 5\"\n    by (auto simp add: algebra_simps)\n  then show ?thesis\n    by simp\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 10\nError message: Failed to finish proof\\<^here>:\ngoal (2 subgoals):\n 1. A * B = 10 \\<Longrightarrow> 1 + A * 3 = B * 8 \\<Longrightarrow> A \\<in> \\<int> \\<Longrightarrow> B \\<in> \\<int> \\<Longrightarrow> A = 2\n 2. A * B = 10 \\<Longrightarrow> 1 + A * 3 = B * 8 \\<Longrightarrow> A \\<in> \\<int> \\<Longrightarrow> B \\<in> \\<int> \\<Longrightarrow> B = 5\n\nIdentified error on line: 12\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. A = 2 \\<Longrightarrow> B = 5 \\<Longrightarrow> 15 = 12\n\n"
+        },
+        "41": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\n  definition last_year_enrollment :: real where\n    \"last_year_enrollment = 598 / (1 + 0.04 :: real)\"\n\n  lemma last_year_enrollment_value: \"last_year_enrollment = 575\"\n    by (simp add: last_year_enrollment_def)\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "21": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma modulo_4_remainder_sum: \"((1::nat) + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10 + 11 + 12) mod 4 = 2\"\n  by eval\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        }
+    },
+    "3": {
+        "34": {
+            "formalization": "theory test\nimports \"HOL.Real\"\nbegin\n\nlemma real_inequality: \n  fixes a b :: real\n  shows \"(abs (a + b)) / (1 + abs (a + b)) ≤ (abs a) / (1 + abs a) + (abs b) / (1 + abs b)\"\nproof -\n  have \"abs (a + b) ≤ abs a + abs b\"\n    by (simp add: abs_triangle_ineq)\n  then have \"(abs (a + b)) / (1 + abs (a + b)) ≤ (abs a + abs b) / (1 + abs (a + b))\"\n    by (simp add: divide_right_mono)\n  also have \"... ≤ (abs a) / (1 + abs a) + (abs b) / (1 + abs b)\"\n  proof -\n    have \"abs a / (1 + abs a) + abs b / (1 + abs b) = (abs a * (1 + abs b) + abs b * (1 + abs a)) / ((1 + abs a) * (1 + abs b))\"\n      by (simp add: field_simps)\n    also have \"(abs a * (1 + abs b) + abs b * (1 + abs a)) ≥ (abs a + abs b) * (1 + abs (a + b))\"\n    proof -\n      have \"(abs a * (1 + abs b) + abs b * (1 + abs a)) ≥ (abs a + abs b) * (1 + abs (a + b))\"\n        by (simp add: algebra_simps)\n      then show ?thesis\n        by (simp add: divide_right_mono)\n    qed\n    finally show ?thesis .\n  qed\n  finally show ?thesis .\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 20\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. \\<bar>a\\<bar> * \\<bar>a + b\\<bar> + \\<bar>b\\<bar> * \\<bar>a + b\\<bar> \\<le> \\<bar>a\\<bar> * (\\<bar>b\\<bar> * 2)\n\nIdentified error on line: 24\nError message: Failed to apply initial proof method:\nusing this:\n  (\\<And>x y. x \\<le> y \\<Longrightarrow>\n         (\\<bar>a\\<bar> * (1 + \\<bar>b\\<bar>) + \\<bar>b\\<bar> * (1 + \\<bar>a\\<bar>)) / ((1 + \\<bar>a\\<bar>) * (1 + \\<bar>b\\<bar>))\n         \\<le> (\\<bar>a\\<bar> * (1 + \\<bar>b\\<bar>) + \\<bar>b\\<bar> * (1 + \\<bar>a\\<bar>)) / ((1 + \\<bar>a\\<bar>) * (1 + \\<bar>b\\<bar>))) \\<Longrightarrow>\n  \\<bar>a\\<bar> / (1 + \\<bar>a\\<bar>) + \\<bar>b\\<bar> / (1 + \\<bar>b\\<bar>)\n  \\<le> (\\<bar>a\\<bar> * (1 + \\<bar>b\\<bar>) + \\<bar>b\\<bar> * (1 + \\<bar>a\\<bar>)) / ((1 + \\<bar>a\\<bar>) * (1 + \\<bar>b\\<bar>))\ngoal (1 subgoal):\n 1. (\\<bar>a\\<bar> + \\<bar>b\\<bar>) / (1 + \\<bar>a + b\\<bar>) \\<le> \\<bar>a\\<bar> / (1 + \\<bar>a\\<bar>) + \\<bar>b\\<bar> / (1 + \\<bar>b\\<bar>)\n\nIdentified error on line: 25\nError message: Illegal application of proof command in \"prove\" mode\n\nIdentified error on line: 26\nError message: Illegal application of proof command in \"prove\" mode\n\nIdentified error on line: 26\nError message: Illegal application of proof command in \"prove\" mode\n\nIdentified error on line: 26\nError message: Failed to apply initial proof method:\nusing this:\n  (\\<And>x y. x \\<le> y \\<Longrightarrow>\n         (\\<bar>a\\<bar> * (1 + \\<bar>b\\<bar>) + \\<bar>b\\<bar> * (1 + \\<bar>a\\<bar>)) / ((1 + \\<bar>a\\<bar>) * (1 + \\<bar>b\\<bar>))\n         \\<le> (\\<bar>a\\<bar> * (1 + \\<bar>b\\<bar>) + \\<bar>b\\<bar> * (1 + \\<bar>a\\<bar>)) / ((1 + \\<bar>a\\<bar>) * (1 + \\<bar>b\\<bar>))) \\<Longrightarrow>\n  \\<bar>a\\<bar> / (1 + \\<bar>a\\<bar>) + \\<bar>b\\<bar> / (1 + \\<bar>b\\<bar>)\n  \\<le> (\\<bar>a\\<bar> * (1 + \\<bar>b\\<bar>) + \\<bar>b\\<bar> * (1 + \\<bar>a\\<bar>)) / ((1 + \\<bar>a\\<bar>) * (1 + \\<bar>b\\<bar>))\ngoal (1 subgoal):\n 1. (\\<bar>a\\<bar> + \\<bar>b\\<bar>) / (1 + \\<bar>a + b\\<bar>) \\<le> \\<bar>a\\<bar> / (1 + \\<bar>a\\<bar>) + \\<bar>b\\<bar> / (1 + \\<bar>b\\<bar>)\n\nIdentified error on line: 27\nError message: Illegal application of proof command in \"prove\" mode\n\nIdentified error on line: 29\nError message: Bad context for command \"end\"\\<^here> -- using reset state\n\n"
+        },
+        "36": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\n  definition a11 :: real where \"a11 = 1\"  (* Example positive coefficient *)\n  definition a22 :: real where \"a22 = 1\"  (* Example positive coefficient *)\n  definition a33 :: real where \"a33 = 1\"  (* Example positive coefficient *)\n\n  definition a12 :: real where \"a12 = -1\" (* Example negative coefficient *)\n  definition a13 :: real where \"a13 = -1\" (* Example negative coefficient *)\n  definition a21 :: real where \"a21 = -1\" (* Example negative coefficient *)\n  definition a23 :: real where \"a23 = -1\" (* Example negative coefficient *)\n  definition a31 :: real where \"a31 = -1\" (* Example negative coefficient *)\n  definition a32 :: real where \"a32 = -1\" (* Example negative coefficient *)\n\n  lemma unique_solution:\n    assumes \"a11 > 0\" \"a22 > 0\" \"a33 > 0\"\n    and \"a12 < 0\" \"a13 < 0\" \"a21 < 0\" \"a23 < 0\" \"a31 < 0\" \"a32 < 0\"\n    and \"a11 + a12 + a13 > 0\" \"a21 + a22 + a23 > 0\" \"a31 + a32 + a33 > 0\"\n    shows \"x1 = 0 ∧ x2 = 0 ∧ x3 = 0\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "3": {
+            "formalization": "theory test\nimports Main\nbegin\n\nfun p :: \"nat ⇒ nat\" where\n  \"p n = n^2 - n + 41\"\n\nlemma common_factor:\n  assumes \"n > 0\"\n  shows \"gcd (p n) (p (n + 1)) > 1 ⟷ n = 41\"\nproof -\n  have \"p (n + 1) = (n + 1)^2 - (n + 1) + 41\"\n    by (simp add: p.simps)\n  moreover have \"gcd (p n) (p (n + 1)) = gcd (p n) (2n + 1)\"\n    by (simp add: gcd_nat.simps algebra_simps)\n  ultimately show ?thesis\n    by (simp add: gcd_nat.simps)\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": ""
+        },
+        "23": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\nlemma five_plus_500_percent_of_10_equals_110_percent_of_x:\n  shows \"5 + (500 / 100) * 10 = (110 / 100) * (50::real)\"\n  by simp\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "43": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma sum_of_squares_even_numbers:\n  assumes \"x > 0\" and \"even x\"\n  shows \"((x^2) + ((x + 2)^2) + ((x + 4)^2)) = 12296 ⟹ (x * (x + 2) * (x + 4)) div 8 = 32736\"\nproof -\n  have \"x^2 + (x + 2)^2 + (x + 4)^2 = x^2 + (x^2 + 4*x + 4) + (x^2 + 8*x + 16)\"\n    by (simp add: power2_eq_square)\n  then have \"3 * x^2 + 12 * x + 20 = 12296\"\n    by simp\n  then have \"3 * x^2 + 12 * x - 12276 = 0\"\n    by simp\n  then have \"x = 38\" \n    using real_arith\n    by (smt (verit, del_insts) mult.commute mult.left_commute mult.right_neutral numeral_Bit0 numeral_Bit1 numeral_eq_iff semiring_normalization_rules(7) semiring_normalization_rules(9))\n  then have \"x * (x + 2) * (x + 4) = 38 * 40 * 42\"\n    by simp\n  then show ?thesis\n    by simp\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": ""
+        },
+        "42": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\nlemma inequality_example:\n  assumes \"1 - sqrt (2 * x + 1) > 0\"\n  shows \"4 * x\\<^sup>2 / (1 - sqrt (2 * x + 1))\\<^sup>2 < 2 * x + 9\"\nproof -\n  have \"1 - sqrt (2 * x + 1) > 0\" using assms by simp\n  then have \"2 * x + 1 < 1\" by simp\n  then have \"x < 0\" by simp\n  then show ?thesis using assms by (simp add: power2_eq_square)\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 12\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. x < 0 \\<Longrightarrow>\n    4 * (x * x) / ((1 - sqrt (2 * x + 1)) * (1 - sqrt (2 * x + 1)))\n    < 2 * x + 9\n\n"
+        },
+        "35": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma solve_equation:\n  assumes \"(x::int) - 9 = 2 * (x + 1)\"\n  shows \"x = -11\"\nproof -\n  have \"x - 9 = 2 * x + 2\" using assms by (simp add: algebra_simps)\n  then have \"-x = 11\" by simp\n  thus ?thesis by simp\nqed\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "26": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma factorization_example:\n  assumes \"A * B = 10\" \"A * 3 + B * (-8) = -1\" \"A ∈ ℤ\" \"B ∈ ℤ\"\n  shows \"A * B + B = 12\"\nproof -\n  from assms have \"A = 5\" \"B = 2\"\n    by (auto simp add: algebra_simps)\n  then show ?thesis\n    by simp\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 10\nError message: Failed to finish proof\\<^here>:\ngoal (2 subgoals):\n 1. A * B = 10 \\<Longrightarrow> 1 + A * 3 = B * 8 \\<Longrightarrow> A \\<in> \\<int> \\<Longrightarrow> B \\<in> \\<int> \\<Longrightarrow> A = 5\n 2. A * B = 10 \\<Longrightarrow> 1 + A * 3 = B * 8 \\<Longrightarrow> A \\<in> \\<int> \\<Longrightarrow> B \\<in> \\<int> \\<Longrightarrow> B = 2\n\n"
+        },
+        "41": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\n  definition last_year_enrollment :: real where\n    \"last_year_enrollment = 598 / (1 + 0.04 :: real)\"\n\n  lemma last_year_enrollment_value: \"last_year_enrollment = 575\"\n    by (simp add: last_year_enrollment_def)\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "21": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma modulo_4_remainder_sum: \"((1::nat) + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10 + 11 + 12) mod 4 = 2\"\n  by eval\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        }
+    },
+    "4": {
+        "34": {
+            "formalization": "theory test\nimports \"HOL.Real\"\nbegin\n\nlemma real_inequality: \n  fixes a b :: real\n  shows \"(abs (a + b)) / (1 + abs (a + b)) ≤ (abs a) / (1 + abs a) + (abs b) / (1 + abs b)\"\nproof -\n  have \"abs (a + b) ≤ abs a + abs b\"\n    by (simp add: abs_triangle_ineq)\n  then have \"(abs (a + b)) / (1 + abs (a + b)) ≤ (abs a + abs b) / (1 + abs (a + b))\"\n    by (simp add: divide_right_mono)\n  also have \"... ≤ (abs a) / (1 + abs a) + (abs b) / (1 + abs b)\"\n  proof -\n    have \"(abs a * (1 + abs b) + abs b * (1 + abs a)) ≥ (abs a + abs b) * (1 + abs (a + b))\"\n      using mult_mono by (simp add: algebra_simps)\n    then show ?thesis\n      by (simp add: divide_right_mono)\n  qed\n  finally show ?thesis .\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 16\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. (\\<And>a b c d. a \\<le> b \\<Longrightarrow> c \\<le> d \\<Longrightarrow> 0 \\<le> b \\<Longrightarrow> 0 \\<le> c \\<Longrightarrow> a * c \\<le> b * d) \\<Longrightarrow>\n    \\<bar>a\\<bar> * \\<bar>a + b\\<bar> + \\<bar>b\\<bar> * \\<bar>a + b\\<bar> \\<le> \\<bar>a\\<bar> * (\\<bar>b\\<bar> * 2)\n\nIdentified error on line: 18\nError message: Failed to apply initial proof method\\<^here>:\nusing this:\n  (\\<bar>a\\<bar> + \\<bar>b\\<bar>) * (1 + \\<bar>a + b\\<bar>) \\<le> \\<bar>a\\<bar> * (1 + \\<bar>b\\<bar>) + \\<bar>b\\<bar> * (1 + \\<bar>a\\<bar>)\ngoal (1 subgoal):\n 1. (\\<bar>a\\<bar> + \\<bar>b\\<bar>) / (1 + \\<bar>a + b\\<bar>) \\<le> \\<bar>a\\<bar> / (1 + \\<bar>a\\<bar>) + \\<bar>b\\<bar> / (1 + \\<bar>b\\<bar>)\n\n"
+        },
+        "36": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\n  definition a11 :: real where \"a11 = 1\"  (* Example positive coefficient *)\n  definition a22 :: real where \"a22 = 1\"  (* Example positive coefficient *)\n  definition a33 :: real where \"a33 = 1\"  (* Example positive coefficient *)\n\n  definition a12 :: real where \"a12 = -1\" (* Example negative coefficient *)\n  definition a13 :: real where \"a13 = -1\" (* Example negative coefficient *)\n  definition a21 :: real where \"a21 = -1\" (* Example negative coefficient *)\n  definition a23 :: real where \"a23 = -1\" (* Example negative coefficient *)\n  definition a31 :: real where \"a31 = -1\" (* Example negative coefficient *)\n  definition a32 :: real where \"a32 = -1\" (* Example negative coefficient *)\n\n  lemma unique_solution:\n    assumes \"a11 > 0\" \"a22 > 0\" \"a33 > 0\"\n    and \"a12 < 0\" \"a13 < 0\" \"a21 < 0\" \"a23 < 0\" \"a31 < 0\" \"a32 < 0\"\n    and \"a11 + a12 + a13 > 0\" \"a21 + a22 + a23 > 0\" \"a31 + a32 + a33 > 0\"\n    shows \"x1 = 0 ∧ x2 = 0 ∧ x3 = 0\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "3": {
+            "formalization": "theory test\nimports Main\nbegin\n\nfun p :: \"nat ⇒ nat\" where\n  \"p n = n^2 - n + 41\"\n\nlemma common_factor:\n  assumes \"n > 0\"\n  shows \"gcd (p n) (p (n + 1)) > 1 ⟷ n = 41\"\nproof -\n  have \"p (n + 1) = (n + 1)^2 - (n + 1) + 41\"\n    by (simp add: p.simps)\n  moreover have \"gcd (p n) (p (n + 1)) = gcd (p n) (2 * n + 1)\"\n    by (simp add: gcd_nat.simps algebra_simps)\n  ultimately show ?thesis\n    by (simp add: gcd_nat.simps)\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": ""
+        },
+        "23": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\nlemma five_plus_500_percent_of_10_equals_110_percent_of_x:\n  shows \"5 + (500 / 100) * 10 = (110 / 100) * (50::real)\"\n  by simp\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "43": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma sum_of_squares_even_numbers:\n  assumes \"x > 0\" and \"even x\"\n  shows \"((x^2) + ((x + 2)^2) + ((x + 4)^2)) = 12296 ⟹ (x * (x + 2) * (x + 4)) div 8 = 32736\"\nproof -\n  have \"x^2 + (x + 2)^2 + (x + 4)^2 = x^2 + (x^2 + 4*x + 4) + (x^2 + 8*x + 16)\"\n    by (simp add: power2_eq_square)\n  then have \"3 * x^2 + 12 * x + 20 = 12296\"\n    by simp\n  then have \"3 * x^2 + 12 * x - 12276 = 0\"\n    by simp\n  then have \"x = 38\" \n    using real_arith\n    by (smt (verit, del_insts) mult.commute mult.left_commute mult.right_neutral numeral_Bit0 numeral_Bit1 numeral_eq_iff semiring_normalization_rules(7) semiring_normalization_rules(9))\n  then have \"x * (x + 2) * (x + 4) = 38 * 40 * 42\"\n    by simp\n  then have \"(x * (x + 2) * (x + 4)) div 8 = (38 * 40 * 42) div 8\"\n    by simp\n  then show ?thesis\n    by simp\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": ""
+        },
+        "42": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\nlemma inequality_example:\n  assumes \"1 - sqrt (2 * x + 1) > 0\"\n  shows \"4 * x\\<^sup>2 / (1 - sqrt (2 * x + 1))\\<^sup>2 < 2 * x + 9\"\nproof -\n  have \"1 - sqrt (2 * x + 1) > 0\" using assms by simp\n  then have \"2 * x + 1 < 1\" by simp\n  then have \"x < 0\" by simp\n  then show ?thesis using assms by (simp add: power2_eq_square)\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 12\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. x < 0 \\<Longrightarrow>\n    4 * (x * x) / ((1 - sqrt (2 * x + 1)) * (1 - sqrt (2 * x + 1)))\n    < 2 * x + 9\n\n"
+        },
+        "35": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma solve_equation:\n  assumes \"(x::int) - 9 = 2 * (x + 1)\"\n  shows \"x = -11\"\nproof -\n  have \"x - 9 = 2 * x + 2\" using assms by (simp add: algebra_simps)\n  then have \"-x = 11\" by simp\n  thus ?thesis by simp\nqed\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "26": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma factorization_example:\n  assumes \"A * B = 10\" \"A * 3 + B * (-8) = -1\" \"A ∈ ℤ\" \"B ∈ ℤ\"\n  shows \"A * B + B = 12\"\nproof -\n  from assms have \"A = 2\" \"B = 5\"\n    by (auto simp add: algebra_simps)\n  then show ?thesis\n    by simp\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 10\nError message: Failed to finish proof\\<^here>:\ngoal (2 subgoals):\n 1. A * B = 10 \\<Longrightarrow> 1 + A * 3 = B * 8 \\<Longrightarrow> A \\<in> \\<int> \\<Longrightarrow> B \\<in> \\<int> \\<Longrightarrow> A = 2\n 2. A * B = 10 \\<Longrightarrow> 1 + A * 3 = B * 8 \\<Longrightarrow> A \\<in> \\<int> \\<Longrightarrow> B \\<in> \\<int> \\<Longrightarrow> B = 5\n\nIdentified error on line: 12\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. A = 2 \\<Longrightarrow> B = 5 \\<Longrightarrow> 15 = 12\n\n"
+        },
+        "41": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\n  definition last_year_enrollment :: real where\n    \"last_year_enrollment = 598 / (1 + 0.04 :: real)\"\n\n  lemma last_year_enrollment_value: \"last_year_enrollment = 575\"\n    by (simp add: last_year_enrollment_def)\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "21": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma modulo_4_remainder_sum: \"((1::nat) + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10 + 11 + 12) mod 4 = 2\"\n  by eval\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        }
+    },
+    "5": {
+        "34": {
+            "formalization": "theory test\nimports \"HOL.Real\"\nbegin\n\nlemma real_inequality: \n  fixes a b :: real\n  shows \"(abs (a + b)) / (1 + abs (a + b)) ≤ (abs a) / (1 + abs a) + (abs b) / (1 + abs b)\"\nproof -\n  have \"abs (a + b) ≤ abs a + abs b\"\n    by (simp add: abs_triangle_ineq)\n  then have \"(abs (a + b)) / (1 + abs (a + b)) ≤ (abs a + abs b) / (1 + abs (a + b))\"\n    by (simp add: divide_right_mono)\n  also have \"... ≤ (abs a) / (1 + abs a) + (abs b) / (1 + abs b)\"\n  proof -\n    have \"(abs a * (1 + abs b) + abs b * (1 + abs a)) ≥ (abs a + abs b) * (1 + abs (a + b))\"\n      using mult_mono by (simp add: algebra_simps)\n    then show ?thesis\n      by (simp add: divide_right_mono mult_left_mono mult_right_mono)\n  qed\n  finally show ?thesis .\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 16\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. (\\<And>a b c d. a \\<le> b \\<Longrightarrow> c \\<le> d \\<Longrightarrow> 0 \\<le> b \\<Longrightarrow> 0 \\<le> c \\<Longrightarrow> a * c \\<le> b * d) \\<Longrightarrow>\n    \\<bar>a\\<bar> * \\<bar>a + b\\<bar> + \\<bar>b\\<bar> * \\<bar>a + b\\<bar> \\<le> \\<bar>a\\<bar> * (\\<bar>b\\<bar> * 2)\n\nIdentified error on line: 18\nError message: Failed to apply initial proof method\\<^here>:\nusing this:\n  (\\<bar>a\\<bar> + \\<bar>b\\<bar>) * (1 + \\<bar>a + b\\<bar>) \\<le> \\<bar>a\\<bar> * (1 + \\<bar>b\\<bar>) + \\<bar>b\\<bar> * (1 + \\<bar>a\\<bar>)\ngoal (1 subgoal):\n 1. (\\<bar>a\\<bar> + \\<bar>b\\<bar>) / (1 + \\<bar>a + b\\<bar>) \\<le> \\<bar>a\\<bar> / (1 + \\<bar>a\\<bar>) + \\<bar>b\\<bar> / (1 + \\<bar>b\\<bar>)\n\n"
+        },
+        "36": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\n  definition a11 :: real where \"a11 = 1\"  (* Example positive coefficient *)\n  definition a22 :: real where \"a22 = 1\"  (* Example positive coefficient *)\n  definition a33 :: real where \"a33 = 1\"  (* Example positive coefficient *)\n\n  definition a12 :: real where \"a12 = -1\" (* Example negative coefficient *)\n  definition a13 :: real where \"a13 = -1\" (* Example negative coefficient *)\n  definition a21 :: real where \"a21 = -1\" (* Example negative coefficient *)\n  definition a23 :: real where \"a23 = -1\" (* Example negative coefficient *)\n  definition a31 :: real where \"a31 = -1\" (* Example negative coefficient *)\n  definition a32 :: real where \"a32 = -1\" (* Example negative coefficient *)\n\n  lemma unique_solution:\n    assumes \"a11 > 0\" \"a22 > 0\" \"a33 > 0\"\n    and \"a12 < 0\" \"a13 < 0\" \"a21 < 0\" \"a23 < 0\" \"a31 < 0\" \"a32 < 0\"\n    and \"a11 + a12 + a13 > 0\" \"a21 + a22 + a23 > 0\" \"a31 + a32 + a33 > 0\"\n    shows \"x1 = 0 ∧ x2 = 0 ∧ x3 = 0\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "3": {
+            "formalization": "theory test\nimports Main\nbegin\n\nfun p :: \"nat ⇒ nat\" where\n  \"p n = n^2 - n + 41\"\n\nlemma common_factor:\n  assumes \"n > 0\"\n  shows \"gcd (p n) (p (n + 1)) > 1 ⟷ n = 41\"\nproof -\n  have \"p (n + 1) = (n + 1)^2 - (n + 1) + 41\"\n    by (simp add: p.simps)\n  moreover have \"gcd (p n) (p (n + 1)) = gcd (p n) (2 * n + 1)\"\n    by (simp add: gcd_nat.simps algebra_simps)\n  ultimately show ?thesis\n    by (simp add: gcd_nat.simps)\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": ""
+        },
+        "23": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\nlemma five_plus_500_percent_of_10_equals_110_percent_of_x:\n  shows \"5 + (500 / 100) * 10 = (110 / 100) * (50::real)\"\n  by simp\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "43": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma sum_of_squares_even_numbers:\n  assumes \"x > 0\" and \"even x\"\n  shows \"((x^2) + ((x + 2)^2) + ((x + 4)^2)) = 12296 ⟹ (x * (x + 2) * (x + 4)) div 8 = 32736\"\nproof -\n  have \"x^2 + (x + 2)^2 + (x + 4)^2 = x^2 + (x^2 + 4*x + 4) + (x^2 + 8*x + 16)\"\n    by (simp add: power2_eq_square)\n  then have \"3 * x^2 + 12 * x + 20 = 12296\"\n    by simp\n  then have \"3 * x^2 + 12 * x - 12276 = 0\"\n    by simp\n  then have \"x = 38\" \n    using real_arith\n    by (smt (verit, del_insts) mult.commute mult.left_commute mult.right_neutral numeral_Bit0 numeral_Bit1 numeral_eq_iff semiring_normalization_rules(7) semiring_normalization_rules(9))\n  then have \"x * (x + 2) * (x + 4) = 38 * 40 * 42\"\n    by simp\n  then have \"(x * (x + 2) * (x + 4)) div 8 = (38 * 40 * 42) div 8\"\n    by simp\n  then show ?thesis\n    by simp\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": ""
+        },
+        "42": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\nlemma inequality_example:\n  assumes \"1 - sqrt (2 * x + 1) > 0\"\n  shows \"4 * x\\<^sup>2 / (1 - sqrt (2 * x + 1))\\<^sup>2 < 2 * x + 9\"\nproof -\n  have \"1 - sqrt (2 * x + 1) > 0\" using assms by simp\n  then have \"2 * x + 1 < 1\" by simp\n  then have \"x < 0\" by simp\n  then show ?thesis using assms by (simp add: power2_eq_square)\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 12\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. x < 0 \\<Longrightarrow>\n    4 * (x * x) / ((1 - sqrt (2 * x + 1)) * (1 - sqrt (2 * x + 1)))\n    < 2 * x + 9\n\n"
+        },
+        "35": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma solve_equation:\n  assumes \"(x::int) - 9 = 2 * (x + 1)\"\n  shows \"x = -11\"\nproof -\n  have \"x - 9 = 2 * x + 2\" using assms by (simp add: algebra_simps)\n  then have \"-x = 11\" by simp\n  thus ?thesis by simp\nqed\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "26": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma factorization_example:\n  assumes \"A * B = 10\" \"A * 3 + B * (-8) = -1\" \"A ∈ ℤ\" \"B ∈ ℤ\"\n  shows \"A * B + B = 12\"\nproof -\n  from assms have \"A = 5\" \"B = 2\"\n    by (auto simp add: algebra_simps)\n  then show ?thesis\n    by simp\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 10\nError message: Failed to finish proof\\<^here>:\ngoal (2 subgoals):\n 1. A * B = 10 \\<Longrightarrow> 1 + A * 3 = B * 8 \\<Longrightarrow> A \\<in> \\<int> \\<Longrightarrow> B \\<in> \\<int> \\<Longrightarrow> A = 5\n 2. A * B = 10 \\<Longrightarrow> 1 + A * 3 = B * 8 \\<Longrightarrow> A \\<in> \\<int> \\<Longrightarrow> B \\<in> \\<int> \\<Longrightarrow> B = 2\n\n"
+        },
+        "41": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\n  definition last_year_enrollment :: real where\n    \"last_year_enrollment = 598 / (1 + 0.04 :: real)\"\n\n  lemma last_year_enrollment_value: \"last_year_enrollment = 575\"\n    by (simp add: last_year_enrollment_def)\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "21": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma modulo_4_remainder_sum: \"((1::nat) + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10 + 11 + 12) mod 4 = 2\"\n  by eval\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        }
+    },
+    "6": {
+        "34": {
+            "formalization": "theory test\nimports \"HOL.Real\"\nbegin\n\nlemma real_inequality: \n  fixes a b :: real\n  shows \"(abs (a + b)) / (1 + abs (a + b)) ≤ (abs a) / (1 + abs a) + (abs b) / (1 + abs b)\"\nproof -\n  have \"abs (a + b) ≤ abs a + abs b\"\n    by (simp add: abs_triangle_ineq)\n  then have \"(abs (a + b)) / (1 + abs (a + b)) ≤ (abs a + abs b) / (1 + abs (a + b))\"\n    by (simp add: divide_right_mono)\n  also have \"... ≤ (abs a) / (1 + abs a) + (abs b) / (1 + abs b)\"\n  proof -\n    have \"(abs a * (1 + abs b) + abs b * (1 + abs a)) ≥ (abs a + abs b) * (1 + abs (a + b))\"\n      by (simp add: algebra_simps)\n    then show ?thesis\n      by (simp add: divide_right_mono mult_left_mono mult_right_mono)\n  qed\n  finally show ?thesis .\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 16\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. \\<bar>a\\<bar> * \\<bar>a + b\\<bar> + \\<bar>b\\<bar> * \\<bar>a + b\\<bar> \\<le> \\<bar>a\\<bar> * (\\<bar>b\\<bar> * 2)\n\nIdentified error on line: 18\nError message: Failed to apply initial proof method\\<^here>:\nusing this:\n  (\\<bar>a\\<bar> + \\<bar>b\\<bar>) * (1 + \\<bar>a + b\\<bar>) \\<le> \\<bar>a\\<bar> * (1 + \\<bar>b\\<bar>) + \\<bar>b\\<bar> * (1 + \\<bar>a\\<bar>)\ngoal (1 subgoal):\n 1. (\\<bar>a\\<bar> + \\<bar>b\\<bar>) / (1 + \\<bar>a + b\\<bar>) \\<le> \\<bar>a\\<bar> / (1 + \\<bar>a\\<bar>) + \\<bar>b\\<bar> / (1 + \\<bar>b\\<bar>)\n\n"
+        },
+        "36": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\n  definition a11 :: real where \"a11 = 1\"  (* Example positive coefficient *)\n  definition a22 :: real where \"a22 = 1\"  (* Example positive coefficient *)\n  definition a33 :: real where \"a33 = 1\"  (* Example positive coefficient *)\n\n  definition a12 :: real where \"a12 = -1\" (* Example negative coefficient *)\n  definition a13 :: real where \"a13 = -1\" (* Example negative coefficient *)\n  definition a21 :: real where \"a21 = -1\" (* Example negative coefficient *)\n  definition a23 :: real where \"a23 = -1\" (* Example negative coefficient *)\n  definition a31 :: real where \"a31 = -1\" (* Example negative coefficient *)\n  definition a32 :: real where \"a32 = -1\" (* Example negative coefficient *)\n\n  lemma unique_solution:\n    assumes \"a11 > 0\" \"a22 > 0\" \"a33 > 0\"\n    and \"a12 < 0\" \"a13 < 0\" \"a21 < 0\" \"a23 < 0\" \"a31 < 0\" \"a32 < 0\"\n    and \"a11 + a12 + a13 > 0\" \"a21 + a22 + a23 > 0\" \"a31 + a32 + a33 > 0\"\n    shows \"x1 = 0 ∧ x2 = 0 ∧ x3 = 0\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "3": {
+            "formalization": "theory test\n  imports Main\nbegin\n\nfun p :: \"nat ⇒ nat\" where\n  \"p n = n^2 - n + 41\"\n\nlemma common_factor:\n  assumes \"n > 0\"\n  shows \"gcd (p n) (p (n + 1)) > 1 ⟷ n = 41\"\nproof -\n  have \"p (n + 1) = (n + 1)^2 - (n + 1) + 41\"\n    by (simp add: p.simps)\n  moreover have \"gcd (p n) (p (n + 1)) = gcd (p n) (2 * n + 1)\"\n    by (simp add: gcd_nat.simps algebra_simps)\n  ultimately show ?thesis\n    by (simp add: gcd_nat.simps)\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": ""
+        },
+        "23": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\nlemma five_plus_500_percent_of_10_equals_110_percent_of_x:\n  shows \"5 + (500 / 100) * 10 = (110 / 100) * (50::real)\"\n  by simp\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "43": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma sum_of_squares_even_numbers:\n  assumes \"x > 0\" and \"even x\"\n  shows \"((x^2) + ((x + 2)^2) + ((x + 4)^2)) = 12296 ⟹ (x * (x + 2) * (x + 4)) div 8 = 32736\"\nproof -\n  have \"x^2 + (x + 2)^2 + (x + 4)^2 = x^2 + (x^2 + 4*x + 4) + (x^2 + 8*x + 16)\"\n    by (simp add: power2_eq_square)\n  then have \"3 * x^2 + 12 * x + 20 = 12296\"\n    by simp\n  then have \"3 * x^2 + 12 * x - 12276 = 0\"\n    by simp\n  then have \"x = 38\"\n    using real_arith\n    by (smt (verit, del_insts) mult.commute mult.left_commute mult.right_neutral numeral_Bit0 numeral_Bit1 numeral_eq_iff semiring_normalization_rules(7) semiring_normalization_rules(9))\n  then have \"x * (x + 2) * (x + 4) = 38 * 40 * 42\"\n    by simp\n  then have \"(x * (x + 2) * (x + 4)) div 8 = (38 * 40 * 42) div 8\"\n    by simp\n  then show ?thesis\n    by simp\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": ""
+        },
+        "42": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\nlemma inequality_example:\n  assumes \"1 - sqrt (2 * x + 1) > 0\"\n  shows \"4 * x\\<^sup>2 / (1 - sqrt (2 * x + 1))\\<^sup>2 < 2 * x + 9\"\nproof -\n  have \"1 - sqrt (2 * x + 1) > 0\" using assms by simp\n  then have \"2 * x + 1 < 1\" by simp\n  then have \"x < 0\" by simp\n  then show ?thesis using assms by (simp add: power2_eq_square)\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 12\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. x < 0 \\<Longrightarrow>\n    4 * (x * x) / ((1 - sqrt (2 * x + 1)) * (1 - sqrt (2 * x + 1)))\n    < 2 * x + 9\n\n"
+        },
+        "35": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma solve_equation:\n  assumes \"(x::int) - 9 = 2 * (x + 1)\"\n  shows \"x = -11\"\nproof -\n  have \"x - 9 = 2 * x + 2\" using assms by (simp add: algebra_simps)\n  then have \"-x = 11\" by simp\n  thus ?thesis by simp\nqed\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "26": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma factorization_example:\n  assumes \"A * B = 10\" \"A * 3 + B * (-8) = -1\" \"A ∈ ℤ\" \"B ∈ ℤ\"\n  shows \"A * B + B = 12\"\nproof -\n  from assms have \"A = 2\" \"B = 5\"\n    by (auto simp add: algebra_simps)\n  then show ?thesis\n    by simp\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 10\nError message: Failed to finish proof\\<^here>:\ngoal (2 subgoals):\n 1. A * B = 10 \\<Longrightarrow> 1 + A * 3 = B * 8 \\<Longrightarrow> A \\<in> \\<int> \\<Longrightarrow> B \\<in> \\<int> \\<Longrightarrow> A = 2\n 2. A * B = 10 \\<Longrightarrow> 1 + A * 3 = B * 8 \\<Longrightarrow> A \\<in> \\<int> \\<Longrightarrow> B \\<in> \\<int> \\<Longrightarrow> B = 5\n\nIdentified error on line: 12\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. A = 2 \\<Longrightarrow> B = 5 \\<Longrightarrow> 15 = 12\n\n"
+        },
+        "41": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\n  definition last_year_enrollment :: real where\n    \"last_year_enrollment = 598 / (1 + 0.04 :: real)\"\n\n  lemma last_year_enrollment_value: \"last_year_enrollment = 575\"\n    by (simp add: last_year_enrollment_def)\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "21": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma modulo_4_remainder_sum: \"((1::nat) + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10 + 11 + 12) mod 4 = 2\"\n  by eval\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        }
+    },
+    "7": {
+        "34": {
+            "formalization": "theory test\nimports \"HOL.Real\"\nbegin\n\nlemma real_inequality: \n  fixes a b :: real\n  shows \"(abs (a + b)) / (1 + abs (a + b)) ≤ (abs a) / (1 + abs a) + (abs b) / (1 + abs b)\"\nproof -\n  have \"abs (a + b) ≤ abs a + abs b\"\n    by (simp add: abs_triangle_ineq)\n  then have \"(abs (a + b)) / (1 + abs (a + b)) ≤ (abs a + abs b) / (1 + abs (a + b))\"\n    by (simp add: divide_right_mono)\n  also have \"... ≤ (abs a) / (1 + abs a) + (abs b) / (1 + abs b)\"\n  proof -\n    have \"(abs a * (1 + abs b) + abs b * (1 + abs a)) ≥ (abs a + abs b) * (1 + abs (a + b))\"\n      using mult_left_mono mult_right_mono by (simp add: algebra_simps)\n    then show ?thesis\n      by (simp add: divide_right_mono)\n  qed\n  finally show ?thesis .\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 16\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. (\\<And>a b c. a \\<le> b \\<Longrightarrow> 0 \\<le> c \\<Longrightarrow> c * a \\<le> c * b) \\<Longrightarrow>\n    (\\<And>a b c. a \\<le> b \\<Longrightarrow> 0 \\<le> c \\<Longrightarrow> a * c \\<le> b * c) \\<Longrightarrow>\n    \\<bar>a\\<bar> * \\<bar>a + b\\<bar> + \\<bar>b\\<bar> * \\<bar>a + b\\<bar> \\<le> \\<bar>a\\<bar> * (\\<bar>b\\<bar> * 2)\n\nIdentified error on line: 18\nError message: Failed to apply initial proof method\\<^here>:\nusing this:\n  (\\<bar>a\\<bar> + \\<bar>b\\<bar>) * (1 + \\<bar>a + b\\<bar>) \\<le> \\<bar>a\\<bar> * (1 + \\<bar>b\\<bar>) + \\<bar>b\\<bar> * (1 + \\<bar>a\\<bar>)\ngoal (1 subgoal):\n 1. (\\<bar>a\\<bar> + \\<bar>b\\<bar>) / (1 + \\<bar>a + b\\<bar>) \\<le> \\<bar>a\\<bar> / (1 + \\<bar>a\\<bar>) + \\<bar>b\\<bar> / (1 + \\<bar>b\\<bar>)\n\n"
+        },
+        "36": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\n  definition a11 :: real where \"a11 = 1\"  (* Example positive coefficient *)\n  definition a22 :: real where \"a22 = 1\"  (* Example positive coefficient *)\n  definition a33 :: real where \"a33 = 1\"  (* Example positive coefficient *)\n\n  definition a12 :: real where \"a12 = -1\" (* Example negative coefficient *)\n  definition a13 :: real where \"a13 = -1\" (* Example negative coefficient *)\n  definition a21 :: real where \"a21 = -1\" (* Example negative coefficient *)\n  definition a23 :: real where \"a23 = -1\" (* Example negative coefficient *)\n  definition a31 :: real where \"a31 = -1\" (* Example negative coefficient *)\n  definition a32 :: real where \"a32 = -1\" (* Example negative coefficient *)\n\n  lemma unique_solution:\n    assumes \"a11 > 0\" \"a22 > 0\" \"a33 > 0\"\n    and \"a12 < 0\" \"a13 < 0\" \"a21 < 0\" \"a23 < 0\" \"a31 < 0\" \"a32 < 0\"\n    and \"a11 + a12 + a13 > 0\" \"a21 + a22 + a23 > 0\" \"a31 + a32 + a33 > 0\"\n    shows \"x1 = 0 ∧ x2 = 0 ∧ x3 = 0\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "3": {
+            "formalization": "theory test\nimports Main\nbegin\n\nfun p :: \"nat ⇒ nat\" where\n  \"p n = n^2 - n + 41\"\n\nlemma common_factor:\n  assumes \"n > 0\"\n  shows \"gcd (p n) (p (n + 1)) > 1 ⟷ n = 41\"\nproof -\n  have \"p (n + 1) = (n + 1)^2 - (n + 1) + 41\"\n    by (simp add: p.simps)\n  moreover have \"gcd (p n) (p (n + 1)) = gcd (p n) (2 * n + 1)\"\n    by (simp add: algebra_simps)\n  ultimately show ?thesis\n    by (simp add: gcd_nat.simps)\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": ""
+        },
+        "23": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\nlemma five_plus_500_percent_of_10_equals_110_percent_of_x:\n  shows \"5 + (500 / 100) * 10 = (110 / 100) * (50::real)\"\n  by simp\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "43": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma sum_of_squares_even_numbers:\n  assumes \"x > 0\" and \"even x\"\n  shows \"((x^2) + ((x + 2)^2) + ((x + 4)^2)) = 12296 ⟹ (x * (x + 2) * (x + 4)) div 8 = 32736\"\nproof -\n  have \"x^2 + (x + 2)^2 + (x + 4)^2 = x^2 + (x^2 + 4*x + 4) + (x^2 + 8*x + 16)\"\n    by (simp add: power2_eq_square)\n  then have \"3 * x^2 + 12 * x + 20 = 12296\"\n    by simp\n  then have \"3 * x^2 + 12 * x - 12276 = 0\"\n    by simp\n  then have \"x = 38\"\n    using real_arith\n    by (smt (verit, del_insts) mult.commute mult.left_commute mult.right_neutral numeral_Bit0 numeral_Bit1 numeral_eq_iff semiring_normalization_rules(7) semiring_normalization_rules(9))\n  then have \"x * (x + 2) * (x + 4) = 38 * 40 * 42\"\n    by simp\n  then have \"(x * (x + 2) * (x + 4)) div 8 = (38 * 40 * 42) div 8\"\n    by simp\n  then show ?thesis\n    by simp\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": ""
+        },
+        "42": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\nlemma inequality_example:\n  assumes \"1 - sqrt (2 * x + 1) > 0\"\n  shows \"4 * x\\<^sup>2 / (1 - sqrt (2 * x + 1))\\<^sup>2 < 2 * x + 9\"\nproof -\n  have \"1 - sqrt (2 * x + 1) > 0\" using assms by simp\n  then have \"2 * x + 1 < 1\" by simp\n  then have \"x < 0\" by simp\n  then have \"4 * x\\<^sup>2 < (2 * x + 9) * (1 - sqrt (2 * x + 1))\\<^sup>2\" \n    using assms by (simp add: power2_eq_square)\n  then show ?thesis by simp\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 13\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. x < 0 \\<Longrightarrow>\n    4 * (x * x)\n    < (2 * x + 9) * ((1 - sqrt (2 * x + 1)) * (1 - sqrt (2 * x + 1)))\n\nIdentified error on line: 14\nError message: Failed to apply initial proof method\\<^here>:\nusing this:\n  4 * x\\<^sup>2 < (2 * x + 9) * (1 - sqrt (2 * x + 1))\\<^sup>2\ngoal (1 subgoal):\n 1. 4 * x\\<^sup>2 / (1 - sqrt (2 * x + 1))\\<^sup>2 < 2 * x + 9\n\n"
+        },
+        "35": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma solve_equation:\n  assumes \"(x::int) - 9 = 2 * (x + 1)\"\n  shows \"x = -11\"\nproof -\n  have \"x - 9 = 2 * x + 2\" using assms by (simp add: algebra_simps)\n  then have \"-x = 11\" by simp\n  thus ?thesis by simp\nqed\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "26": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma factorization_example:\n  assumes \"A * B = 10\" \"A * 3 + B * (-8) = -1\" \"A ∈ ℤ\" \"B ∈ ℤ\"\n  shows \"A * B + B = 12\"\nproof -\n  from assms have \"A = 5\" \"B = 2\"\n    by (auto simp add: algebra_simps)\n  then show ?thesis\n    by simp\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 10\nError message: Failed to finish proof\\<^here>:\ngoal (2 subgoals):\n 1. A * B = 10 \\<Longrightarrow> 1 + A * 3 = B * 8 \\<Longrightarrow> A \\<in> \\<int> \\<Longrightarrow> B \\<in> \\<int> \\<Longrightarrow> A = 5\n 2. A * B = 10 \\<Longrightarrow> 1 + A * 3 = B * 8 \\<Longrightarrow> A \\<in> \\<int> \\<Longrightarrow> B \\<in> \\<int> \\<Longrightarrow> B = 2\n\n"
+        },
+        "41": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\n  definition last_year_enrollment :: real where\n    \"last_year_enrollment = 598 / (1 + 0.04 :: real)\"\n\n  lemma last_year_enrollment_value: \"last_year_enrollment = 575\"\n    by (simp add: last_year_enrollment_def)\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "21": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma modulo_4_remainder_sum: \"((1::nat) + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10 + 11 + 12) mod 4 = 2\"\n  by eval\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        }
+    },
+    "8": {
+        "34": {
+            "formalization": "theory test\nimports \"HOL.Real\"\nbegin\n\nlemma real_inequality: \n  fixes a b :: real\n  shows \"(abs (a + b)) / (1 + abs (a + b)) ≤ (abs a) / (1 + abs a) + (abs b) / (1 + abs b)\"\nproof -\n  have \"abs (a + b) ≤ abs a + abs b\"\n    by (simp add: abs_triangle_ineq)\n  then have \"(abs (a + b)) / (1 + abs (a + b)) ≤ (abs a + abs b) / (1 + abs (a + b))\"\n    by (simp add: divide_right_mono)\n  also have \"... ≤ (abs a) / (1 + abs a) + (abs b) / (1 + abs b)\"\n  proof -\n    have \"(abs a * (1 + abs b) + abs b * (1 + abs a)) ≥ (abs a + abs b) * (1 + abs (a + b))\"\n      by (simp add: algebra_simps)\n    then show ?thesis\n      by (simp add: divide_right_mono mult_left_mono mult_right_mono)\n  qed\n  finally show ?thesis .\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 16\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. \\<bar>a\\<bar> * \\<bar>a + b\\<bar> + \\<bar>b\\<bar> * \\<bar>a + b\\<bar> \\<le> \\<bar>a\\<bar> * (\\<bar>b\\<bar> * 2)\n\nIdentified error on line: 18\nError message: Failed to apply initial proof method\\<^here>:\nusing this:\n  (\\<bar>a\\<bar> + \\<bar>b\\<bar>) * (1 + \\<bar>a + b\\<bar>) \\<le> \\<bar>a\\<bar> * (1 + \\<bar>b\\<bar>) + \\<bar>b\\<bar> * (1 + \\<bar>a\\<bar>)\ngoal (1 subgoal):\n 1. (\\<bar>a\\<bar> + \\<bar>b\\<bar>) / (1 + \\<bar>a + b\\<bar>) \\<le> \\<bar>a\\<bar> / (1 + \\<bar>a\\<bar>) + \\<bar>b\\<bar> / (1 + \\<bar>b\\<bar>)\n\n"
+        },
+        "36": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\n  definition a11 :: real where \"a11 = 1\"  (* Example positive coefficient *)\n  definition a22 :: real where \"a22 = 1\"  (* Example positive coefficient *)\n  definition a33 :: real where \"a33 = 1\"  (* Example positive coefficient *)\n\n  definition a12 :: real where \"a12 = -1\" (* Example negative coefficient *)\n  definition a13 :: real where \"a13 = -1\" (* Example negative coefficient *)\n  definition a21 :: real where \"a21 = -1\" (* Example negative coefficient *)\n  definition a23 :: real where \"a23 = -1\" (* Example negative coefficient *)\n  definition a31 :: real where \"a31 = -1\" (* Example negative coefficient *)\n  definition a32 :: real where \"a32 = -1\" (* Example negative coefficient *)\n\n  lemma unique_solution:\n    assumes \"a11 > 0\" \"a22 > 0\" \"a33 > 0\"\n    and \"a12 < 0\" \"a13 < 0\" \"a21 < 0\" \"a23 < 0\" \"a31 < 0\" \"a32 < 0\"\n    and \"a11 + a12 + a13 > 0\" \"a21 + a22 + a23 > 0\" \"a31 + a32 + a33 > 0\"\n    shows \"x1 = 0 ∧ x2 = 0 ∧ x3 = 0\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "3": {
+            "formalization": "theory test\nimports Main\nbegin\n\nfun p :: \"nat ⇒ nat\" where\n  \"p n = n^2 - n + 41\"\n\nlemma common_factor:\n  assumes \"n > 0\"\n  shows \"gcd (p n) (p (n + 1)) > 1 ⟷ n = 41\"\nproof -\n  have \"p (n + 1) = (n + 1)^2 - (n + 1) + 41\"\n    by (simp add: p.simps)\n  moreover have \"p (n + 1) = n^2 + n + 41\"\n    by (simp add: algebra_simps)\n  moreover have \"gcd (p n) (p (n + 1)) = gcd (p n) (2 * n + 1)\"\n    by (simp add: algebra_simps)\n  ultimately show ?thesis\n    by (simp add: gcd_nat.simps)\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": ""
+        },
+        "23": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\nlemma five_plus_500_percent_of_10_equals_110_percent_of_x:\n  shows \"5 + (500 / 100) * 10 = (110 / 100) * (50::real)\"\n  by simp\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "43": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma sum_of_squares_even_numbers:\n  assumes \"x > 0\" and \"even x\"\n  shows \"((x^2) + ((x + 2)^2) + ((x + 4)^2)) = 12296 ⟹ (x * (x + 2) * (x + 4)) div 8 = 32736\"\nproof -\n  have \"x^2 + (x + 2)^2 + (x + 4)^2 = x^2 + (x^2 + 4*x + 4) + (x^2 + 8*x + 16)\"\n    by (simp add: power2_eq_square)\n  then have \"3 * x^2 + 12 * x + 20 = 12296\"\n    by simp\n  then have \"3 * x^2 + 12 * x - 12276 = 0\"\n    by simp\n  then have \"x = 38\"\n    using real_arith\n    by (smt (verit, del_insts) mult.commute mult.left_commute mult.right_neutral numeral_Bit0 numeral_Bit1 numeral_eq_iff semiring_normalization_rules(7) semiring_normalization_rules(9))\n  then have \"x * (x + 2) * (x + 4) = 38 * 40 * 42\"\n    by simp\n  then have \"(x * (x + 2) * (x + 4)) div 8 = (38 * 40 * 42) div 8\"\n    by simp\n  then show ?thesis\n    by simp\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": ""
+        },
+        "42": {
+            "formalization": "theory test\n  imports Complex_Main\nbegin\n\nlemma inequality_example:\n  assumes \"1 - sqrt (2 * x + 1) > 0\"\n  shows \"4 * x\\<^sup>2 / (1 - sqrt (2 * x + 1))\\<^sup>2 < 2 * x + 9\"\nproof -\n  have \"1 - sqrt (2 * x + 1) > 0\" using assms by simp\n  then have \"2 * x + 1 < 1\" by simp\n  then have \"x < 0\" by simp\n  then have \"4 * x\\<^sup>2 < (2 * x + 9) * (1 - sqrt (2 * x + 1))\\<^sup>2\" \n    using assms by (simp add: power2_eq_square)\n  then show ?thesis \n    by (metis divide_less_eq less_divide_eq mult.commute mult.left_commute)\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": ""
+        },
+        "35": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma solve_equation:\n  assumes \"(x::int) - 9 = 2 * (x + 1)\"\n  shows \"x = -11\"\nproof -\n  have \"x - 9 = 2 * x + 2\" using assms by (simp add: algebra_simps)\n  then have \"-x = 11\" by simp\n  thus ?thesis by simp\nqed\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "26": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma factorization_example:\n  assumes \"A * B = 10\" \"A * 3 + B * (-8) = -1\" \"A ∈ ℤ\" \"B ∈ ℤ\"\n  shows \"A * B + B = 12\"\nproof -\n  from assms have \"A = 2\" \"B = 5\"\n    by (auto simp add: algebra_simps)\n  then show ?thesis\n    by simp\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 10\nError message: Failed to finish proof\\<^here>:\ngoal (2 subgoals):\n 1. A * B = 10 \\<Longrightarrow> 1 + A * 3 = B * 8 \\<Longrightarrow> A \\<in> \\<int> \\<Longrightarrow> B \\<in> \\<int> \\<Longrightarrow> A = 2\n 2. A * B = 10 \\<Longrightarrow> 1 + A * 3 = B * 8 \\<Longrightarrow> A \\<in> \\<int> \\<Longrightarrow> B \\<in> \\<int> \\<Longrightarrow> B = 5\n\nIdentified error on line: 12\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. A = 2 \\<Longrightarrow> B = 5 \\<Longrightarrow> 15 = 12\n\n"
+        },
+        "41": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\n  definition last_year_enrollment :: real where\n    \"last_year_enrollment = 598 / (1 + 0.04 :: real)\"\n\n  lemma last_year_enrollment_value: \"last_year_enrollment = 575\"\n    by (simp add: last_year_enrollment_def)\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "21": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma modulo_4_remainder_sum: \"((1::nat) + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10 + 11 + 12) mod 4 = 2\"\n  by eval\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        }
+    },
+    "9": {
+        "34": {
+            "formalization": "theory test\nimports \"HOL.Real\"\nbegin\n\nlemma real_inequality: \n  fixes a b :: real\n  shows \"(abs (a + b)) / (1 + abs (a + b)) ≤ (abs a) / (1 + abs a) + (abs b) / (1 + abs b)\"\nproof -\n  have \"abs (a + b) ≤ abs a + abs b\"\n    by (simp add: abs_triangle_ineq)\n  then have \"(abs (a + b)) / (1 + abs (a + b)) ≤ (abs a + abs b) / (1 + abs (a + b))\"\n    by (simp add: divide_right_mono)\n  also have \"... ≤ (abs a) / (1 + abs a) + (abs b) / (1 + abs b)\"\n  proof -\n    have \"(abs a * (1 + abs b) + abs b * (1 + abs a)) ≥ (abs a + abs b) * (1 + abs (a + b))\"\n      by (simp add: algebra_simps)\n    then show ?thesis\n      by (simp add: divide_right_mono mult_left_mono mult_right_mono)\n  qed\n  finally show ?thesis .\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 16\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. \\<bar>a\\<bar> * \\<bar>a + b\\<bar> + \\<bar>b\\<bar> * \\<bar>a + b\\<bar> \\<le> \\<bar>a\\<bar> * (\\<bar>b\\<bar> * 2)\n\nIdentified error on line: 18\nError message: Failed to apply initial proof method\\<^here>:\nusing this:\n  (\\<bar>a\\<bar> + \\<bar>b\\<bar>) * (1 + \\<bar>a + b\\<bar>) \\<le> \\<bar>a\\<bar> * (1 + \\<bar>b\\<bar>) + \\<bar>b\\<bar> * (1 + \\<bar>a\\<bar>)\ngoal (1 subgoal):\n 1. (\\<bar>a\\<bar> + \\<bar>b\\<bar>) / (1 + \\<bar>a + b\\<bar>) \\<le> \\<bar>a\\<bar> / (1 + \\<bar>a\\<bar>) + \\<bar>b\\<bar> / (1 + \\<bar>b\\<bar>)\n\n"
+        },
+        "36": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\n  definition a11 :: real where \"a11 = 1\"  (* Example positive coefficient *)\n  definition a22 :: real where \"a22 = 1\"  (* Example positive coefficient *)\n  definition a33 :: real where \"a33 = 1\"  (* Example positive coefficient *)\n\n  definition a12 :: real where \"a12 = -1\" (* Example negative coefficient *)\n  definition a13 :: real where \"a13 = -1\" (* Example negative coefficient *)\n  definition a21 :: real where \"a21 = -1\" (* Example negative coefficient *)\n  definition a23 :: real where \"a23 = -1\" (* Example negative coefficient *)\n  definition a31 :: real where \"a31 = -1\" (* Example negative coefficient *)\n  definition a32 :: real where \"a32 = -1\" (* Example negative coefficient *)\n\n  lemma unique_solution:\n    assumes \"a11 > 0\" \"a22 > 0\" \"a33 > 0\"\n    and \"a12 < 0\" \"a13 < 0\" \"a21 < 0\" \"a23 < 0\" \"a31 < 0\" \"a32 < 0\"\n    and \"a11 + a12 + a13 > 0\" \"a21 + a22 + a23 > 0\" \"a31 + a32 + a33 > 0\"\n    shows \"x1 = 0 ∧ x2 = 0 ∧ x3 = 0\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "3": {
+            "formalization": "theory test\nimports Main\nbegin\n\nfun p :: \"nat ⇒ nat\" where\n  \"p n = n^2 - n + 41\"\n\nlemma common_factor:\n  assumes \"n > 0\"\n  shows \"gcd (p n) (p (n + 1)) > 1 ⟷ n = 41\"\nproof -\n  have \"p (n + 1) = (n + 1)^2 - (n + 1) + 41\"\n    by (simp add: p.simps)\n  moreover have \"p (n + 1) = n^2 + n + 41\"\n    by (simp add: algebra_simps)\n  moreover have \"gcd (p n) (p (n + 1)) = gcd (p n) (2 * n + 1)\"\n    by (simp add: algebra_simps)\n  ultimately show ?thesis\n    by (simp add: gcd_nat.simps)\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": ""
+        },
+        "23": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\nlemma five_plus_500_percent_of_10_equals_110_percent_of_x:\n  shows \"5 + (500 / 100) * 10 = (110 / 100) * (50::real)\"\n  by simp\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "43": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma sum_of_squares_even_numbers:\n  assumes \"x > 0\" and \"even x\"\n  shows \"((x^2) + ((x + 2)^2) + ((x + 4)^2)) = 12296 ⟹ (x * (x + 2) * (x + 4)) div 8 = 32736\"\nproof -\n  have \"x^2 + (x + 2)^2 + (x + 4)^2 = x^2 + (x^2 + 4*x + 4) + (x^2 + 8*x + 16)\"\n    by (simp add: power2_eq_square)\n  then have \"3 * x^2 + 12 * x + 20 = 12296\"\n    by simp\n  then have \"3 * x^2 + 12 * x - 12276 = 0\"\n    by simp\n  then have \"x = 38\"\n    using real_arith\n    by (smt (verit, del_insts) mult.commute mult.left_commute mult.right_neutral numeral_Bit0 numeral_Bit1 numeral_eq_iff semiring_normalization_rules(7) semiring_normalization_rules(9))\n  then have \"x * (x + 2) * (x + 4) = 38 * 40 * 42\"\n    by simp\n  then have \"(x * (x + 2) * (x + 4)) div 8 = (38 * 40 * 42) div 8\"\n    by simp\n  then show ?thesis\n    by simp\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": ""
+        },
+        "42": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\nlemma inequality_example:\n  assumes \"1 - sqrt (2 * x + 1) > 0\"\n  shows \"4 * x\\<^sup>2 / (1 - sqrt (2 * x + 1))\\<^sup>2 < 2 * x + 9\"\nproof -\n  have \"1 - sqrt (2 * x + 1) > 0\" using assms by simp\n  then have \"2 * x + 1 < 1\" by simp\n  then have \"x < 0\" by simp\n  then have \"4 * x\\<^sup>2 < (2 * x + 9) * (1 - sqrt (2 * x + 1))\\<^sup>2\" \n    using assms by (simp add: power2_eq_square)\n  then show ?thesis \n    by (metis divide_less_eq mult.commute mult.left_commute)\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": ""
+        },
+        "35": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma solve_equation:\n  assumes \"(x::int) - 9 = 2 * (x + 1)\"\n  shows \"x = -11\"\nproof -\n  have \"x - 9 = 2 * x + 2\" using assms by (simp add: algebra_simps)\n  then have \"-x = 11\" by simp\n  thus ?thesis by simp\nqed\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "26": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma factorization_example:\n  assumes \"A * B = 10\" \"A * 3 + B * (-8) = -1\" \"A ∈ ℤ\" \"B ∈ ℤ\"\n  shows \"A * B + B = 12\"\nproof -\n  from assms have \"A = 5\" \"B = 2\"\n    by (auto simp add: algebra_simps)\n  then show ?thesis\n    by simp\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 10\nError message: Failed to finish proof\\<^here>:\ngoal (2 subgoals):\n 1. A * B = 10 \\<Longrightarrow> 1 + A * 3 = B * 8 \\<Longrightarrow> A \\<in> \\<int> \\<Longrightarrow> B \\<in> \\<int> \\<Longrightarrow> A = 5\n 2. A * B = 10 \\<Longrightarrow> 1 + A * 3 = B * 8 \\<Longrightarrow> A \\<in> \\<int> \\<Longrightarrow> B \\<in> \\<int> \\<Longrightarrow> B = 2\n\n"
+        },
+        "41": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\n  definition last_year_enrollment :: real where\n    \"last_year_enrollment = 598 / (1 + 0.04 :: real)\"\n\n  lemma last_year_enrollment_value: \"last_year_enrollment = 575\"\n    by (simp add: last_year_enrollment_def)\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "21": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma modulo_4_remainder_sum: \"((1::nat) + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10 + 11 + 12) mod 4 = 2\"\n  by eval\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        }
+    },
+    "10": {
+        "34": {
+            "formalization": "theory test\nimports \"HOL.Real\"\nbegin\n\nlemma real_inequality: \n  fixes a b :: real\n  shows \"(abs (a + b)) / (1 + abs (a + b)) ≤ (abs a) / (1 + abs a) + (abs b) / (1 + abs b)\"\nproof -\n  have \"abs (a + b) ≤ abs a + abs b\"\n    by (simp add: abs_triangle_ineq)\n  then have \"(abs (a + b)) / (1 + abs (a + b)) ≤ (abs a + abs b) / (1 + abs (a + b))\"\n    by (simp add: divide_right_mono)\n  also have \"... ≤ (abs a) / (1 + abs a) + (abs b) / (1 + abs b)\"\n  proof -\n    have \"(abs a * (1 + abs b) + abs b * (1 + abs a)) ≥ (abs a + abs b) * (1 + abs (a + b))\"\n      by (simp add: algebra_simps)\n    then have \"(abs a + abs b) / (1 + abs (a + b)) ≤ (abs a) / (1 + abs a) + (abs b) / (1 + abs b)\"\n      using divide_right_mono mult_left_mono mult_right_mono by auto\n    then show ?thesis by simp\n  qed\n  finally show ?thesis .\nqed\n\nend\n"
+        },
+        "36": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\n  definition a11 :: real where \"a11 = 1\"  (* Example positive coefficient *)\n  definition a22 :: real where \"a22 = 1\"  (* Example positive coefficient *)\n  definition a33 :: real where \"a33 = 1\"  (* Example positive coefficient *)\n\n  definition a12 :: real where \"a12 = -1\" (* Example negative coefficient *)\n  definition a13 :: real where \"a13 = -1\" (* Example negative coefficient *)\n  definition a21 :: real where \"a21 = -1\" (* Example negative coefficient *)\n  definition a23 :: real where \"a23 = -1\" (* Example negative coefficient *)\n  definition a31 :: real where \"a31 = -1\" (* Example negative coefficient *)\n  definition a32 :: real where \"a32 = -1\" (* Example negative coefficient *)\n\n  lemma unique_solution:\n    assumes \"a11 > 0\" \"a22 > 0\" \"a33 > 0\"\n    and \"a12 < 0\" \"a13 < 0\" \"a21 < 0\" \"a23 < 0\" \"a31 < 0\" \"a32 < 0\"\n    and \"a11 + a12 + a13 > 0\" \"a21 + a22 + a23 > 0\" \"a31 + a32 + a33 > 0\"\n    shows \"x1 = 0 ∧ x2 = 0 ∧ x3 = 0\"\n  sorry\n\nend\n"
+        },
+        "3": {
+            "formalization": "theory test\nimports Main\nbegin\n\nfun p :: \"nat ⇒ nat\" where\n  \"p n = n^2 - n + 41\"\n\nlemma common_factor:\n  assumes \"n > 0\"\n  shows \"gcd (p n) (p (n + 1)) > 1 ⟷ n = 41\"\nproof -\n  have \"p (n + 1) = (n + 1)^2 - (n + 1) + 41\"\n    by (simp add: p.simps)\n  moreover have \"p (n + 1) = n^2 + n + 41\"\n    by (simp add: algebra_simps)\n  moreover have \"gcd (p n) (p (n + 1)) = gcd (p n) (2 * n + 1)\"\n    by (simp add: algebra_simps)\n  ultimately show ?thesis\n    by (simp add: gcd_nat.simps)\nqed\n\nend\n"
+        },
+        "23": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\nlemma five_plus_500_percent_of_10_equals_110_percent_of_x:\n  shows \"5 + (500 / 100) * 10 = (110 / 100) * (50::real)\"\n  by simp\n\nend\n"
+        },
+        "43": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma sum_of_squares_even_numbers:\n  assumes \"x > 0\" and \"even x\"\n  shows \"((x^2) + ((x + 2)^2) + ((x + 4)^2)) = 12296 ⟹ (x * (x + 2) * (x + 4)) div 8 = 32736\"\nproof -\n  have \"x^2 + (x + 2)^2 + (x + 4)^2 = x^2 + (x^2 + 4*x + 4) + (x^2 + 8*x + 16)\"\n    by (simp add: power2_eq_square)\n  then have \"3 * x^2 + 12 * x + 20 = 12296\"\n    by simp\n  then have \"3 * x^2 + 12 * x - 12276 = 0\"\n    by simp\n  then have \"x = 38\"\n    using real_arith\n    by (smt (verit, del_insts) mult.commute mult.left_commute mult.right_neutral numeral_Bit0 numeral_Bit1 numeral_eq_iff semiring_normalization_rules(7) semiring_normalization_rules(9))\n  then have \"x * (x + 2) * (x + 4) = 38 * 40 * 42\"\n    by simp\n  then have \"(x * (x + 2) * (x + 4)) div 8 = (38 * 40 * 42) div 8\"\n    by simp\n  then show ?thesis\n    by simp\nqed\n\nend\n"
+        },
+        "42": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\nlemma inequality_example:\n  assumes \"1 - sqrt (2 * x + 1) > 0\"\n  shows \"4 * x\\<^sup>2 / (1 - sqrt (2 * x + 1))\\<^sup>2 < 2 * x + 9\"\nproof -\n  have \"1 - sqrt (2 * x + 1) > 0\" using assms by simp\n  then have \"2 * x + 1 < 1\" by simp\n  then have \"x < 0\" by simp\n  then have \"4 * x\\<^sup>2 < (2 * x + 9) * (1 - sqrt (2 * x + 1))\\<^sup>2\" \n    using assms by (simp add: power2_eq_square)\n  then show ?thesis \n    by (metis divide_less_eq mult.commute mult.left_commute)\nqed\n\nend\n"
+        },
+        "35": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma solve_equation:\n  assumes \"(x::int) - 9 = 2 * (x + 1)\"\n  shows \"x = -11\"\nproof -\n  have \"x - 9 = 2 * x + 2\" using assms by (simp add: algebra_simps)\n  then have \"-x = 11\" by simp\n  thus ?thesis by simp\nqed\n\nend\n"
+        },
+        "26": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma factorization_example:\n  assumes \"A * B = 10\" \"A * 3 + B * (-8) = -1\" \"A ∈ ℤ\" \"B ∈ ℤ\"\n  shows \"A * B + B = 12\"\nproof -\n  from assms have \"A = 2\" \"B = 5\"\n    by (auto simp add: algebra_simps)\n  then show ?thesis\n    by simp\nqed\n\nend\n"
+        },
+        "41": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\n  definition last_year_enrollment :: real where\n    \"last_year_enrollment = 598 / (1 + 0.04 :: real)\"\n\n  lemma last_year_enrollment_value: \"last_year_enrollment = 575\"\n    by (simp add: last_year_enrollment_def)\n\nend\n"
+        },
+        "21": {
+            "formalization": "theory test\nimports Main\nbegin\n\nlemma modulo_4_remainder_sum: \"((1::nat) + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10 + 11 + 12) mod 4 = 2\"\n  by eval\n\nend\n"
+        }
+    }
+}

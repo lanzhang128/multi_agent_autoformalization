@@ -45,16 +45,16 @@ if __name__ == '__main__':
         model='gpt-4o'
     )
 
-    deepseekmath = HuggingFaceLLM(
-        name='deepseekmath',
-        model_id='deepseek-ai/deepseek-math-7b-instruct')
+    mistral = HuggingFaceLLM(
+        name='mistral',
+        model_id='mistralai/Mistral-7B-Instruct-v0.2')
 
     # Set formal language
     formal_language = 'Isabelle/HOL'
 
     # Instantiate Agents
     agent_auto = AutoformalizationAgent(
-        llm=deepseekmath,
+        llm=mistral,
         name='autoformalization',
         formal_language=formal_language
     )

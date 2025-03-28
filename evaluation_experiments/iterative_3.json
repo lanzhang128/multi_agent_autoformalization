@@ -1,0 +1,554 @@
+{
+    "0": {
+        "25": {
+            "formalization": "theory amc12a_2008_p5 imports\n  Complex_Main\nbegin\n\ntheorem amc12a_2008_p5:\n  fixes t :: real\n  defines \"f t = (2^t - 3*t) * t / (4^t)\"\n  assumes \"t \\<in> real\"\n  shows \"max f t = 1/12\"\n  sorry\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 6\nError message: Type unification failed: Clash of types \"real\" and \"nat\"\n\nType error in application: incompatible operand type\n\nOperator:  (^) 2 :: nat \\<Rightarrow> ??'a\nOperand:   t :: real\n\nCoercion Inference:\n\nLocal coercion insertion on the operand failed:\n\"real\" is not a subtype of \"nat\"\n\nNow trying to infer coercions globally.\n\nCoercion inference failed:\nweak unification of subtype constraints fails\nClash of types \"_ \\<Rightarrow> _\" and \"_ set\"\n\n\nIdentified error on line: 11\nError message: Bad context for command \"sorry\"\\<^here> -- using reset state\n\n"
+        },
+        "40": {
+            "formalization": "theory f_function imports Complex_Main\nbegin\n\nfun f :: \"nat ⇒ nat\" where\n  \"f 2 = 0\" |\n  \"f 3 = Suc 0\" |\n  \"f 9999 = 3333\" |\n  \"f (m + n) = f m + f n + (if (f m + f n + 0) mod 2 = 0 then 0 else 1)\"\n\ntheorem f_function_value:\n  shows \"f 1982 = 660\"\n  sorry\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 5\nError message: Malformed definition:\nNon-constructor pattern not allowed in sequential mode.\nf 2 = 0\n\n"
+        },
+        "12": {
+            "formalization": "theory amc12a_2008_p5 imports\n  Complex_Main\nbegin\n\ntheorem amc12a_2008_p5:\n  shows \"(\\<prod>i::nat. (2*i + 1)) = (10000! / (2^5000 * 5000!))\"\n  sorry\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 6\nError message: Inner lexical error\\<^here>\nFailed to parse prop\n\nIdentified error on line: 8\nError message: Bad context for command \"sorry\"\\<^here> -- using reset state\n\n"
+        },
+        "34": {
+            "formalization": "theory inequality imports Complex_Main\nbegin\n\ntheorem inequality:\n  fixes a b :: real\n  shows \"(|a + b|) / (1 + |a + b|) ≤ (|a|) / (1 + |a|) + (|b|) / (1 + |b|)\"\n  sorry\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 5\nError message: Inner syntax error\\<^here>\nFailed to parse prop\n\nIdentified error on line: 8\nError message: Bad context for command \"sorry\"\\<^here> -- using reset state\n\n"
+        },
+        "8": {
+            "formalization": "theory polynomial_expansion imports Complex_Main\nbegin\n\ntheorem polynomial_expansion:\n  shows \"((x + 1)^2) * x = x^3 + 2 * x^2 + x\"\n  by (simp add: algebra_simps)\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 7\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. (x + 1)\\<^sup>2 * x = x ^ 3 + (2 * x\\<^sup>2 + x)\n\n"
+        },
+        "31": {
+            "formalization": "theory irreducible_fraction imports\n  Complex_Main\nbegin\n\ntheorem irreducible_fraction:\n  fixes n :: nat\n  shows \"gcd(21*n + 4, 14*n + 3) = 1\"\n  sorry\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 6\nError message: No type arity prod :: gcd\n\nIdentified error on line: 9\nError message: Bad context for command \"sorry\"\\<^here> -- using reset state\n\n"
+        },
+        "4": {
+            "formalization": "theory minimum_value imports Complex_Main\nbegin\n\ntheorem minimum_value:\n  fixes x :: real\n  assumes \"x^2 - 14*x + 3\"\n  shows \"x = 7\"\n  sorry\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 5\nError message: Type unification failed: Clash of types \"real\" and \"bool\"\n\nType error in application: incompatible operand type\n\nOperator:  Trueprop :: bool \\<Rightarrow> prop\nOperand:   x\\<^sup>2 - 14 * x + 3 :: real\n\nCoercion Inference:\n\nLocal coercion insertion on the operand failed:\n\"real\" is not a subtype of \"bool\"\n\nNow trying to infer coercions globally.\n\nCoercion inference failed:\nassigned base type \"real\" clashes with the upper bound of variable ??'a9\n\nCannot fulfil subtype constraints:\n  ??'a  <:  bool   from function application  x ^ 2 - 14 * x + 3\n  ??'a  <:  ??'b   from function application  x ^ 2 - 14 * x + 3\n  ??'a  <:  ??'b   from function application  (+) (x ^ 2 - 14 * x)\n\nIdentified error on line: 9\nError message: Bad context for command \"sorry\"\\<^here> -- using reset state\n\n"
+        },
+        "27": {
+            "formalization": "theory aime_1997_p5 imports Complex_Main\nbegin\n\ntheorem aime_1997_p5:\n  fixes A B C :: nat\n  assumes \"n = 3^17 + 3^10\"\n      and \"n + 1 ≡ 0 (mod 11)\"\n      and \"n = 1000000 * A + 100000 * B + 10000 * C + 1000 * A + 100 * C + 10 * C + 1 * B\"\n      and \"A ≠ B\" and \"A ≠ C\" and \"B ≠ C\"\n      and \"A mod 2 = 1\" and \"C mod 2 = 1\"\n      and \"B mod 3 ≠ 0\"\n  shows \"100 * A + 10 * B + C = 129\"\n  sorry\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 5\nError message: Inner syntax error\\<^here>\nFailed to parse prop\n\nIdentified error on line: 14\nError message: Bad context for command \"sorry\"\\<^here> -- using reset state\n\n"
+        },
+        "3": {
+            "formalization": "theory euler_polynomial imports Complex_Main\nbegin\n\ntheorem euler_polynomial:\n  fixes n :: nat\n  defines \"p n ≡ n^2 - n + 41\"\n  assumes \"∃ n. gcd (p n) (p (n + 1)) > 1\"\n  shows \"n = 41\"\n  sorry\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 5\nError message: Bad arguments on lhs: \"n\"\nThe error(s) above occurred in definition:\n\"p n \\<equiv> n\\<^sup>2 - n + 41\"\n\nIdentified error on line: 10\nError message: Bad context for command \"sorry\"\\<^here> -- using reset state\n\n"
+        },
+        "17": {
+            "formalization": "theory functional_inverse imports\n  Complex_Main\nbegin\n\ntheorem functional_inverse:\n  fixes f h :: \"real ⇒ real\"\n  assumes \"h = f^-1\"\n  and \"h 2 = 10\"\n  and \"h 10 = 1\"\n  and \"h 1 = 2\"\n  shows \"f (f 10) = 1\"\n  sorry\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 6\nError message: Type unification failed: Clash of types \"_ \\<Rightarrow> _\" and \"_ set\"\n\nType error in application: incompatible operand type\n\nOperator:  converse :: (??'a \\<times> ??'b) set \\<Rightarrow> (??'b \\<times> ??'a) set\nOperand:   f :: real \\<Rightarrow> real\n\nCoercion Inference:\n\nLocal coercion insertion on the operand failed:\nNo coercion known for type constructors: \"fun\" and \"set\"\n\nIdentified error on line: 13\nError message: Bad context for command \"sorry\"\\<^here> -- using reset state\n\n"
+        }
+    },
+    "1": {
+        "25": {
+            "formalization": "theory test\nimports\n  Complex_Main\nbegin\n\ntheorem amc12a_2008_p5:\n  fixes t :: real\n  defines \"f t = (2 powr t - 3 * t) * t / (4 powr t)\"\n  shows \"Sup (range f) = 1/12\"\nproof -\n  have \"f t = (2 powr t * t - 3 * t^2) / (4 powr t)\" for t\n    by (simp add: field_simps)\n  hence \"f t = (t * (2 powr t - 3 * t)) / (4 powr t)\" for t\n    by simp\n  hence \"f t = (t / (4 powr t)) * (2 powr t - 3 * t)\" for t\n    by simp\n  hence \"f t = (t / (2 powr (2 * t))) * (2 powr t - 3 * t)\" for t\n    by (simp add: powr_mult)\n  hence \"f t = (t * (2 powr t - 3 * t)) / (2 powr (2 * t))\" for t\n    by simp\n  hence \"f t = (t * (2 powr t - 3 * t)) / (2 powr t * 2 powr t)\" for t\n    by (simp add: powr_add)\n  hence \"f t = (t * (2 powr t - 3 * t)) / (2 powr t * 2 powr t)\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * ((2 powr t - 3 * t) / (2 powr t))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - (3 * t) / (2 powr t))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - 3 * (t / (2 powr t)))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - 3 * (t / (2 powr t)))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - 3 * (t / (2 powr t)))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - 3 * (t / (2 powr t)))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - 3 * (t / (2 powr t)))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - 3 * (t / (2 powr t)))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - 3 * (t / (2 powr t)))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - 3 * (t / (2 powr t)))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - 3 * (t / (2 powr t)))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - 3 * (t / (2 powr t)))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - 3 * (t / (2 powr t)))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - 3 * (t / (2 powr t)))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - 3 * (t / (2 powr t)))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - 3 * (t / (2 powr t)))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - 3 * (",
+            "correctness": "False",
+            "error_details": ""
+        },
+        "40": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\nfun f :: \"nat ⇒ nat\" where\n  \"f 2 = 0\" |\n  \"f 3 = Suc 0\" |\n  \"f 9999 = 3333\" |\n  \"f (m + n) = f m + f n + (if (f m + f n) mod 2 = 0 then 0 else 1)\"\n\ntheorem f_function_value:\n  shows \"f 1982 = 660\"\n  sorry\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 5\nError message: Malformed definition:\nNon-constructor pattern not allowed in sequential mode.\nf 2 = 0\n\n"
+        },
+        "12": {
+            "formalization": "theory test\nimports\n  Complex_Main\nbegin\n\ntheorem amc12a_2008_p5:\n  shows \"(\\<Prod>i = 0..<5000. (2 * i + 1)) = (fact 10000 div (2^5000 * fact 5000))\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "34": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem inequality:\n  fixes a b :: real\n  shows \"(\\<bar>a + b\\<bar>) / (1 + \\<bar>a + b\\<bar>) \\<le> (\\<bar>a\\<bar>) / (1 + \\<bar>a\\<bar>) + (\\<bar>b\\<bar>) / (1 + \\<bar>b\\<bar>)\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "8": {
+            "formalization": "theory test\n  imports Complex_Main\nbegin\n\ntheorem polynomial_expansion:\n  fixes x :: \"'a::comm_ring_1\"\n  shows \"((x + 1)^2) * x = x^3 + 2 * x^2 + x\"\n  by (simp add: algebra_simps)\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 8\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. x * (1 + x)\\<^sup>2 = x + (x ^ 3 + 2 * x\\<^sup>2)\n\n"
+        },
+        "31": {
+            "formalization": "theory test\nimports\n  Main\nbegin\n\ntheorem irreducible_fraction:\n  fixes n :: nat\n  shows \"gcd (21 * n + 4) (14 * n + 3) = 1\"\n  by (simp add: gcd_non_0_nat)\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 9\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. gcd (14 * n + 3) ((21 * n + 4) mod (14 * n + 3)) = Suc 0\n\n"
+        },
+        "4": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem minimum_value:\n  fixes x :: real\n  shows \"(x - 7)^2 + 3 - 49 = x^2 - 14*x + 3\"\n  by (simp add: power2_eq_square)\n\ntheorem minimum_value_at_7:\n  fixes x :: real\n  shows \"x^2 - 14*x + 3 = (x - 7)^2 - 46\"\n  by (simp add: power2_eq_square)\n\ntheorem minimum_value_is_7:\n  shows \"∀x::real. (x - 7)^2 ≥ 0\"\n  by simp\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 8\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. (x - 7) * (x - 7) = 49 + (x * x - 14 * x)\n\nIdentified error on line: 13\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. 49 + (x * x - 14 * x) = (x - 7) * (x - 7)\n\n"
+        },
+        "27": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem aime_1997_p5:\n  fixes A B C n :: nat\n  assumes \"n = 3^17 + 3^10\"\n      and \"(n + 1) mod 11 = 0\"\n      and \"n = 1000000 * A + 100000 * B + 10000 * C + 1000 * A + 100 * C + 10 * C + B\"\n      and \"A ≠ B\" and \"A ≠ C\" and \"B ≠ C\"\n      and \"A mod 2 = 1\" and \"C mod 2 = 1\"\n      and \"B mod 3 ≠ 0\"\n  shows \"100 * A + 10 * B + C = 129\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "3": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\nfun p :: \"nat ⇒ nat\" where\n  \"p n = n^2 - n + 41\"\n\ntheorem euler_polynomial:\n  fixes n :: nat\n  assumes \"gcd (p n) (p (n + 1)) > 1\"\n  shows \"n = 41\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "17": {
+            "formalization": "theory test\nimports\n  Complex_Main\nbegin\n\ntheorem functional_inverse:\n  fixes f h :: \"real ⇒ real\"\n  assumes \"∀x. h (f x) = x\"\n  and \"h 2 = 10\"\n  and \"h 10 = 1\"\n  and \"h 1 = 2\"\n  shows \"f (f 10) = 1\"\nproof -\n  from assms(2) have \"f 10 = 2\" by (metis assms(1))\n  moreover from assms(3) have \"f 1 = 10\" by (metis assms(1))\n  ultimately show ?thesis using assms(4) by (metis assms(1))\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 14\nError message: Failed to apply initial proof method\\<^here>:\nusing this:\n  h 2 = 10\ngoal (1 subgoal):\n 1. f 10 = 2\n\nIdentified error on line: 15\nError message: Failed to apply initial proof method\\<^here>:\nusing this:\n  h 10 = 1\ngoal (1 subgoal):\n 1. f 1 = 10\n\nIdentified error on line: 16\nError message: Failed to apply initial proof method\\<^here>:\nusing this:\n    f 10 = 2\n    f 1 = 10\n    h 1 = 2\ngoal (1 subgoal):\n 1. f (f 10) = 1\n\n"
+        }
+    },
+    "2": {
+        "25": {
+            "formalization": "theory test\n  imports Complex_Main\nbegin\n\ntheorem amc12a_2008_p5:\n  fixes t :: real\n  defines \"f t = (2 powr t - 3 * t) * t / (4 powr t)\"\n  shows \"Sup (range f) = 1/12\"\nproof -\n  have \"f t = (2 powr t * t - 3 * t^2) / (4 powr t)\" for t\n    by (simp add: field_simps)\n  hence \"f t = (t * (2 powr t - 3 * t)) / (4 powr t)\" for t\n    by simp\n  hence \"f t = (t / (4 powr t)) * (2 powr t - 3 * t)\" for t\n    by simp\n  hence \"f t = (t / (2 powr (2 * t))) * (2 powr t - 3 * t)\" for t\n    by (simp add: powr_mult)\n  hence \"f t = (t * (2 powr t - 3 * t)) / (2 powr (2 * t))\" for t\n    by simp\n  hence \"f t = (t * (2 powr t - 3 * t)) / (2 powr t * 2 powr t)\" for t\n    by (simp add: powr_add)\n  hence \"f t = (t / (2 powr t)) * ((2 powr t - 3 * t) / (2 powr t))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - (3 * t) / (2 powr t))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - 3 * (t / (2 powr t)))\" for t\n    by simp\n  thus \"Sup (range f) = 1/12\"\n    sorry\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 5\nError message: Not a meta-equality (\\<equiv>)\nThe error(s) above occurred in definition:\n\"f t = (2 powr t - 3 * t) * t / 4 powr t\"\n\nIdentified error on line: 9\nError message: Bad context for command \"proof\"\\<^here> -- using reset state\n\n"
+        },
+        "40": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\nfun f :: \"nat ⇒ nat\" where\n  \"f 2 = 0\" |\n  \"f 3 = Suc 0\" |\n  \"f 9999 = 3333\" |\n  \"f (m + n) = (if (f m + f n) mod 2 = 0 then f m + f n else f m + f n + 1)\"\n\ntheorem f_function_value:\n  shows \"f 1982 = 660\"\n  sorry\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 5\nError message: Malformed definition:\nNon-constructor pattern not allowed in sequential mode.\nf 2 = 0\n\n"
+        },
+        "12": {
+            "formalization": "theory test\nimports\n  Complex_Main\nbegin\n\ntheorem amc12a_2008_p5:\n  shows \"(\\<Prod>i = 0..<5000. (2 * i + 1)) = (fact 10000 div (2^5000 * fact 5000))\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "34": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem inequality:\n  fixes a b :: real\n  shows \"(\\<bar>a + b\\<bar>) / (1 + \\<bar>a + b\\<bar>) \\<le> (\\<bar>a\\<bar>) / (1 + \\<bar>a\\<bar>) + (\\<bar>b\\<bar>) / (1 + \\<bar>b\\<bar>)\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "8": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem polynomial_expansion:\n  fixes x :: \"'a::comm_ring_1\"\n  shows \"(x + 1)^2 * x = x^3 + 2 * x^2 + x\"\n  by (simp add: algebra_simps)\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 8\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. x * (1 + x)\\<^sup>2 = x + (x ^ 3 + 2 * x\\<^sup>2)\n\n"
+        },
+        "31": {
+            "formalization": "theory test\nimports\n  Main\nbegin\n\ntheorem irreducible_fraction:\n  fixes n :: nat\n  shows \"gcd (21 * n + 4) (14 * n + 3) = 1\"\nproof -\n  have \"gcd (21 * n + 4) (14 * n + 3) = gcd (14 * n + 3) ((21 * n + 4) mod (14 * n + 3))\"\n    by (simp add: gcd_non_0_nat)\n  also have \"... = gcd (14 * n + 3) (7 * n + 1)\"\n    by (simp add: mod_simps)\n  also have \"... = gcd (7 * n + 1) (14 * n + 3 mod (7 * n + 1))\"\n    by (simp add: gcd_non_0_nat)\n  also have \"... = gcd (7 * n + 1) 2\"\n    by (simp add: mod_simps)\n  also have \"... = 1\"\n    by (simp add: gcd_non_0_nat)\n  finally show ?thesis .\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 13\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. gcd (14 * n + 3) ((21 * n + 4) mod (14 * n + 3)) =\n    gcd (14 * n + 3) (Suc (7 * n))\n\nIdentified error on line: 15\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. gcd (Suc (7 * n)) ((14 * n + 3) mod Suc (7 * n)) =\n    gcd (Suc (7 * n)) (14 * n + 3 mod Suc (7 * n))\n\nIdentified error on line: 17\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. gcd (Suc (7 * n)) (14 * n + 3 mod Suc (7 * n)) = gcd (Suc (7 * n)) 2\n\nIdentified error on line: 19\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. gcd 2 (Suc (7 * n) mod 2) = Suc 0\n\n"
+        },
+        "4": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem minimum_value:\n  fixes x :: real\n  shows \"x^2 - 14*x + 3 = (x - 7)^2 - 46\"\n  by (simp add: power2_eq_square)\n\ntheorem minimum_value_at_7:\n  shows \"(7::real)^2 - 14*7 + 3 = (7 - 7)^2 - 46\"\n  by simp\n\ntheorem minimum_value_is_7:\n  shows \"∀x::real. (x - 7)^2 ≥ 0\"\n  by simp\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 8\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. 49 + (x * x - 14 * x) = (x - 7) * (x - 7)\n\n"
+        },
+        "27": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem aime_1997_p5:\n  fixes A B C n :: nat\n  assumes \"n = 3^17 + 3^10\"\n      and \"(n + 1) mod 11 = 0\"\n      and \"n = 1000000 * A + 100000 * B + 10000 * C + 1000 * A + 100 * C + 10 * C + B\"\n      and \"A ≠ B\" and \"A ≠ C\" and \"B ≠ C\"\n      and \"A mod 2 = 1\" and \"C mod 2 = 1\"\n      and \"B mod 3 ≠ 0\"\n  shows \"100 * A + 10 * B + C = 129\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "3": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\nfun p :: \"nat ⇒ nat\" where\n  \"p n = n^2 - n + 41\"\n\ntheorem euler_polynomial:\n  fixes n :: nat\n  assumes \"gcd (p n) (p (n + 1)) > 1\"\n  shows \"n = 41\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "17": {
+            "formalization": "theory test\nimports\n  Complex_Main\nbegin\n\ntheorem functional_inverse:\n  fixes f h :: \"real ⇒ real\"\n  assumes \"∀x. h (f x) = x\" and \"∀x. f (h x) = x\"\n  and \"h 2 = 10\"\n  and \"h 10 = 1\"\n  and \"h 1 = 2\"\n  shows \"f (f 10) = 1\"\nproof -\n  from assms(2) have \"f 10 = 2\" using assms(1) by simp\n  moreover from assms(3) have \"f 1 = 10\" using assms(1) by simp\n  ultimately show ?thesis using assms(4) by simp\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 14\nError message: Failed to apply initial proof method\\<^here>:\nusing this:\n    \\<forall>x. f (h x) = x\n    \\<forall>x. h (f x) = x\ngoal (1 subgoal):\n 1. f 10 = 2\n\nIdentified error on line: 15\nError message: Failed to apply initial proof method\\<^here>:\nusing this:\n    h 2 = 10\n    \\<forall>x. h (f x) = x\ngoal (1 subgoal):\n 1. f 1 = 10\n\nIdentified error on line: 16\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. f 10 = 2 \\<Longrightarrow> f 1 = 10 \\<Longrightarrow> h 10 = 1 \\<Longrightarrow> f 2 = 1\n\n"
+        }
+    },
+    "3": {
+        "25": {
+            "formalization": "theory test\n  imports Complex_Main\nbegin\n\ntheorem amc12a_2008_p5:\n  fixes t :: real\n  defines \"f t \\<equiv> (2 powr t - 3 * t) * t / (4 powr t)\"\n  shows \"Sup (range f) = 1/12\"\nproof -\n  have \"f t = (2 powr t * t - 3 * t^2) / (4 powr t)\" for t\n    by (simp add: field_simps)\n  hence \"f t = (t * (2 powr t - 3 * t)) / (4 powr t)\" for t\n    by simp\n  hence \"f t = (t / (4 powr t)) * (2 powr t - 3 * t)\" for t\n    by simp\n  hence \"f t = (t / (2 powr (2 * t))) * (2 powr t - 3 * t)\" for t\n    by (simp add: powr_mult)\n  hence \"f t = (t * (2 powr t - 3 * t)) / (2 powr (2 * t))\" for t\n    by simp\n  hence \"f t = (t * (2 powr t - 3 * t)) / (2 powr t * 2 powr t)\" for t\n    by (simp add: powr_add)\n  hence \"f t = (t / (2 powr t)) * ((2 powr t - 3 * t) / (2 powr t))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - (3 * t) / (2 powr t))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - 3 * (t / (2 powr t)))\" for t\n    by simp\n  thus \"Sup (range f) = 1/12\"\n    sorry\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 5\nError message: Bad arguments on lhs: \"t\"\nThe error(s) above occurred in definition:\n\"f t \\<equiv> (2 powr t - 3 * t) * t / 4 powr t\"\n\nIdentified error on line: 9\nError message: Bad context for command \"proof\"\\<^here> -- using reset state\n\n"
+        },
+        "40": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\nfun f :: \"nat ⇒ nat\" where\n  \"f 2 = 0\" |\n  \"f 3 = 1\" |\n  \"f 9999 = 3333\" |\n  \"f (m + n) = (if (f m + f n) mod 2 = 0 then f m + f n else f m + f n + 1)\"\n\ntheorem f_function_value:\n  shows \"f 1982 = 660\"\n  sorry\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 5\nError message: Malformed definition:\nNon-constructor pattern not allowed in sequential mode.\nf 2 = 0\n\n"
+        },
+        "12": {
+            "formalization": "theory test\nimports\n  Complex_Main\nbegin\n\ntheorem amc12a_2008_p5:\n  shows \"(\\<Prod>i = 0..<5000. (2 * i + 1)) = (fact 10000 div (2^5000 * fact 5000))\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "34": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem inequality:\n  fixes a b :: real\n  shows \"(\\<bar>a + b\\<bar>) / (1 + \\<bar>a + b\\<bar>) \\<le> (\\<bar>a\\<bar>) / (1 + \\<bar>a\\<bar>) + (\\<bar>b\\<bar>) / (1 + \\<bar>b\\<bar>)\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "8": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem polynomial_expansion:\n  fixes x :: \"'a::comm_ring_1\"\n  shows \"(x + 1)^2 * x = x^3 + 2 * x^2 + x\"\n  by (simp add: power2_eq_square algebra_simps)\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 8\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. x * (x * x) = x ^ 3\n\n"
+        },
+        "31": {
+            "formalization": "theory test\nimports\n  Main\nbegin\n\ntheorem irreducible_fraction:\n  fixes n :: nat\n  shows \"gcd (21 * n + 4) (14 * n + 3) = 1\"\nproof -\n  have \"gcd (21 * n + 4) (14 * n + 3) = gcd (14 * n + 3) ((21 * n + 4) mod (14 * n + 3))\"\n    by (simp add: gcd_non_0_nat)\n  also have \"... = gcd (14 * n + 3) (7 * n + 1)\"\n    by (simp add: mod_simps)\n  also have \"... = gcd (7 * n + 1) (14 * n + 3 mod (7 * n + 1))\"\n    by (simp add: gcd_non_0_nat)\n  also have \"... = gcd (7 * n + 1) 2\"\n    by (simp add: mod_simps)\n  also have \"... = gcd 1 2\"\n    by (simp add: gcd_non_0_nat)\n  finally show ?thesis\n    by simp\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 13\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. gcd (14 * n + 3) ((21 * n + 4) mod (14 * n + 3)) =\n    gcd (14 * n + 3) (Suc (7 * n))\n\nIdentified error on line: 15\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. gcd (Suc (7 * n)) ((14 * n + 3) mod Suc (7 * n)) =\n    gcd (Suc (7 * n)) (14 * n + 3 mod Suc (7 * n))\n\nIdentified error on line: 17\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. gcd (Suc (7 * n)) (14 * n + 3 mod Suc (7 * n)) = gcd (Suc (7 * n)) 2\n\nIdentified error on line: 19\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. gcd 2 (Suc (7 * n) mod 2) = Suc 0\n\n"
+        },
+        "4": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem minimum_value:\n  fixes x :: real\n  shows \"x^2 - 14*x + 3 = (x - 7)^2 - 46\"\n  by (simp add: power2_eq_square algebra_simps)\n\ntheorem minimum_value_at_7:\n  shows \"(7::real)^2 - 14*7 + 3 = (7 - 7)^2 - 46\"\n  by simp\n\ntheorem minimum_value_is_7:\n  shows \"∀x::real. (x - 7)^2 ≥ 0\"\n  by (simp add: power2_ge_0)\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 16\nError message: Undefined fact: \"power2_ge_0\"\\<^here>\n\n"
+        },
+        "27": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem aime_1997_p5:\n  fixes A B C n :: nat\n  assumes \"n = 3^17 + 3^10\"\n      and \"(n + 1) mod 11 = 0\"\n      and \"n = 1000000 * A + 100000 * B + 10000 * C + 1000 * A + 100 * C + 10 * C + B\"\n      and \"A ≠ B\" and \"A ≠ C\" and \"B ≠ C\"\n      and \"A mod 2 = 1\" and \"C mod 2 = 1\"\n      and \"B mod 3 ≠ 0\"\n  shows \"100 * A + 10 * B + C = 129\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "3": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\nfun p :: \"nat ⇒ nat\" where\n  \"p n = n^2 - n + 41\"\n\ntheorem euler_polynomial:\n  fixes n :: nat\n  assumes \"gcd (p n) (p (n + 1)) > 1\"\n  shows \"n = 41\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "17": {
+            "formalization": "theory test\nimports\n  Complex_Main\nbegin\n\ntheorem functional_inverse:\n  fixes f h :: \"real ⇒ real\"\n  assumes \"∀x. h (f x) = x\" and \"∀x. f (h x) = x\"\n  and \"h 2 = 10\"\n  and \"h 10 = 1\"\n  and \"h 1 = 2\"\n  shows \"f (f 10) = 1\"\nproof -\n  from assms(2) have \"f 10 = 2\" by (metis assms(3))\n  moreover from assms(2) have \"f 1 = 10\" by (metis assms(5))\n  ultimately show ?thesis by (metis assms(4))\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 15\nError message: Failed to apply initial proof method\\<^here>:\nusing this:\n  \\<forall>x. f (h x) = x\ngoal (1 subgoal):\n 1. f 1 = 10\n\nIdentified error on line: 16\nError message: Failed to apply initial proof method\\<^here>:\nusing this:\n    f 10 = 2\n    f 1 = 10\ngoal (1 subgoal):\n 1. f (f 10) = 1\n\n"
+        }
+    },
+    "4": {
+        "25": {
+            "formalization": "theory test\n  imports Complex_Main\nbegin\n\ntheorem amc12a_2008_p5:\n  fixes t :: real\n  defines \"f t \\<equiv> (2 powr t - 3 * t) * t / (4 powr t)\"\n  shows \"Sup (f ` UNIV) = 1/12\"\nproof -\n  have \"f t = (2 powr t * t - 3 * t^2) / (4 powr t)\" for t\n    by (simp add: field_simps)\n  hence \"f t = (t * (2 powr t - 3 * t)) / (4 powr t)\" for t\n    by simp\n  hence \"f t = (t / (4 powr t)) * (2 powr t - 3 * t)\" for t\n    by simp\n  hence \"f t = (t / (2 powr (2 * t))) * (2 powr t - 3 * t)\" for t\n    by (simp add: powr_mult)\n  hence \"f t = (t * (2 powr t - 3 * t)) / (2 powr (2 * t))\" for t\n    by simp\n  hence \"f t = (t * (2 powr t - 3 * t)) / (2 powr t * 2 powr t)\" for t\n    by (simp add: powr_add)\n  hence \"f t = (t / (2 powr t)) * ((2 powr t - 3 * t) / (2 powr t))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - (3 * t) / (2 powr t))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - 3 * (t / (2 powr t)))\" for t\n    by simp\n  thus \"Sup (f ` UNIV) = 1/12\"\n    sorry\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 5\nError message: Bad arguments on lhs: \"t\"\nThe error(s) above occurred in definition:\n\"f t \\<equiv> (2 powr t - 3 * t) * t / 4 powr t\"\n\nIdentified error on line: 9\nError message: Bad context for command \"proof\"\\<^here> -- using reset state\n\n"
+        },
+        "40": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\nfun f :: \"nat ⇒ nat\" where\n  \"f 2 = 0\" |\n  \"f 3 = (if 3 > 0 then 1 else 0)\" |\n  \"f 9999 = 3333\" |\n  \"f (m + n) = (if (f m + f n) mod 2 = 0 then f m + f n else f m + f n + 1)\"\n\ntheorem f_function_value:\n  shows \"f 1982 = 660\"\n  sorry\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 5\nError message: Malformed definition:\nNon-constructor pattern not allowed in sequential mode.\nf 2 = 0\n\n"
+        },
+        "12": {
+            "formalization": "theory test\nimports\n  Complex_Main\nbegin\n\ntheorem amc12a_2008_p5:\n  shows \"(\\<Prod>i = 0..<5000. (2 * i + 1)) = (fact 10000 div (2^5000 * fact 5000))\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "34": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem inequality:\n  fixes a b :: real\n  shows \"(\\<bar>a + b\\<bar>) / (1 + \\<bar>a + b\\<bar>) \\<le> (\\<bar>a\\<bar>) / (1 + \\<bar>a\\<bar>) + (\\<bar>b\\<bar>) / (1 + \\<bar>b\\<bar>)\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "8": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem polynomial_expansion:\n  fixes x :: \"'a::comm_ring_1\"\n  shows \"(x + 1)^2 * x = x^3 + 2 * x^2 + x\"\n  by (simp add: power2_eq_square algebra_simps power3_eq_cube)\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "31": {
+            "formalization": "theory test\nimports\n  Main\nbegin\n\ntheorem irreducible_fraction:\n  fixes n :: nat\n  shows \"gcd (21 * n + 4) (14 * n + 3) = 1\"\nproof -\n  have \"gcd (21 * n + 4) (14 * n + 3) = gcd (14 * n + 3) ((21 * n + 4) mod (14 * n + 3))\"\n    by (simp add: gcd_non_0_nat)\n  also have \"... = gcd (14 * n + 3) (7 * n + 1)\"\n    by (simp add: mod_simps)\n  also have \"... = gcd (7 * n + 1) (14 * n + 3 mod (7 * n + 1))\"\n    by (simp add: gcd_non_0_nat)\n  also have \"... = gcd (7 * n + 1) 2\"\n    by (simp add: mod_simps)\n  also have \"... = 1\"\n    by (simp add: gcd_non_0_nat)\n  finally show ?thesis\n    by simp\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 13\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. gcd (14 * n + 3) ((21 * n + 4) mod (14 * n + 3)) =\n    gcd (14 * n + 3) (Suc (7 * n))\n\nIdentified error on line: 15\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. gcd (Suc (7 * n)) ((14 * n + 3) mod Suc (7 * n)) =\n    gcd (Suc (7 * n)) (14 * n + 3 mod Suc (7 * n))\n\nIdentified error on line: 17\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. gcd (Suc (7 * n)) (14 * n + 3 mod Suc (7 * n)) = gcd (Suc (7 * n)) 2\n\nIdentified error on line: 19\nError message: Failed to finish proof\\<^here>:\ngoal (1 subgoal):\n 1. gcd 2 (Suc (7 * n) mod 2) = Suc 0\n\n"
+        },
+        "4": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem minimum_value:\n  fixes x :: real\n  shows \"x^2 - 14*x + 3 = (x - 7)^2 - 46\"\n  by (simp add: power2_eq_square algebra_simps)\n\ntheorem minimum_value_at_7:\n  shows \"(7::real)^2 - 14*7 + 3 = (7 - 7)^2 - 46\"\n  by simp\n\ntheorem minimum_value_is_7:\n  shows \"∀x::real. (x - 7)^2 ≥ 0\"\n  by (simp add: power2_nonneg)\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 16\nError message: Undefined fact: \"power2_nonneg\"\\<^here>\n\n"
+        },
+        "27": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem aime_1997_p5:\n  fixes A B C n :: nat\n  assumes \"n = 3^17 + 3^10\"\n      and \"(n + 1) mod 11 = 0\"\n      and \"n = 1000000 * A + 100000 * B + 10000 * C + 1000 * A + 100 * C + 10 * C + B\"\n      and \"A ≠ B\" and \"A ≠ C\" and \"B ≠ C\"\n      and \"A mod 2 = 1\" and \"C mod 2 = 1\"\n      and \"B mod 3 ≠ 0\"\n  shows \"100 * A + 10 * B + C = 129\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "3": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\nfun p :: \"nat ⇒ nat\" where\n  \"p n = n^2 - n + 41\"\n\ntheorem euler_polynomial:\n  fixes n :: nat\n  assumes \"gcd (p n) (p (n + 1)) > 1\"\n  shows \"n = 41\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "17": {
+            "formalization": "theory test\nimports\n  Complex_Main\nbegin\n\ntheorem functional_inverse:\n  fixes f h :: \"real ⇒ real\"\n  assumes \"∀x. h (f x) = x\" and \"∀x. f (h x) = x\"\n  and \"h 2 = 10\"\n  and \"h 10 = 1\"\n  and \"h 1 = 2\"\n  shows \"f (f 10) = 1\"\nproof -\n  from assms(2) have \"f 1 = 10\" by (metis assms(4))\n  moreover from assms(2) have \"f 10 = 2\" by (metis assms(3))\n  ultimately show ?thesis by (metis assms(5))\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 16\nError message: Failed to apply initial proof method\\<^here>:\nusing this:\n    f 1 = 10\n    f 10 = 2\ngoal (1 subgoal):\n 1. f (f 10) = 1\n\n"
+        }
+    },
+    "5": {
+        "25": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem amc12a_2008_p5:\n  fixes t :: real\n  defines \"f t \\<equiv> (2 powr t - 3 * t) * t / (4 powr t)\"\n  shows \"Sup (f ` UNIV) = 1/12\"\nproof -\n  have \"f t = (2 powr t * t - 3 * t^2) / (4 powr t)\" for t\n    by (simp add: field_simps)\n  hence \"f t = (t * (2 powr t - 3 * t)) / (4 powr t)\" for t\n    by simp\n  hence \"f t = (t / (4 powr t)) * (2 powr t - 3 * t)\" for t\n    by simp\n  hence \"f t = (t / (2 powr (2 * t))) * (2 powr t - 3 * t)\" for t\n    by (simp add: powr_mult)\n  hence \"f t = (t * (2 powr t - 3 * t)) / (2 powr (2 * t))\" for t\n    by simp\n  hence \"f t = (t * (2 powr t - 3 * t)) / (2 powr t * 2 powr t)\" for t\n    by (simp add: powr_add)\n  hence \"f t = (t / (2 powr t)) * ((2 powr t - 3 * t) / (2 powr t))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - (3 * t) / (2 powr t))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - 3 * (t / (2 powr t)))\" for t\n    by simp\n  thus \"Sup (f ` UNIV) = 1/12\"\n    sorry\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 5\nError message: Bad arguments on lhs: \"t\"\nThe error(s) above occurred in definition:\n\"f t \\<equiv> (2 powr t - 3 * t) * t / 4 powr t\"\n\nIdentified error on line: 9\nError message: Bad context for command \"proof\"\\<^here> -- using reset state\n\n"
+        },
+        "40": {
+            "formalization": "theory test\nimports Main\nbegin\n\nfun f :: \"nat ⇒ nat\" where\n  \"f 2 = 0\" |\n  \"f 3 = 1\" |\n  \"f 9999 = 3333\" |\n  \"f (m + n) = (if (f m + f n) mod 2 = 0 then f m + f n else f m + f n + 1)\"\n\ntheorem f_function_value:\n  shows \"f 1982 = 660\"\n  sorry\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 5\nError message: Malformed definition:\nNon-constructor pattern not allowed in sequential mode.\nf 2 = 0\n\n"
+        },
+        "12": {
+            "formalization": "theory test\nimports\n  Complex_Main\nbegin\n\ntheorem amc12a_2008_p5:\n  shows \"(\\<Prod>i = 0..<5000. (2 * i + 1)) = (fact 10000 div (2^5000 * fact 5000))\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "34": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem inequality:\n  fixes a b :: real\n  shows \"(\\<bar>a + b\\<bar>) / (1 + \\<bar>a + b\\<bar>) \\<le> (\\<bar>a\\<bar>) / (1 + \\<bar>a\\<bar>) + (\\<bar>b\\<bar>) / (1 + \\<bar>b\\<bar>)\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "8": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem polynomial_expansion:\n  fixes x :: \"'a::comm_ring_1\"\n  shows \"(x + 1)^2 * x = x^3 + 2 * x^2 + x\"\n  by (simp add: power2_eq_square algebra_simps power3_eq_cube)\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "31": {
+            "formalization": "theory test\nimports\n  Main\nbegin\n\ntheorem irreducible_fraction:\n  fixes n :: nat\n  shows \"gcd (21 * n + 4) (14 * n + 3) = 1\"\nproof -\n  have \"gcd (21 * n + 4) (14 * n + 3) = gcd (14 * n + 3) ((21 * n + 4) mod (14 * n + 3))\"\n    by (simp add: gcd_red_nat)\n  also have \"... = gcd (14 * n + 3) (7 * n + 1)\"\n    by (simp add: mod_simps)\n  also have \"... = gcd (7 * n + 1) (14 * n + 3 mod (7 * n + 1))\"\n    by (simp add: gcd_red_nat)\n  also have \"... = gcd (7 * n + 1) 2\"\n    by (simp add: mod_simps)\n  also have \"... = 1\"\n    by (simp add: gcd_non_0_nat)\n  finally show ?thesis\n    by simp\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": ""
+        },
+        "4": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem minimum_value:\n  fixes x :: real\n  shows \"x^2 - 14*x + 3 = (x - 7)^2 - 46\"\n  by (simp add: power2_eq_square algebra_simps)\n\ntheorem minimum_value_at_7:\n  shows \"(7::real)^2 - 14*7 + 3 = (7 - 7)^2 - 46\"\n  by simp\n\ntheorem minimum_value_is_7:\n  shows \"∀x::real. (x - 7)^2 ≥ 0\"\n  by (simp add: power2_eq_square)\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "27": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem aime_1997_p5:\n  fixes A B C n :: nat\n  assumes \"n = 3^17 + 3^10\"\n      and \"(n + 1) mod 11 = 0\"\n      and \"n = 1000000 * A + 100000 * B + 10000 * C + 1000 * A + 100 * C + 10 * C + B\"\n      and \"A ≠ B\" and \"A ≠ C\" and \"B ≠ C\"\n      and \"A mod 2 = 1\" and \"C mod 2 = 1\"\n      and \"B mod 3 ≠ 0\"\n  shows \"100 * A + 10 * B + C = 129\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "3": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\nfun p :: \"nat ⇒ nat\" where\n  \"p n = n^2 - n + 41\"\n\ntheorem euler_polynomial:\n  fixes n :: nat\n  assumes \"gcd (p n) (p (n + 1)) > 1\"\n  shows \"n = 41\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "17": {
+            "formalization": "theory test\nimports\n  Complex_Main\nbegin\n\ntheorem functional_inverse:\n  fixes f h :: \"real ⇒ real\"\n  assumes \"∀x. h (f x) = x\" and \"∀x. f (h x) = x\"\n  and \"h 2 = 10\"\n  and \"h 10 = 1\"\n  and \"h 1 = 2\"\n  shows \"f (f 10) = 1\"\nproof -\n  from assms(2) have \"f 1 = 10\" by (metis assms(4))\n  moreover from assms(2) have \"f 10 = 2\" by (metis assms(3))\n  ultimately have \"f (f 10) = f 2\" by simp\n  also from assms(2) have \"f 2 = 1\" by (metis assms(5))\n  finally show ?thesis .\nqed\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        }
+    },
+    "6": {
+        "25": {
+            "formalization": "theory test\n  imports Complex_Main\nbegin\n\ntheorem amc12a_2008_p5:\n  fixes t :: real\n  defines \"f t \\<equiv> (2 powr t - 3 * t) * t / (4 powr t)\"\n  shows \"Sup (range f) = 1/12\"\nproof -\n  have \"f t = (2 powr t * t - 3 * t^2) / (4 powr t)\" for t\n    by (simp add: field_simps)\n  hence \"f t = (t * (2 powr t - 3 * t)) / (4 powr t)\" for t\n    by simp\n  hence \"f t = (t / (4 powr t)) * (2 powr t - 3 * t)\" for t\n    by simp\n  hence \"f t = (t / (2 powr (2 * t))) * (2 powr t - 3 * t)\" for t\n    by (simp add: powr_mult)\n  hence \"f t = (t * (2 powr t - 3 * t)) / (2 powr (2 * t))\" for t\n    by simp\n  hence \"f t = (t * (2 powr t - 3 * t)) / (2 powr t * 2 powr t)\" for t\n    by (simp add: powr_add)\n  hence \"f t = (t / (2 powr t)) * ((2 powr t - 3 * t) / (2 powr t))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - (3 * t) / (2 powr t))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - 3 * (t / (2 powr t)))\" for t\n    by simp\n  thus \"Sup (range f) = 1/12\"\n    sorry\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 5\nError message: Bad arguments on lhs: \"t\"\nThe error(s) above occurred in definition:\n\"f t \\<equiv> (2 powr t - 3 * t) * t / 4 powr t\"\n\nIdentified error on line: 9\nError message: Bad context for command \"proof\"\\<^here> -- using reset state\n\n"
+        },
+        "40": {
+            "formalization": "theory test\nimports Main\nbegin\n\nfun f :: \"nat ⇒ nat\" where\n  \"f 2 = 0\" |\n  \"f 3 > 0\" |\n  \"f 9999 = 3333\" |\n  \"f (m + n) = (if (f m + f n) mod 2 = 0 then f m + f n else f m + f n + 1)\"\n\ntheorem f_function_value:\n  shows \"f 1982 = 660\"\n  sorry\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 5\nError message: Not an equation\n0 < f 3\n\n"
+        },
+        "12": {
+            "formalization": "theory test\nimports\n  Complex_Main\nbegin\n\ntheorem amc12a_2008_p5:\n  shows \"(\\<Prod>i = 0..<5000. (2 * i + 1)) = (fact 10000 div (2^5000 * fact 5000))\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "34": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem inequality:\n  fixes a b :: real\n  shows \"(\\<bar>a + b\\<bar>) / (1 + \\<bar>a + b\\<bar>) \\<le> (\\<bar>a\\<bar>) / (1 + \\<bar>a\\<bar>) + (\\<bar>b\\<bar>) / (1 + \\<bar>b\\<bar>)\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "8": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem polynomial_expansion:\n  fixes x :: \"'a::comm_ring_1\"\n  shows \"(x + 1)^2 * x = x^3 + 2 * x^2 + x\"\n  by (simp add: power2_eq_square algebra_simps power3_eq_cube)\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "31": {
+            "formalization": "theory test\nimports\n  Main\nbegin\n\ntheorem irreducible_fraction:\n  fixes n :: nat\n  shows \"gcd (21 * n + 4) (14 * n + 3) = 1\"\nproof -\n  have \"gcd (21 * n + 4) (14 * n + 3) = gcd (14 * n + 3) ((21 * n + 4) mod (14 * n + 3))\"\n    by (simp add: gcd_red_nat)\n  also have \"... = gcd (14 * n + 3) (7 * n + 1)\"\n    by (simp add: mod_simps)\n  also have \"... = gcd (7 * n + 1) (14 * n + 3 mod (7 * n + 1))\"\n    by (simp add: gcd_red_nat)\n  also have \"... = gcd (7 * n + 1) 2\"\n    by (simp add: mod_simps)\n  also have \"... = 1\"\n    by (simp add: gcd_non_0_nat)\n  finally show ?thesis\n    by simp\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": ""
+        },
+        "4": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem minimum_value:\n  fixes x :: real\n  shows \"x^2 - 14*x + 3 = (x - 7)^2 - 46\"\n  by (simp add: power2_eq_square algebra_simps)\n\ntheorem minimum_value_at_7:\n  shows \"(7::real)^2 - 14*7 + 3 = (7 - 7)^2 - 46\"\n  by simp\n\ntheorem minimum_value_is_7:\n  shows \"∀x::real. (x - 7)^2 ≥ 0\"\n  by (simp add: power2_eq_square)\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "27": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem aime_1997_p5:\n  fixes A B C n :: nat\n  assumes \"n = 3^17 + 3^10\"\n      and \"(n + 1) mod 11 = 0\"\n      and \"n = 1000000 * A + 100000 * B + 10000 * C + 1000 * A + 100 * C + 10 * C + B\"\n      and \"A ≠ B\" and \"A ≠ C\" and \"B ≠ C\"\n      and \"A mod 2 = 1\" and \"C mod 2 = 1\"\n      and \"B mod 3 ≠ 0\"\n  shows \"100 * A + 10 * B + C = 129\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "3": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\nfun p :: \"nat ⇒ nat\" where\n  \"p n = n^2 - n + 41\"\n\ntheorem euler_polynomial:\n  fixes n :: nat\n  assumes \"gcd (p n) (p (n + 1)) > 1\"\n  shows \"n = 41\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "17": {
+            "formalization": "theory test\nimports\n  Complex_Main\nbegin\n\ntheorem functional_inverse:\n  fixes f h :: \"real ⇒ real\"\n  assumes \"∀x. h (f x) = x\" and \"∀x. f (h x) = x\"\n  and \"h 2 = 10\"\n  and \"h 10 = 1\"\n  and \"h 1 = 2\"\n  shows \"f (f 10) = 1\"\nproof -\n  from assms(2) have \"f 1 = 10\" by (metis assms(4))\n  moreover from assms(2) have \"f 10 = 2\" by (metis assms(3))\n  ultimately have \"f (f 10) = f 2\" by simp\n  also from assms(2) have \"f 2 = 1\" by (metis assms(5))\n  finally show ?thesis .\nqed\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        }
+    },
+    "7": {
+        "25": {
+            "formalization": "theory test\n  imports Complex_Main\nbegin\n\ntheorem amc12a_2008_p5:\n  fixes t :: real\n  defines \"f t \\<equiv> (2 powr t - 3 * t) * t / (4 powr t)\"\n  shows \"Sup (f ` UNIV) = 1/12\"\nproof -\n  have \"f t = (2 powr t * t - 3 * t^2) / (4 powr t)\" for t\n    by (simp add: field_simps)\n  hence \"f t = (t * (2 powr t - 3 * t)) / (4 powr t)\" for t\n    by simp\n  hence \"f t = (t / (4 powr t)) * (2 powr t - 3 * t)\" for t\n    by simp\n  hence \"f t = (t / (2 powr (2 * t))) * (2 powr t - 3 * t)\" for t\n    by (simp add: powr_mult)\n  hence \"f t = (t * (2 powr t - 3 * t)) / (2 powr (2 * t))\" for t\n    by simp\n  hence \"f t = (t * (2 powr t - 3 * t)) / (2 powr t * 2 powr t)\" for t\n    by (simp add: powr_add)\n  hence \"f t = (t / (2 powr t)) * ((2 powr t - 3 * t) / (2 powr t))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - (3 * t) / (2 powr t))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - 3 * (t / (2 powr t)))\" for t\n    by simp\n  thus \"Sup (f ` UNIV) = 1/12\"\n    sorry\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 5\nError message: Bad arguments on lhs: \"t\"\nThe error(s) above occurred in definition:\n\"f t \\<equiv> (2 powr t - 3 * t) * t / 4 powr t\"\n\nIdentified error on line: 9\nError message: Bad context for command \"proof\"\\<^here> -- using reset state\n\n"
+        },
+        "40": {
+            "formalization": "theory test\nimports Main\nbegin\n\nfun f :: \"nat ⇒ nat\" where\n  \"f 2 = 0\" |\n  \"f 3 = 1\" |  (* Assuming f(3) is at least 1 as f(3) > 0 *)\n  \"f 9999 = 3333\" |\n  \"f (m + n) = (if (f m + f n) mod 2 = 0 then f m + f n else f m + f n + 1)\"\n\ntheorem f_function_value:\n  shows \"f 1982 = 660\"\n  sorry\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 5\nError message: Malformed definition:\nNon-constructor pattern not allowed in sequential mode.\nf 2 = 0\n\n"
+        },
+        "12": {
+            "formalization": "theory test\nimports\n  Complex_Main\nbegin\n\ntheorem amc12a_2008_p5:\n  shows \"(\\<Prod>i = 0..<5000. (2 * i + 1)) = (fact 10000 div (2^5000 * fact 5000))\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "34": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem inequality:\n  fixes a b :: real\n  shows \"(\\<bar>a + b\\<bar>) / (1 + \\<bar>a + b\\<bar>) \\<le> (\\<bar>a\\<bar>) / (1 + \\<bar>a\\<bar>) + (\\<bar>b\\<bar>) / (1 + \\<bar>b\\<bar>)\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "8": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem polynomial_expansion:\n  fixes x :: \"'a::comm_ring_1\"\n  shows \"(x + 1)^2 * x = x^3 + 2 * x^2 + x\"\n  by (simp add: power2_eq_square algebra_simps power3_eq_cube)\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "31": {
+            "formalization": "theory test\nimports\n  Main\nbegin\n\ntheorem irreducible_fraction:\n  fixes n :: nat\n  shows \"gcd (21 * n + 4) (14 * n + 3) = 1\"\nproof -\n  have \"gcd (21 * n + 4) (14 * n + 3) = gcd (14 * n + 3) ((21 * n + 4) mod (14 * n + 3))\"\n    by (simp add: gcd_red_nat)\n  also have \"... = gcd (14 * n + 3) (7 * n + 1)\"\n    by (simp add: mod_simps)\n  also have \"... = gcd (7 * n + 1) (14 * n + 3 mod (7 * n + 1))\"\n    by (simp add: gcd_red_nat)\n  also have \"... = gcd (7 * n + 1) 2\"\n    by (simp add: mod_simps)\n  also have \"... = 1\"\n    by (simp add: gcd_non_0_nat)\n  finally show ?thesis\n    by simp\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": ""
+        },
+        "4": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem minimum_value:\n  fixes x :: real\n  shows \"x^2 - 14*x + 3 = (x - 7)^2 - 46\"\n  by (simp add: power2_eq_square algebra_simps)\n\ntheorem minimum_value_at_7:\n  shows \"(7::real)^2 - 14*7 + 3 = (7 - 7)^2 - 46\"\n  by simp\n\ntheorem minimum_value_is_7:\n  shows \"∀x::real. (x - 7)^2 ≥ 0\"\n  by (simp add: power2_eq_square)\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "27": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem aime_1997_p5:\n  fixes A B C n :: nat\n  assumes \"n = 3^17 + 3^10\"\n      and \"(n + 1) mod 11 = 0\"\n      and \"n = 1000000 * A + 100000 * B + 10000 * C + 1000 * A + 100 * C + 10 * C + B\"\n      and \"A ≠ B\" and \"A ≠ C\" and \"B ≠ C\"\n      and \"A mod 2 = 1\" and \"C mod 2 = 1\"\n      and \"B mod 3 ≠ 0\"\n  shows \"100 * A + 10 * B + C = 129\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "3": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\nfun p :: \"nat ⇒ nat\" where\n  \"p n = n^2 - n + 41\"\n\ntheorem euler_polynomial:\n  fixes n :: nat\n  assumes \"gcd (p n) (p (n + 1)) > 1\"\n  shows \"n = 41\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "17": {
+            "formalization": "theory test\nimports\n  Complex_Main\nbegin\n\ntheorem functional_inverse:\n  fixes f h :: \"real ⇒ real\"\n  assumes \"∀x. h (f x) = x\" and \"∀x. f (h x) = x\"\n  and \"h 2 = 10\"\n  and \"h 10 = 1\"\n  and \"h 1 = 2\"\n  shows \"f (f 10) = 1\"\nproof -\n  from assms(2) have \"f 1 = 10\" by (metis assms(4))\n  moreover from assms(2) have \"f 10 = 2\" by (metis assms(3))\n  ultimately have \"f (f 10) = f 2\" by simp\n  also from assms(2) have \"f 2 = 1\" by (metis assms(5))\n  finally show ?thesis .\nqed\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        }
+    },
+    "8": {
+        "25": {
+            "formalization": "theory test\n  imports Complex_Main\nbegin\n\ntheorem amc12a_2008_p5:\n  fixes t :: real\n  defines \"f t \\<equiv> (2 powr t - 3 * t) * t / (4 powr t)\"\n  shows \"Sup (range f) = 1/12\"\nproof -\n  have \"f t = (2 powr t * t - 3 * t^2) / (4 powr t)\" for t\n    by (simp add: field_simps)\n  hence \"f t = (t * (2 powr t - 3 * t)) / (4 powr t)\" for t\n    by simp\n  hence \"f t = (t / (4 powr t)) * (2 powr t - 3 * t)\" for t\n    by simp\n  hence \"f t = (t / (2 powr (2 * t))) * (2 powr t - 3 * t)\" for t\n    by (simp add: powr_mult)\n  hence \"f t = (t * (2 powr t - 3 * t)) / (2 powr (2 * t))\" for t\n    by simp\n  hence \"f t = (t * (2 powr t - 3 * t)) / (2 powr t * 2 powr t)\" for t\n    by (simp add: powr_add)\n  hence \"f t = (t / (2 powr t)) * ((2 powr t - 3 * t) / (2 powr t))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - (3 * t) / (2 powr t))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - 3 * (t / (2 powr t)))\" for t\n    by simp\n  thus \"Sup (range f) = 1/12\"\n    sorry\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 5\nError message: Bad arguments on lhs: \"t\"\nThe error(s) above occurred in definition:\n\"f t \\<equiv> (2 powr t - 3 * t) * t / 4 powr t\"\n\nIdentified error on line: 9\nError message: Bad context for command \"proof\"\\<^here> -- using reset state\n\n"
+        },
+        "40": {
+            "formalization": "theory test\nimports Main\nbegin\n\nfun f :: \"nat ⇒ nat\" where\n  \"f 2 = 0\" |\n  \"f 3 = (SOME x. x > 0)\" |  (* Ensuring f(3) > 0 *)\n  \"f 9999 = 3333\" |\n  \"f (m + n) = (if (f m + f n) mod 2 = 0 then f m + f n else f m + f n + 1)\"\n\ntheorem f_function_value:\n  shows \"f 1982 = 660\"\n  sorry\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 5\nError message: Malformed definition:\nNon-constructor pattern not allowed in sequential mode.\nf 2 = 0\n\n"
+        },
+        "12": {
+            "formalization": "theory test\nimports\n  Complex_Main\nbegin\n\ntheorem amc12a_2008_p5:\n  shows \"(\\<Prod>i = 0..<5000. (2 * i + 1)) = (fact 10000 div (2^5000 * fact 5000))\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "34": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem inequality:\n  fixes a b :: real\n  shows \"(\\<bar>a + b\\<bar>) / (1 + \\<bar>a + b\\<bar>) \\<le> (\\<bar>a\\<bar>) / (1 + \\<bar>a\\<bar>) + (\\<bar>b\\<bar>) / (1 + \\<bar>b\\<bar>)\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "8": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem polynomial_expansion:\n  fixes x :: \"'a::comm_ring_1\"\n  shows \"(x + 1)^2 * x = x^3 + 2 * x^2 + x\"\n  by (simp add: power2_eq_square algebra_simps power3_eq_cube)\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "31": {
+            "formalization": "theory test\nimports\n  Main\nbegin\n\ntheorem irreducible_fraction:\n  fixes n :: nat\n  shows \"gcd (21 * n + 4) (14 * n + 3) = 1\"\nproof -\n  have \"gcd (21 * n + 4) (14 * n + 3) = gcd (14 * n + 3) ((21 * n + 4) mod (14 * n + 3))\"\n    by (simp add: gcd_red_nat)\n  also have \"... = gcd (14 * n + 3) (7 * n + 1)\"\n    by (simp add: mod_simps)\n  also have \"... = gcd (7 * n + 1) (14 * n + 3 mod (7 * n + 1))\"\n    by (simp add: gcd_red_nat)\n  also have \"... = gcd (7 * n + 1) 2\"\n    by (simp add: mod_simps)\n  also have \"... = 1\"\n    by (simp add: gcd_non_0_nat)\n  finally show ?thesis\n    by simp\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": ""
+        },
+        "4": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem minimum_value:\n  fixes x :: real\n  shows \"x^2 - 14*x + 3 = (x - 7)^2 - 46\"\n  by (simp add: power2_eq_square algebra_simps)\n\ntheorem minimum_value_at_7:\n  shows \"(7::real)^2 - 14*7 + 3 = (7 - 7)^2 - 46\"\n  by simp\n\ntheorem minimum_value_is_7:\n  shows \"∀x::real. (x - 7)^2 ≥ 0\"\n  by (simp add: power2_eq_square)\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "27": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem aime_1997_p5:\n  fixes A B C n :: nat\n  assumes \"n = 3^17 + 3^10\"\n      and \"(n + 1) mod 11 = 0\"\n      and \"n = 1000000 * A + 100000 * B + 10000 * C + 1000 * A + 100 * C + 10 * C + B\"\n      and \"A ≠ B\" and \"A ≠ C\" and \"B ≠ C\"\n      and \"A mod 2 = 1\" and \"C mod 2 = 1\"\n      and \"B mod 3 ≠ 0\"\n  shows \"100 * A + 10 * B + C = 129\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "3": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\nfun p :: \"nat ⇒ nat\" where\n  \"p n = n^2 - n + 41\"\n\ntheorem euler_polynomial:\n  fixes n :: nat\n  assumes \"gcd (p n) (p (n + 1)) > 1\"\n  shows \"n = 41\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "17": {
+            "formalization": "theory test\nimports\n  Complex_Main\nbegin\n\ntheorem functional_inverse:\n  fixes f h :: \"real ⇒ real\"\n  assumes \"∀x. h (f x) = x\" and \"∀x. f (h x) = x\"\n  and \"h 2 = 10\"\n  and \"h 10 = 1\"\n  and \"h 1 = 2\"\n  shows \"f (f 10) = 1\"\nproof -\n  from assms(2) have \"f 1 = 10\" by (metis assms(4))\n  moreover from assms(2) have \"f 10 = 2\" by (metis assms(3))\n  ultimately have \"f (f 10) = f 2\" by simp\n  also from assms(2) have \"f 2 = 1\" by (metis assms(5))\n  finally show ?thesis .\nqed\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        }
+    },
+    "9": {
+        "25": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem amc12a_2008_p5:\n  fixes t :: real\n  defines \"f t \\<equiv> ((2 powr t - 3 * t) * t) / (4 powr t)\"\n  shows \"Sup (range f) = 1/12\"\nproof -\n  have \"f t = (2 powr t * t - 3 * t^2) / (4 powr t)\" for t\n    by (simp add: field_simps)\n  hence \"f t = (t * (2 powr t - 3 * t)) / (4 powr t)\" for t\n    by simp\n  hence \"f t = (t / (4 powr t)) * (2 powr t - 3 * t)\" for t\n    by simp\n  hence \"f t = (t / (2 powr (2 * t))) * (2 powr t - 3 * t)\" for t\n    by (simp add: powr_mult)\n  hence \"f t = (t * (2 powr t - 3 * t)) / (2 powr (2 * t))\" for t\n    by simp\n  hence \"f t = (t * (2 powr t - 3 * t)) / (2 powr t * 2 powr t)\" for t\n    by (simp add: powr_add)\n  hence \"f t = (t / (2 powr t)) * ((2 powr t - 3 * t) / (2 powr t))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - (3 * t) / (2 powr t))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - 3 * (t / (2 powr t)))\" for t\n    by simp\n  thus \"Sup (range f) = 1/12\"\n    sorry\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 5\nError message: Bad arguments on lhs: \"t\"\nThe error(s) above occurred in definition:\n\"f t \\<equiv> (2 powr t - 3 * t) * t / 4 powr t\"\n\nIdentified error on line: 9\nError message: Bad context for command \"proof\"\\<^here> -- using reset state\n\n"
+        },
+        "40": {
+            "formalization": "theory test\nimports Main\nbegin\n\nfun f :: \"nat ⇒ nat\" where\n  \"f 2 = 0\" |\n  \"f 3 = 1\" |  (* Assigning a specific positive value to f(3) *)\n  \"f 9999 = 3333\" |\n  \"f (m + n) = (if (f m + f n) mod 2 = 0 then f m + f n else f m + f n + 1)\"\n\ntheorem f_function_value:\n  shows \"f 1982 = 660\"\n  sorry\n\nend\n",
+            "correctness": "False",
+            "error_details": "Identified error on line: 5\nError message: Malformed definition:\nNon-constructor pattern not allowed in sequential mode.\nf 2 = 0\n\n"
+        },
+        "12": {
+            "formalization": "theory test\nimports\n  Complex_Main\nbegin\n\ntheorem amc12a_2008_p5:\n  shows \"(\\<Prod>i = 0..<5000. (2 * i + 1)) = (fact 10000 div (2^5000 * fact 5000))\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "34": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem inequality:\n  fixes a b :: real\n  shows \"(\\<bar>a + b\\<bar>) / (1 + \\<bar>a + b\\<bar>) \\<le> (\\<bar>a\\<bar>) / (1 + \\<bar>a\\<bar>) + (\\<bar>b\\<bar>) / (1 + \\<bar>b\\<bar>)\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "8": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem polynomial_expansion:\n  fixes x :: \"'a::comm_ring_1\"\n  shows \"(x + 1)^2 * x = x^3 + 2 * x^2 + x\"\n  by (simp add: power2_eq_square algebra_simps power3_eq_cube)\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "31": {
+            "formalization": "theory test\nimports\n  Main\nbegin\n\ntheorem irreducible_fraction:\n  fixes n :: nat\n  shows \"gcd (21 * n + 4) (14 * n + 3) = 1\"\nproof -\n  have \"gcd (21 * n + 4) (14 * n + 3) = gcd (14 * n + 3) ((21 * n + 4) mod (14 * n + 3))\"\n    by (simp add: gcd_red_nat)\n  also have \"... = gcd (14 * n + 3) (7 * n + 1)\"\n    by (simp add: mod_simps)\n  also have \"... = gcd (7 * n + 1) (14 * n + 3 mod (7 * n + 1))\"\n    by (simp add: gcd_red_nat)\n  also have \"... = gcd (7 * n + 1) 2\"\n    by (simp add: mod_simps)\n  also have \"... = 1\"\n    by (simp add: gcd_non_0_nat)\n  finally show ?thesis\n    by simp\nqed\n\nend\n",
+            "correctness": "False",
+            "error_details": ""
+        },
+        "4": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem minimum_value:\n  fixes x :: real\n  shows \"x^2 - 14*x + 3 = (x - 7)^2 - 46\"\n  by (simp add: power2_eq_square algebra_simps)\n\ntheorem minimum_value_at_7:\n  shows \"(7::real)^2 - 14*7 + 3 = (7 - 7)^2 - 46\"\n  by simp\n\ntheorem minimum_value_is_7:\n  shows \"∀x::real. (x - 7)^2 ≥ 0\"\n  by (simp add: power2_eq_square)\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "27": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem aime_1997_p5:\n  fixes A B C n :: nat\n  assumes \"n = 3^17 + 3^10\"\n      and \"(n + 1) mod 11 = 0\"\n      and \"n = 1000000 * A + 100000 * B + 10000 * C + 1000 * A + 100 * C + 10 * C + B\"\n      and \"A ≠ B\" and \"A ≠ C\" and \"B ≠ C\"\n      and \"A mod 2 = 1\" and \"C mod 2 = 1\"\n      and \"B mod 3 ≠ 0\"\n  shows \"100 * A + 10 * B + C = 129\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "3": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\nfun p :: \"nat ⇒ nat\" where\n  \"p n = n^2 - n + 41\"\n\ntheorem euler_polynomial:\n  fixes n :: nat\n  assumes \"gcd (p n) (p (n + 1)) > 1\"\n  shows \"n = 41\"\n  sorry\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        },
+        "17": {
+            "formalization": "theory test\nimports\n  Complex_Main\nbegin\n\ntheorem functional_inverse:\n  fixes f h :: \"real ⇒ real\"\n  assumes \"∀x. h (f x) = x\" and \"∀x. f (h x) = x\"\n  and \"h 2 = 10\"\n  and \"h 10 = 1\"\n  and \"h 1 = 2\"\n  shows \"f (f 10) = 1\"\nproof -\n  from assms(2) have \"f 1 = 10\" by (metis assms(4))\n  moreover from assms(2) have \"f 10 = 2\" by (metis assms(3))\n  ultimately have \"f (f 10) = f 2\" by simp\n  also from assms(2) have \"f 2 = 1\" by (metis assms(5))\n  finally show ?thesis .\nqed\n\nend\n",
+            "correctness": "True",
+            "error_details": ""
+        }
+    },
+    "10": {
+        "25": {
+            "formalization": "theory test\n  imports Complex_Main\nbegin\n\ntheorem amc12a_2008_p5:\n  fixes t :: real\n  defines \"f t \\<equiv> ((2 powr t - 3 * t) * t) / (4 powr t)\"\n  shows \"Sup (f ` UNIV) = 1/12\"\nproof -\n  have \"f t = (2 powr t * t - 3 * t^2) / (4 powr t)\" for t\n    by (simp add: field_simps)\n  hence \"f t = (t * (2 powr t - 3 * t)) / (4 powr t)\" for t\n    by simp\n  hence \"f t = (t / (4 powr t)) * (2 powr t - 3 * t)\" for t\n    by simp\n  hence \"f t = (t / (2 powr (2 * t))) * (2 powr t - 3 * t)\" for t\n    by (simp add: powr_mult)\n  hence \"f t = (t * (2 powr t - 3 * t)) / (2 powr (2 * t))\" for t\n    by simp\n  hence \"f t = (t * (2 powr t - 3 * t)) / (2 powr t * 2 powr t)\" for t\n    by (simp add: powr_add)\n  hence \"f t = (t / (2 powr t)) * ((2 powr t - 3 * t) / (2 powr t))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - (3 * t) / (2 powr t))\" for t\n    by simp\n  hence \"f t = (t / (2 powr t)) * (1 - 3 * (t / (2 powr t)))\" for t\n    by simp\n  thus \"Sup (f ` UNIV) = 1/12\"\n    sorry\nqed\n\nend\n"
+        },
+        "40": {
+            "formalization": "theory test\nimports Main\nbegin\n\nfun f :: \"nat ⇒ nat\" where\n  \"f 2 = 0\" |\n  \"f 3 = (if f 3 > 0 then f 3 else 1)\" |\n  \"f 9999 = 3333\" |\n  \"f (m + n) = (if (f m + f n) mod 2 = 0 then f m + f n else f m + f n + 1)\"\n\ntheorem f_function_value:\n  shows \"f 1982 = 660\"\n  sorry\n\nend\n"
+        },
+        "12": {
+            "formalization": "theory test\nimports\n  Complex_Main\nbegin\n\ntheorem amc12a_2008_p5:\n  shows \"(\\<Prod>i = 0..<5000. (2 * i + 1)) = (fact 10000 div (2^5000 * fact 5000))\"\n  sorry\n\nend\n"
+        },
+        "34": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem inequality:\n  fixes a b :: real\n  shows \"(\\<bar>a + b\\<bar>) / (1 + \\<bar>a + b\\<bar>) \\<le> (\\<bar>a\\<bar>) / (1 + \\<bar>a\\<bar>) + (\\<bar>b\\<bar>) / (1 + \\<bar>b\\<bar>)\"\n  sorry\n\nend\n"
+        },
+        "8": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem polynomial_expansion:\n  fixes x :: \"'a::comm_ring_1\"\n  shows \"(x + 1)^2 * x = x^3 + 2 * x^2 + x\"\n  by (simp add: power2_eq_square algebra_simps power3_eq_cube)\n\nend\n"
+        },
+        "31": {
+            "formalization": "theory test\nimports\n  Main\nbegin\n\ntheorem irreducible_fraction:\n  fixes n :: nat\n  shows \"gcd (21 * n + 4) (14 * n + 3) = 1\"\nproof -\n  have \"gcd (21 * n + 4) (14 * n + 3) = gcd (14 * n + 3) ((21 * n + 4) mod (14 * n + 3))\"\n    by (simp add: gcd_red_nat)\n  also have \"... = gcd (14 * n + 3) (7 * n + 1)\"\n    by (simp add: mod_simps)\n  also have \"... = gcd (7 * n + 1) (14 * n + 3 mod (7 * n + 1))\"\n    by (simp add: gcd_red_nat)\n  also have \"... = gcd (7 * n + 1) 2\"\n    by (simp add: mod_simps)\n  also have \"... = 1\"\n    by (simp add: gcd_non_0_nat)\n  finally show ?thesis\n    by simp\nqed\n\nend\n"
+        },
+        "4": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem minimum_value:\n  fixes x :: real\n  shows \"x^2 - 14*x + 3 = (x - 7)^2 - 46\"\n  by (simp add: power2_eq_square algebra_simps)\n\ntheorem minimum_value_at_7:\n  shows \"(7::real)^2 - 14*7 + 3 = (7 - 7)^2 - 46\"\n  by simp\n\ntheorem minimum_value_is_7:\n  shows \"∀x::real. (x - 7)^2 ≥ 0\"\n  by (simp add: power2_eq_square)\n\nend\n"
+        },
+        "27": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\ntheorem aime_1997_p5:\n  fixes A B C n :: nat\n  assumes \"n = 3^17 + 3^10\"\n      and \"(n + 1) mod 11 = 0\"\n      and \"n = 1000000 * A + 100000 * B + 10000 * C + 1000 * A + 100 * C + 10 * C + B\"\n      and \"A ≠ B\" and \"A ≠ C\" and \"B ≠ C\"\n      and \"A mod 2 = 1\" and \"C mod 2 = 1\"\n      and \"B mod 3 ≠ 0\"\n  shows \"100 * A + 10 * B + C = 129\"\n  sorry\n\nend\n"
+        },
+        "3": {
+            "formalization": "theory test\nimports Complex_Main\nbegin\n\nfun p :: \"nat ⇒ nat\" where\n  \"p n = n^2 - n + 41\"\n\ntheorem euler_polynomial:\n  fixes n :: nat\n  assumes \"gcd (p n) (p (n + 1)) > 1\"\n  shows \"n = 41\"\n  sorry\n\nend\n"
+        },
+        "17": {
+            "formalization": "theory test\nimports\n  Complex_Main\nbegin\n\ntheorem functional_inverse:\n  fixes f h :: \"real ⇒ real\"\n  assumes \"∀x. h (f x) = x\" and \"∀x. f (h x) = x\"\n  and \"h 2 = 10\"\n  and \"h 10 = 1\"\n  and \"h 1 = 2\"\n  shows \"f (f 10) = 1\"\nproof -\n  from assms(2) have \"f 1 = 10\" by (metis assms(4))\n  moreover from assms(2) have \"f 10 = 2\" by (metis assms(3))\n  ultimately have \"f (f 10) = f 2\" by simp\n  also from assms(2) have \"f 2 = 1\" by (metis assms(5))\n  finally show ?thesis .\nqed\n\nend\n"
+        }
+    }
+}
