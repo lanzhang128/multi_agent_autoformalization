@@ -1,2 +1,3 @@
 from .isabelle import Isabelle
-from .utils import isabelle_get_error_details
+from .lean import Lean
+from .utils import isabelle_get_error_details, lean_get_error_details

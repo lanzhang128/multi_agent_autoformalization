@@ -24,7 +24,7 @@ class Isabelle:
             self.isabelle_path = os.environ['ISABELLE_DIRPATH']
 
         self.log_file = log_file
-        handler = RotatingFileHandler(self.log_file, maxBytes=1024 * 1024, backupCount=3)
+        handler = RotatingFileHandler(self.log_file, maxBytes=1024 * 1024, backupCount=3, encoding='utf-8')
         logging.basicConfig(
             level=logging.INFO,
             format="%(asctime)s - %(levelname)s - %(message)s",
