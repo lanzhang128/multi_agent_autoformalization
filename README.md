@@ -18,6 +18,34 @@ import os
 os.environ['ISABELLE_DIRPATH'] = os.path.abspath('directory-of-isabelle')
 ```
 
+[Lean4](https://github.com/leanprover/lean4) (Under development)
+
+As recommmended in [Lean4 setup](https://lean-lang.org/lean4/doc/setup.html), [elan](https://github.com/leanprover/elan) is used to manage Lean installations. The path variable "ELAN_HOME" supports custom directory for installing elan and also needs to be set for using Lean4 in our system. You can either preset the path variable, or add the following python codes to your scripts before the main content.
+```
+import os
+os.environ['ELAN_HOME'] = os.path.abspath('directory-of-elan')
+```
+
+In addition, [repl](https://github.com/leanprover-community/repl) is required for using Lean4 in our system. To do this, you can follow the following commands:
+```
+git clone https://github.com/leanprover-community/repl.git
+cd repl
+lake build repl
+```
+
+If you want to use [Mathlib](https://github.com/leanprover-community/mathlib4) in our system, you should add the following [lines](https://github.com/leanprover-community/mathlib4/wiki/Using-mathlib4-as-a-dependency) to lakefile.toml under repl repository before the build.
+```
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+```
+
+We also need to set path variable "REPL_PATH" via either presetting the path variable, or adding the following python codes to your scripts before the main content.
+```
+import os
+os.environ['REPL_PATH'] = os.path.abspath('directory-of-repl')
+```
+
 ## Implementations 
 ### Agent
 
