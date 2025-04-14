@@ -37,9 +37,16 @@ def lean_get_error_details(messages):
             if message['severity'] == 'error':
                 is_valid = False
                 data = message['data']
-                pos_line, pos_column = message['pos']['line'], message['pos']['column']
-                end_line, end_column = message['endPos']['line'], message['endPos']['column']
-                assert pos_line == end_line
+                if message['pos'] is not None:
+                    pos_line, pos_column = message['pos']['line'], message['pos']['column']
+                else:
+                    pos_line, pos_column = None, None
+
+                if message['endPos'] is not None:
+                    end_line, end_column = message['endPos']['line'], message['endPos']['column']
+                else:
+                    end_line, end_column = None, None
+
                 error_details.append(f'Error on line {pos_line}, start column {pos_column}, '
                                      f'end column {end_column}: {data}')
                 error_lines.append(pos_line)
