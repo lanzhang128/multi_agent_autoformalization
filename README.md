@@ -18,7 +18,7 @@ import os
 os.environ['ISABELLE_DIRPATH'] = os.path.abspath('directory-of-isabelle')
 ```
 
-[Lean4](https://github.com/leanprover/lean4) (Under development)
+[Lean4](https://github.com/leanprover/lean4)
 
 As recommmended in [Lean4 setup](https://lean-lang.org/lean4/doc/setup.html), [elan](https://github.com/leanprover/elan) is used to manage Lean installations. The path variable "ELAN_HOME" supports custom directory for installing elan and also needs to be set for using Lean4 in our system. You can either preset the path variable, or add the following python codes to your scripts before the main content.
 ```
@@ -96,3 +96,16 @@ To show the flexiability of our design and evaluating the effectiveness of our s
 3. [autoformalization + denoising](/evaluation_experiments/denoising.py)
 
 All results can be found under the directory [evaluation_experiments](/evaluation_experiments).
+
+## Datasets
+**Note**: Some examples have been manually adjusted to guarantee their syntactic correctness (no error reported by theorem provers).
+
+**miniF2F**
+
+Informal statement and Isabelle/HOL original source from: https://github.com/facebookresearch/miniF2F/tree/main
+
+Lean4 original source from: https://huggingface.co/datasets/cat-searcher/minif2f-lean4/tree/main
+
+**ProofNet**
+
+Lean4 original source from: https://github.com/deepseek-ai/DeepSeek-Prover-V1.5/tree/main/datasets
