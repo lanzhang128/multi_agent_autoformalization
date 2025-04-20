@@ -52,7 +52,7 @@ class HardCritiqueAgent(BaseAgent):
         all_syntax_error = ''
         for i, line_number in enumerate(error_lines):
             detail = error_details[i]
-            line, start, end = int(detail.split()[3][:-1]), int(detail.split()[5][:-1]), int(detail.split()[7][:-1])
+            line = int(detail.split()[3][:-1])
             assert line == error_lines[i]
             message = detail[detail.find(':') + 2:]
             syntax_error = (f'Identified error on line: {line}\n'
@@ -62,8 +62,8 @@ class HardCritiqueAgent(BaseAgent):
         return str(is_valid), all_syntax_error
 
     def lean_process(self,
-                         formalization: str = '',
-                         file_prefix: str = 'test'):
+                     formalization: str = '',
+                     file_prefix: str = 'test'):
         code = re.findall('import.*', formalization, flags=re.DOTALL)
         if code:
             code = code[0]

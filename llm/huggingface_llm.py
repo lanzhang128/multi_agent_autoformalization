@@ -22,7 +22,7 @@ class HuggingFaceLLM(BaseLLM):
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_id, use_fast=True)
 
     def generate(self, messages):
-        encodeds = self.tokenizer.apply_chat_template(messages, return_tensors='pt')
+        encodeds = self.tokenizer.apply_chat_template(messages, add_generation_prompt=True, return_tensors='pt')
         model_inputs = encodeds.to('cuda')
         generated_ids = self.model.generate(
             model_inputs,
