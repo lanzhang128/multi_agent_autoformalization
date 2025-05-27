@@ -27,6 +27,26 @@ class HardCritiqueAgent(BaseAgent):
 
         self.file_dir = file_dir
 
+    def write_error_log(self, file_prefix, is_valid, error_lines, error_details, inference_time):
+        error_log_path = os.path.join(self.file_dir, file_prefix + '.error.log')
+        with open(error_log_path, 'w', encoding='utf-8') as file:
+            file.write(f'logical validity: {is_valid}\n')
+            file.write(f'error lines: {error_lines}\n')
+            file.write(f'errors details: {error_details}\n')
+            file.write(f'isabelle inference time: {inference_time:.2f}s')
+
+    def get_syntax_error_messages(self, error_lines, error_details):
+        all_syntax_error = ''
+        for i, line_number in enumerate(error_lines):
+            detail = error_details[i]
+            line = int(detail.split()[3][:-1])
+            assert line == error_lines[i]
+            message = detail[detail.find(':') + 2:]
+            syntax_error = (f'Identified error on line: {line}\n'
+                            f'Error message: {message}\n')
+            all_syntax_error += f'{syntax_error}\n'
+        return all_syntax_error
+
     def isabelle_process(self,
                          formalization: str = '',
                          file_prefix: str = 'test'):
@@ -37,29 +57,13 @@ class HardCritiqueAgent(BaseAgent):
             code = 'imports Main\nbegin\n' + formalization + '\nend'
 
         file_path = os.path.join(self.file_dir, file_prefix + '.thy')
-        error_log_path = os.path.join(self.file_dir, file_prefix + '.error.log')
         with open(file_path, 'w', encoding='utf-8') as f:
             f.write(f'theory {file_prefix}\n{code}')
         finished_response, inference_time = self.theorem_prover.use_theories(
             theories=[file_prefix], master_dir=self.file_dir)
         is_valid, error_lines, error_details = isabelle_get_error_details(finished_response=finished_response)
-        with open(error_log_path, 'w', encoding='utf-8') as file:
-            file.write(f'logical validity: {is_valid}\n')
-            file.write(f'error lines: {error_lines}\n')
-            file.write(f'errors details: {error_details}\n')
-            file.write(f'isabelle inference time: {inference_time:.2f}s')
-
-        all_syntax_error = ''
-        for i, line_number in enumerate(error_lines):
-            detail = error_details[i]
-            line = int(detail.split()[3][:-1])
-            assert line == error_lines[i]
-            message = detail[detail.find(':') + 2:]
-            syntax_error = (f'Identified error on line: {line}\n'
-                            f'Error message: {message}\n')
-
-            all_syntax_error += f'{syntax_error}\n'
-        return str(is_valid), all_syntax_error
+        self.write_error_log(file_prefix, is_valid, error_lines, error_details, inference_time)
+        return str(is_valid), self.get_syntax_error_messages(error_lines, error_details)
 
     def lean_process(self,
                      formalization: str = '',
@@ -71,28 +75,12 @@ class HardCritiqueAgent(BaseAgent):
             code = 'import Mathlib\n' + formalization
 
         file_path = os.path.join(self.file_dir, file_prefix + '.lean')
-        error_log_path = os.path.join(self.file_dir, file_prefix + '.error.log')
         with open(file_path, 'w', encoding='utf-8') as f:
             f.write(code)
         messages, inference_time = self.theorem_prover.file_mode(file_path)
         is_valid, error_lines, error_details = lean_get_error_details(messages=messages)
-        with open(error_log_path, 'w', encoding='utf-8') as file:
-            file.write(f'logical validity: {is_valid}\n')
-            file.write(f'error lines: {error_lines}\n')
-            file.write(f'errors details: {error_details}\n')
-            file.write(f'lean inference time: {inference_time:.2f}s')
-
-        all_syntax_error = ''
-        for i, line_number in enumerate(error_lines):
-            detail = error_details[i]
-            line = int(detail.split()[3][:-1])
-            assert line == error_lines[i]
-            message = detail[detail.find(':') + 2:]
-            syntax_error = (f'Identified error on line: {line}\n'
-                            f'Error message: {message}\n')
-
-            all_syntax_error += f'{syntax_error}\n'
-        return str(is_valid), all_syntax_error
+        self.write_error_log(file_prefix, is_valid, error_lines, error_details, inference_time)
+        return str(is_valid), self.get_syntax_error_messages(error_lines, error_details)
 
     def _agent_function(self,
                         formalization: str = '',

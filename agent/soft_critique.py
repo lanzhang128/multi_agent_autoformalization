@@ -18,7 +18,7 @@ class SoftCritiqueAgent(BaseAgent):
             'You will be given a mathematical statement written in natural language and LaTeX symbols.\n'
             'You will also be given a formal code which attempted to describe the given mathematical '
             'statement in {formal_language}.\n'
-            'Your task is to evaluate a specific aspect of the formalization.\n'
+            'Your task is to evaluate a specific aspect of the formal code.\n'
             'The description of the aspect is: {{aspect_description}}\n'
             'Your need to give two things about your evaluation:\n'
             '1. the judgement of whether the formalization meets this aspect. '
@@ -26,8 +26,8 @@ class SoftCritiqueAgent(BaseAgent):
             '2. the detailed explanation of your judgement.\n'
             'You should wrap your final results in a way illustrated as the following:\n'
             '%%%%%%%%%%\n'
-            'Judgement: Your Binary Judgement\n'
             'Explanation: Your Detailed Explanation\n'
+            'Judgement: Your Binary Judgement\n'
             '%%%%%%%%%%\n'
             'Strictly follow the instructions that have been claimed.\n'
         )
