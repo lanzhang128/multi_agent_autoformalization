@@ -67,10 +67,6 @@ if __name__ == '__main__':
         model='gpt-4.1-mini'
     )
 
-    deepseekmath = HuggingFaceLLM(
-        name='deepseekmath',
-        model_id='deepseek-ai/deepseek-math-7b-instruct')
-
     for d, fl in [('minif2f', 'Isabelle/HOL'), ('proofnet', 'Lean4')]:
         if d == 'minif2f':
             test_set = MiniF2F(split='test')
@@ -80,10 +76,6 @@ if __name__ == '__main__':
         afa_gpt = AutoformalizationAgent(
             llm=gpt_mini,
             name='autoformalization gpt-4.1-mini',
-            formal_language=fl)
-        afa_ds = AutoformalizationAgent(
-            llm=deepseekmath,
-            name='autoformalization deepseek-math',
             formal_language=fl)
 
         agent_hard = HardCritiqueAgent(
@@ -100,18 +92,11 @@ if __name__ == '__main__':
             name='formal refinement with gpt-4.1-mini',
             llm=gpt_mini,
             formal_language=fl)
-        fra_ds = FormalRefinementAgent(
-            name='formal refinement with deepseek-math',
-            llm=deepseekmath,
-            formal_language=fl)
 
         res = {'gpt_zs': {},
                'gpt_zs_fr': {},
                'gpt_fs': {},
-               'gpt_fs_fr': {},
-               'ds_fs': {},
-               'ds_fs_fr': {},
-               'ds_fs_fr_gpt': {}}
+               'gpt_fs_fr': {}}
 
         for key, sample in tqdm(zip(test_set.keys, test_set.data), total=len(test_set.keys)):
             informal = sample.informal
@@ -158,6 +143,52 @@ if __name__ == '__main__':
                 refinement = formal
             res['gpt_fs_fr'][key] = refinement
 
+            for a in res.keys():
+                with open(f'../test_results/{d}/{a}.json', 'w', encoding='utf-8') as f:
+                    json.dump(res[a], f, ensure_ascii=False, indent=4)
+
+        if fl == 'Isabelle/HOL':
+            agent_hard.theorem_prover.terminate()
+
+    deepseekmath = HuggingFaceLLM(
+        name='deepseekmath',
+        model_id='deepseek-ai/deepseek-math-7b-instruct')
+    for d, fl in [('minif2f', 'Isabelle/HOL'), ('proofnet', 'Lean4')]:
+        if d == 'minif2f':
+            test_set = MiniF2F(split='test')
+        else:
+            test_set = ProofNet(split='test')
+
+        afa_ds = AutoformalizationAgent(
+            llm=deepseekmath,
+            name='autoformalization deepseek-math',
+            formal_language=fl)
+
+        agent_hard = HardCritiqueAgent(
+            name='theorem prover',
+            formal_language=fl,
+            file_dir=f'../test_results/{d}')
+        if fl == 'Isabelle/HOL':
+            agent_hard.theorem_prover.verbose = False
+            postfix = 'thy'
+        else:
+            postfix = 'lean'
+
+        fra_gpt = FormalRefinementAgent(
+            name='formal refinement with gpt-4.1-mini',
+            llm=gpt_mini,
+            formal_language=fl)
+        fra_ds = FormalRefinementAgent(
+            name='formal refinement with deepseek-math',
+            llm=deepseekmath,
+            formal_language=fl)
+
+        res = {'ds_fs': {},
+               'ds_fs_fr': {},
+               'ds_fs_fr_gpt': {}}
+
+        for key, sample in tqdm(zip(test_set.keys, test_set.data), total=len(test_set.keys)):
+            informal = sample.informal
             formal, _ = afa_ds(
                 informal_statement=informal, informal_formal_pairs=pairs[d])
             res['ds_fs'][key] = formal
