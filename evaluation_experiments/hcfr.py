@@ -109,10 +109,12 @@ if __name__ == '__main__':
                 formalization=formal,
                 file_prefix=f'gpt_zs_{key}')
             if correctness != 'True':
+                with open(f'../test_results/{d}/gpt_zs_{key}.{postfix}', 'r', encoding='utf-8') as f:
+                    formalization = f.read()
                 refinement, _ = fra_gpt(
                     informal_statement=informal,
                     refinement_mode='detailed',
-                    formalization_file=f'../test_results/{d}/gpt_zs_{key}.{postfix}',
+                    formalization=formalization,
                     correctness=correctness,
                     error_details=error_details)
                 agent_hard(
@@ -134,10 +136,12 @@ if __name__ == '__main__':
                 formalization=formal,
                 file_prefix=f'gpt_fs_{key}')
             if correctness != 'True':
+                with open(f'../test_results/{d}/gpt_fs_{key}.{postfix}', 'r', encoding='utf-8') as f:
+                    formalization = f.read()
                 refinement, _ = fra_gpt(
                     informal_statement=informal,
                     refinement_mode='detailed',
-                    formalization_file=f'../test_results/{d}/gpt_fs_{key}.{postfix}',
+                    formalization=formalization,
                     correctness=correctness,
                     error_details=error_details)
                 agent_hard(
@@ -205,10 +209,12 @@ if __name__ == '__main__':
                 formalization=formal,
                 file_prefix=f'ds_fs_{key}')
             if correctness != 'True':
+                with open(f'../test_results/{d}/ds_fs_{key}.{postfix}', 'r', encoding='utf-8') as f:
+                    formalization = f.read()
                 refinement, _ = fra_ds(
                     informal_statement=informal,
                     refinement_mode='detailed',
-                    formalization_file=f'../test_results/{d}/ds_fs_{key}.{postfix}',
+                    formalization=formalization,
                     correctness=correctness,
                     error_details=error_details)
                 agent_hard(
@@ -225,10 +231,12 @@ if __name__ == '__main__':
             res['ds_fs_fr'][key] = refinement
 
             if correctness != 'True':
+                with open(f'../test_results/{d}/ds_fs_{key}.{postfix}', 'r', encoding='utf-8') as f:
+                    formalization = f.read()
                 refinement, _ = fra_gpt(
                     informal_statement=informal,
                     refinement_mode='detailed',
-                    formalization_file=f'../test_results/{d}/ds_fs_{key}.{postfix}',
+                    formalization=formalization,
                     correctness=correctness,
                     error_details=error_details)
                 agent_hard(

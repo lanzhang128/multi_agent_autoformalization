@@ -94,10 +94,12 @@ if __name__ == '__main__':
 
         for j in range(4):
             if correctness != 'True':
+                with open(f'../test_results/minif2f/gpt_{j}_{key}.lean', 'r', encoding='utf-8') as f:
+                    formalization = f.read()
                 formal, _ = fra(
                     informal_statement=informal,
                     refinement_mode='detailed',
-                    formalization_file=f'../test_results/minif2f/gpt_{j}_{key}.lean',
+                    formalization=formalization,
                     correctness=correctness,
                     error_details=error_details)
                 correctness, error_details = hca(formalization=formal, file_prefix=f'gpt_{j + 1}_{key}')
