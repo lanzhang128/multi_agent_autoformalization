@@ -1,4 +1,5 @@
 import json
+import shutil
 from tqdm import tqdm
 from llm import OpenAILLM, HuggingFaceLLM
 from agent import AutoformalizationAgent, HardCritiqueAgent, FormalRefinementAgent
@@ -67,10 +68,6 @@ if __name__ == '__main__':
         model='gpt-4.1-mini'
     )
 
-    deepseekmath = HuggingFaceLLM(
-        name='deepseekmath',
-        model_id='deepseek-ai/deepseek-math-7b-instruct')
-
     for d, fl in [('minif2f', 'Isabelle/HOL'), ('proofnet', 'Lean4')]:
         if d == 'minif2f':
             test_set = MiniF2F(split='test')
@@ -81,6 +78,96 @@ if __name__ == '__main__':
             llm=gpt_mini,
             name='autoformalization gpt-4.1-mini',
             formal_language=fl)
+
+        agent_hard = HardCritiqueAgent(
+            name='theorem prover',
+            formal_language=fl,
+            file_dir=f'../test_results/{d}')
+        if fl == 'Isabelle/HOL':
+            agent_hard.theorem_prover.verbose = False
+            postfix = 'thy'
+        else:
+            postfix = 'lean'
+
+        fra_gpt = FormalRefinementAgent(
+            name='formal refinement with gpt-4.1-mini',
+            llm=gpt_mini,
+            formal_language=fl)
+
+        res = {'gpt_zs': {},
+               'gpt_zs_fr': {},
+               'gpt_fs': {},
+               'gpt_fs_fr': {}}
+
+        for key, sample in tqdm(zip(test_set.keys, test_set.data), total=len(test_set.keys)):
+            informal = sample.informal
+            formal, _ = afa_gpt(
+                informal_statement=informal)
+            res['gpt_zs'][key] = formal
+
+            correctness, error_details = agent_hard(
+                formalization=formal,
+                file_prefix=f'gpt_zs_{key}')
+            if correctness != 'True':
+                refinement, _ = fra_gpt(
+                    informal_statement=informal,
+                    refinement_mode='detailed',
+                    formalization_file=f'../test_results/{d}/gpt_zs_{key}.{postfix}',
+                    correctness=correctness,
+                    error_details=error_details)
+                agent_hard(
+                    formalization=refinement,
+                    file_prefix=f'gpt_zs_fr_{key}'
+                )
+            else:
+                refinement = formal
+                shutil.copy2(f'../test_results/{d}/gpt_zs_{key}.{postfix}',
+                             f'../test_results/{d}/gpt_zs_fr_{key}.{postfix}')
+                shutil.copy2(f'../test_results/{d}/gpt_zs_{key}.error.log',
+                             f'../test_results/{d}/gpt_zs_fr_{key}.error.log')
+            res['gpt_zs_fr'][key] = refinement
+
+            formal, _ = afa_gpt(
+                informal_statement=informal, informal_formal_pairs=pairs[d])
+            res['gpt_fs'][key] = formal
+            correctness, error_details = agent_hard(
+                formalization=formal,
+                file_prefix=f'gpt_fs_{key}')
+            if correctness != 'True':
+                refinement, _ = fra_gpt(
+                    informal_statement=informal,
+                    refinement_mode='detailed',
+                    formalization_file=f'../test_results/{d}/gpt_fs_{key}.{postfix}',
+                    correctness=correctness,
+                    error_details=error_details)
+                agent_hard(
+                    formalization=refinement,
+                    file_prefix=f'gpt_fs_fr_{key}'
+                )
+            else:
+                refinement = formal
+                shutil.copy2(f'../test_results/{d}/gpt_fs_{key}.{postfix}',
+                             f'../test_results/{d}/gpt_fs_fr_{key}.{postfix}')
+                shutil.copy2(f'../test_results/{d}/gpt_fs_{key}.error.log',
+                             f'../test_results/{d}/gpt_fs_fr_{key}.error.log')
+            res['gpt_fs_fr'][key] = refinement
+
+            for a in res.keys():
+                with open(f'../test_results/{d}/{a}.json', 'w', encoding='utf-8') as f:
+                    json.dump(res[a], f, ensure_ascii=False, indent=4)
+
+        if fl == 'Isabelle/HOL':
+            agent_hard.theorem_prover.terminate()
+
+    deepseekmath = HuggingFaceLLM(
+        name='deepseekmath',
+        model_id='deepseek-ai/deepseek-math-7b-instruct')
+    for d, fl in [('minif2f', 'Isabelle/HOL'), ('proofnet', 'Lean4')]:
+        if d == 'minif2f':
+            test_set = MiniF2F(split='test')
+        else:
+            test_set = ProofNet(split='test')
+
         afa_ds = AutoformalizationAgent(
             llm=deepseekmath,
             name='autoformalization deepseek-math',
@@ -105,59 +192,12 @@ if __name__ == '__main__':
             llm=deepseekmath,
             formal_language=fl)
 
-        res = {'gpt_zs': {},
-               'gpt_zs_fr': {},
-               'gpt_fs': {},
-               'gpt_fs_fr': {},
-               'ds_fs': {},
+        res = {'ds_fs': {},
                'ds_fs_fr': {},
                'ds_fs_fr_gpt': {}}
 
         for key, sample in tqdm(zip(test_set.keys, test_set.data), total=len(test_set.keys)):
             informal = sample.informal
-            formal, _ = afa_gpt(
-                informal_statement=informal)
-            res['gpt_zs'][key] = formal
-
-            correctness, error_details = agent_hard(
-                formalization=formal,
-                file_prefix=f'gpt_zs_{key}')
-            if correctness != 'True':
-                refinement, _ = fra_gpt(
-                    informal_statement=informal,
-                    refinement_mode='detailed',
-                    formalization_file=f'../test_results/{d}/gpt_zs_{key}.{postfix}',
-                    correctness=correctness,
-                    error_details=error_details)
-                agent_hard(
-                    formalization=refinement,
-                    file_prefix=f'gpt_zs_fr_{key}'
-                )
-            else:
-                refinement = formal
-            res['gpt_zs_fr'][key] = refinement
-
-            formal, _ = afa_gpt(
-                informal_statement=informal, informal_formal_pairs=pairs[d])
-            res['gpt_fs'][key] = formal
-            correctness, error_details = agent_hard(
-                formalization=formal,
-                file_prefix=f'gpt_fs_{key}')
-            if correctness != 'True':
-                refinement, _ = fra_gpt(
-                    informal_statement=informal,
-                    refinement_mode='detailed',
-                    formalization_file=f'../test_results/{d}/gpt_fs_{key}.{postfix}',
-                    correctness=correctness,
-                    error_details=error_details)
-                agent_hard(
-                    formalization=refinement,
-                    file_prefix=f'gpt_fs_fr_{key}'
-                )
-            else:
-                refinement = formal
-            res['gpt_fs_fr'][key] = refinement
-
             formal, _ = afa_ds(
                 informal_statement=informal, informal_formal_pairs=pairs[d])
             res['ds_fs'][key] = formal
@@ -177,6 +217,11 @@ if __name__ == '__main__':
                 )
             else:
                 refinement = formal
+                shutil.copy2(f'../test_results/{d}/ds_fs_{key}.{postfix}',
+                             f'../test_results/{d}/ds_fs_fr_{key}.{postfix}')
+                shutil.copy2(f'../test_results/{d}/ds_fs_{key}.error.log',
+                             f'../test_results/{d}/ds_fs_fr_{key}.error.log')
+
             res['ds_fs_fr'][key] = refinement
 
             if correctness != 'True':
@@ -192,6 +237,10 @@ if __name__ == '__main__':
                 )
             else:
                 refinement = formal
+                shutil.copy2(f'../test_results/{d}/ds_fs_{key}.{postfix}',
+                             f'../test_results/{d}/ds_fs_fr_gpt_{key}.{postfix}')
+                shutil.copy2(f'../test_results/{d}/ds_fs_{key}.error.log',
+                             f'../test_results/{d}/ds_fs_fr_gpt_{key}.error.log')
             res['ds_fs_fr_gpt'][key] = refinement
 
             for a in res.keys():
