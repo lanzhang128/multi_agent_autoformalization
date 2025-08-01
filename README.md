@@ -1,6 +1,6 @@
-# MAGENTA: A Framework for LLM-Driven Multi-Agent Autoformalizaton
+# MASA: A Modular Framework for LLM-Driven Multi-Agent Systems for Autoformalization
 ## Overview
-MAGENTA provides support for designing and implementing the components that are typically involved in establishing a multi-agent autoformalization system. The components involved in the system include **Agent**, **Large Language Model (LLM)**, **Knowledge Base (KB)**, **Retriever** and **Theorem Prover (TP)**. We illustrate our system in the figure below.
+MASA provides support for designing and implementing the components that are typically involved in establishing a multi-agent autoformalization system. The components involved in the system include **Agent**, **Large Language Model (LLM)**, **Knowledge Base (KB)**, **Retriever** and **Theorem Prover (TP)**. We illustrate our system in the figure below.
 ![framework](/multi_agent.png)
 
 ### Preliminary Requirements
@@ -81,19 +81,20 @@ os.environ['REPL_PATH'] = os.path.abspath('directory-of-repl')
 ### Theorem Prover (TP)
 | Class                                                            |
 |:-----------------------------------------------------------------|
-| [Isabelle](/theorem_prover/isabelle.py)                              |
+| [Isabelle](/theorem_prover/isabelle.py)                          |
+| [Lean](/theorem_prover/lean.py)                                  |
 
 ## Demonstration Examples
-We use [multi_agent.ipynb](/multi_agent.ipynb) to illustrate how to build two multi-agent pipelines, namely self-improving and iterative refinement, for obtaining formalizations for a batch of informal statements. A demonstration video associated with this notebook is also provided [here](https://drive.google.com/file/d/1Ieqbg3QVg-j5sR22Y_tOZBuuyw9IHmH-/view?usp=drive_link).
+We use [multi_agent.ipynb](/multi_agent.ipynb) to illustrate how to build a multi-agent pipeline, namely iterative self-refinement, for obtaining formalizations for a batch of informal statements. A demonstration video associated with this notebook is also provided [here](https://drive.google.com/file/d/1G0xFazrVaKCROMg77glN1IIlhQO2W5qB/view?usp=sharing).
 
 We also have an example of how to use agents for formalizing the definition of [Softmax Function](https://en.wikipedia.org/wiki/Softmax_function#Definition) in [example_paper.ipynb](/example_paper.ipynb).
 
 ## System Evaluation
 To show the flexiability of our design and evaluating the effectiveness of our systems, we build and test the following multi-agent pipelines: 
 
-1. [self-improving](/evaluation_experiments/self_improving.py)
-2. [iterative hard-critique-formal-refinement](/evaluation_experiments/iterative.py)
-3. [autoformalization + denoising](/evaluation_experiments/denoising.py)
+1. [Hard-Critique-Formal-Refinement](/evaluation_experiments/hcfr.py)
+2. [Soft-Critique-Inormal-Refinement](/evaluation_experiments/scir.py)
+3. [Iterative Self-Refinement](/evaluation_experiments/isr_gpt.py)
 
 All results can be found under the directory [evaluation_experiments](/evaluation_experiments).
 
