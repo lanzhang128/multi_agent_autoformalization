@@ -1,4 +1,4 @@
-# MASA: A Modular Framework for LLM-Driven Multi-Agent Systems for Autoformalization
+# MASA: LLM-Driven Multi-Agent Systems for Autoformalization
 ## Overview
 MASA provides support for designing and implementing the components that are typically involved in establishing a multi-agent autoformalization system. The components involved in the system include **Agent**, **Large Language Model (LLM)**, **Knowledge Base (KB)**, **Retriever** and **Theorem Prover (TP)**. We illustrate our system in the figure below.
 ![framework](/multi_agent.png)
@@ -110,3 +110,27 @@ Lean4 original source from: https://huggingface.co/datasets/cat-searcher/minif2f
 **ProofNet**
 
 Lean4 original source from: https://github.com/deepseek-ai/DeepSeek-Prover-V1.5/tree/main/datasets
+
+## Cite
+If you find this repository useful, please cite:
+```
+@inproceedings{zhang-etal-2025-masa,
+    title = "{MASA}: {LLM}-Driven Multi-Agent Systems for Autoformalization",
+    author = "Zhang, Lan  and
+      Valentino, Marco  and
+      Freitas, Andre",
+    editor = {Habernal, Ivan  and
+      Schulam, Peter  and
+      Tiedemann, J{\"o}rg},
+    booktitle = "Proceedings of the 2025 Conference on Empirical Methods in Natural Language Processing: System Demonstrations",
+    month = nov,
+    year = "2025",
+    address = "Suzhou, China",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2025.emnlp-demos.44/",
+    pages = "615--624",
+    ISBN = "979-8-89176-334-0"
+}
+```
+
+
