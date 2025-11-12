@@ -128,6 +128,7 @@ If you find this repository useful, please cite:
     address = "Suzhou, China",
     publisher = "Association for Computational Linguistics",
     url = "https://aclanthology.org/2025.emnlp-demos.44/",
+    doi = "10.18653/v1/2025.emnlp-demos.44",
     pages = "615--624",
     ISBN = "979-8-89176-334-0"
 }
