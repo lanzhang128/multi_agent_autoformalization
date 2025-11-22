@@ -35,7 +35,7 @@ class OpenAILLM(BaseLLM):
             response = self.completion_with_backoff(
                 messages=messages,
                 temperature=self.temperature,
-                max_tokens=self.max_tokens)
+                max_completion_tokens=self.max_tokens)
         except Exception as e:
             print('Error:', e)
             return
