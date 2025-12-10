@@ -18,7 +18,7 @@ class HuggingFaceLLM(BaseLLM):
 
     def _instantiate(self, model_id):
         self.model_id = model_id
-        self.model = AutoModelForCausalLM.from_pretrained(self.model_id, device_map='auto', torch_dtype=torch.float16)
+        self.model = AutoModelForCausalLM.from_pretrained(self.model_id, device_map='auto', torch_dtype='auto')
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_id, use_fast=True)
 
     def generate(self, messages):
@@ -32,3 +32,4 @@ class HuggingFaceLLM(BaseLLM):
         decoded = self.tokenizer.batch_decode(generated_ids)[0]
         template = self.tokenizer.batch_decode(encodeds)[0]
         return decoded[decoded.find(template) + len(template):]
+
