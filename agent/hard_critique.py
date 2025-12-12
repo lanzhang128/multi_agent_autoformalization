@@ -33,7 +33,7 @@ class HardCritiqueAgent(BaseAgent):
             file.write(f'logical validity: {is_valid}\n')
             file.write(f'error lines: {error_lines}\n')
             file.write(f'errors details: {error_details}\n')
-            file.write(f'isabelle inference time: {inference_time:.2f}s')
+            file.write(f'inference time: {inference_time:.2f}s')
 
     def get_syntax_error_messages(self, error_lines, error_details):
         all_syntax_error = ''
@@ -93,3 +93,4 @@ class HardCritiqueAgent(BaseAgent):
             return correctness, error_details
         else:
             return None, None
+
