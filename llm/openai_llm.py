@@ -24,7 +24,7 @@ class OpenAILLM(BaseLLM):
     @tenacity.retry(wait=tenacity.wait_exponential(multiplier=1, min=4, max=30))
     def completion_with_backoff(self, **kwargs):
         try:
-            return self.client.chat.completions.create(
+            return self.client.responses.create(
                 model=self.model, **kwargs)
         except Exception as e:
             print(e)
@@ -33,11 +33,11 @@ class OpenAILLM(BaseLLM):
     def generate(self, messages):
         try:
             response = self.completion_with_backoff(
-                messages=messages,
+                input=messages,
                 temperature=self.temperature,
-                max_completion_tokens=self.max_tokens)
+                max_output_tokens=self.max_tokens)
         except Exception as e:
             print('Error:', e)
             return
 
-        return response.choices[0].message.content
+        return response.output[0].content[0].text
