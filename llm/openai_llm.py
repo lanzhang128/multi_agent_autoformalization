@@ -20,6 +20,16 @@ class OpenAILLM(BaseLLM):
         self.api_key = api_key
         self.model = model
         self.client = OpenAI(api_key=self.api_key)
+        try:
+            self.client.responses.create(
+                model=self.model,
+                input="Say hello.",
+                temperature=0.2,
+                max_output_tokens=100)
+            self.support_temperature = True
+        except Exception as e:
+            print(f"{model}: {e}")
+            self.support_temperature = False
 
     @tenacity.retry(wait=tenacity.wait_exponential(multiplier=1, min=4, max=30))
     def completion_with_backoff(self, **kwargs):
@@ -32,12 +42,17 @@ class OpenAILLM(BaseLLM):
 
     def generate(self, messages):
         try:
-            response = self.completion_with_backoff(
-                input=messages,
-                temperature=self.temperature,
-                max_output_tokens=self.max_tokens)
+            if self.support_temperature:
+                response = self.completion_with_backoff(
+                    input=messages,
+                    temperature=self.temperature,
+                    max_output_tokens=self.max_tokens)
+            else:
+                response = self.completion_with_backoff(
+                    input=messages,
+                    max_output_tokens=self.max_tokens)
         except Exception as e:
             print('Error:', e)
             return
 
-        return response.output[0].content[0].text
+        return response.output_text

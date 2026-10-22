@@ -25,11 +25,11 @@ class HuggingFaceLLM(BaseLLM):
         encodeds = self.tokenizer.apply_chat_template(messages, add_generation_prompt=True, return_tensors='pt')
         model_inputs = encodeds.to('cuda')
         generated_ids = self.model.generate(
-            model_inputs,
+            **model_inputs,
             max_new_tokens=self.max_new_tokens,
             do_sample=self.do_sample,
             pad_token_id=self.tokenizer.eos_token_id)
         decoded = self.tokenizer.batch_decode(generated_ids)[0]
-        template = self.tokenizer.batch_decode(encodeds)[0]
+        template = self.tokenizer.batch_decode(encodeds.input_ids)[0]
         return decoded[decoded.find(template) + len(template):]
 
