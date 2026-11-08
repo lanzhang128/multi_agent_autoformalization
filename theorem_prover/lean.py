@@ -48,8 +48,13 @@ class Lean:
         stdout = stdout.decode('utf-8')
         logging.info(f'keyword arguments: {kwargs}')
         logging.info(f'response: {stdout}')
-        response = json.loads(stdout)
-        messages = response['messages'] if 'messages' in response.keys() else []
+
+        try:
+            response = json.loads(stdout)
+            messages = response['messages'] if 'messages' in response.keys() else []
+        except json.JSONDecodeError:
+            messages = None
+
         response_time = time.time() - start_time
         return messages, response_time
 
